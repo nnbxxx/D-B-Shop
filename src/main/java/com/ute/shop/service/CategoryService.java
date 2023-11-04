@@ -57,6 +57,10 @@ public interface CategoryService {
 
 	List<Category> findAll();
 
+	<S extends Category> S save(S entity);
+
+	
+
 
 	
 

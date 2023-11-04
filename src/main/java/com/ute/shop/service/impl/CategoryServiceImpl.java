@@ -17,6 +17,8 @@ public class CategoryServiceImpl implements CategoryService{
 	public CategoryServiceImpl(CategoryRepository categoryRepository) {
 		this.categoryRepository = categoryRepository;
 	}
+	
+	@Override
 	public <S extends Category> S save(S entity) {
 		return categoryRepository.save(entity);
 	}
@@ -112,6 +114,7 @@ public class CategoryServiceImpl implements CategoryService{
 	public void deleteAll() {
 		categoryRepository.deleteAll();
 	}
+	
 	
 	
 }
