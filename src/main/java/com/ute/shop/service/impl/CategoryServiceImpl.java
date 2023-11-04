@@ -38,6 +38,12 @@ public class CategoryServiceImpl implements CategoryService{
 	public List<Category> findAllById(Iterable<Integer> ids) {
 		return categoryRepository.findAllById(ids);
 	}
+	
+	@Override
+	public List<Category> findByNameContaining(String name) {
+		return categoryRepository.findByNameContaining(name);
+	}
+
 	@Override
 	public <S extends Category> List<S> saveAll(Iterable<S> entities) {
 		return categoryRepository.saveAll(entities);
