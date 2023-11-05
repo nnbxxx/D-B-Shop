@@ -2,6 +2,7 @@ package com.ute.shop.controller.admin;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -42,6 +43,15 @@ public class ProductController {
 	CategoryService categoryService;
 	@Autowired
 	ProductService productService;
+	@ModelAttribute("categories")
+	public List<CategoryDto> getCategories(){
+		return categoryService.findAll().stream().map(item->{
+			CategoryDto dto = new CategoryDto();
+			BeanUtils.copyProperties(item, dto);
+			return dto;
+		}).toList();
+	}
+	
 	@GetMapping("add")
 	public String add(Model model) {
 		model.addAttribute("product", new ProductDto());
