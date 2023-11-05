@@ -137,5 +137,11 @@ public class ProductServiceImpl implements ProductService{
 	public void deleteAll() {
 		productRepository.deleteAll();
 	}
+
+	@Override
+	public void delete(Optional<Product> optional) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

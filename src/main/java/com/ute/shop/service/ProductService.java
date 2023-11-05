@@ -21,7 +21,7 @@ public interface ProductService {
 
 	Product getById(Integer id);
 
-	void delete(Product entity);
+	void delete(Optional<Product> optional);
 
 	Product getOne(Integer id);
 
@@ -58,5 +58,7 @@ public interface ProductService {
 	List<Product> findAll();
 
 	<S extends Product> S save(S entity);
+
+	void delete(Product entity);
 	
 }

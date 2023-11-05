@@ -24,4 +24,6 @@ public class ProductDto {
 	private short status;
 	private Integer categoryId;
 	
+	private Boolean isEdit;
+	
 }
