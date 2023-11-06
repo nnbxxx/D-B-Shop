@@ -69,10 +69,9 @@
           <script>
             showConfirmModalDialog = (id, name) => {
               $('#productName').text(name);
-              $('yesOption').attr('href', '/admin/products/delete' + id)
+              $('#yesOption').attr('href', '/admin/products/delete/' + id)
               $('#confirmationId').modal('show');
             }
-
           </script>
 
 

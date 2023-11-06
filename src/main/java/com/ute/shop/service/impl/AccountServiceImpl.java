@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.ute.shop.domain.Account;
 import com.ute.shop.repository.AccountRepository;
@@ -23,6 +24,15 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public <S extends Account> S save(S entity) {
+		Optional<Account> optional = accountRepository.findById(entity.getUsername());
+		if(optional.isPresent()) {
+			if(StringUtils.isEmpty(entity.getPassword())) {
+				entity.setPassword(optional.get().getPassword());
+			}
+			else {
+				entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
+			}
+		}
 		entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
 		return accountRepository.save(entity);
 	}

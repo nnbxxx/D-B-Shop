@@ -54,36 +54,37 @@ public class AccountController {
 		model.addAttribute("message", "account is Saved !");
 		return new ModelAndView("forward:/admin/accounts", model);
 	}
+	@RequestMapping("")
+	public String list(ModelMap model) {
+		List<Account> list = accountService.findAll();
+		model.addAttribute("accounts",list);
+		return "admin/accounts/list";
+	}
+	@GetMapping("edit/{username}")
+	public ModelAndView edit(ModelMap model, @PathVariable("username") String username) {
+		Optional<Account> optional = accountService.findById(username);
+		AccountDto AccountDto = new AccountDto();
+		if(optional.isPresent()) {
+			Account entity = optional.get();
+			BeanUtils.copyProperties(entity, AccountDto);
+			AccountDto.setIsEdit(true);
+			AccountDto.setPassword("");
+			model.addAttribute("account",AccountDto);
+			return new ModelAndView("admin/accounts/addOrEdit",model);
+		}
+		model.addAttribute("message","account is not exited");
+		return new ModelAndView( "forward:/admin/accounts/",model);
+	}
+	@GetMapping("delete/{username}")
+	public ModelAndView delete(ModelMap model, @PathVariable("username") String username) {
+		
+		accountService.deleteById(username);
+		model.addAttribute("message", "account is Deleted !");
+		return new ModelAndView("forward:/admin/accounts",model);
+	}
 	
-//	@GetMapping("edit/{accountId}")
-//	public ModelAndView edit(ModelMap model, @PathVariable("accountId") Integer accountId) {
-//		Optional<account> optional = accountService.findById(accountId);
-//		AccountDto AccountDto = new AccountDto();
-//		if(optional.isPresent()) {
-//			account entity = optional.get();
-//			BeanUtils.copyProperties(entity, AccountDto);
-//			AccountDto.setIsEdit(true);
-//			model.addAttribute("account",AccountDto);
-//			return new ModelAndView("admin/accounts/addOrEdit",model);
-//		}
-//		model.addAttribute("message","account is not exited");
-//		return new ModelAndView( "forward:/admin/accounts/",model);
-//	}
-//	@GetMapping("delete/{accountId}")
-//	public ModelAndView delete(ModelMap model, @PathVariable("accountId") Integer accountId) {
-//		
-//		accountService.deleteById(accountId);
-//		model.addAttribute("message", "account is Deleted !");
-//		return new ModelAndView("forward:/admin/accounts",model);
-//	}
-//	
 
-//	@RequestMapping("")
-//	public String list(ModelMap model) {
-//		List<account> accounts = accountService.findAll();
-//		model.addAttribute("accounts",accounts);
-//		return "admin/accounts/list";
-//	}
+
 //	@GetMapping("search")
 //	public String search(ModelMap model, @RequestParam(name = "name",required = false) String name ) {
 //		List<account> list = null;
