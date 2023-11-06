@@ -23,6 +23,16 @@ public class AccountServiceImpl implements AccountService{
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
+	public Account login(String username, String password) {
+		Optional<Account> optionalAccount = findById(username);
+		if(optionalAccount.isPresent() && bCryptPasswordEncoder.matches(password, optionalAccount.get().getPassword())) {
+			optionalAccount.get().setPassword("");
+			return optionalAccount.get();
+		}
+		return null;
+	}
+	
+	@Override
 	public <S extends Account> S save(S entity) {
 		Optional<Account> optional = accountRepository.findById(entity.getUsername());
 		if(optional.isPresent()) {
