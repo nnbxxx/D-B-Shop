@@ -1,6 +1,7 @@
 package com.ute.shop.domain;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
@@ -10,8 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,7 +40,7 @@ public class Customer implements Serializable{
 	private String name;
 	@Column(columnDefinition = "nvarchar(100) not null")
 	private String email;
-	@Column(length = 20, nullable = false)
+	@Column(length = 100, nullable = false)
 	private String password;
 	@Column(length = 20)
 	private String phone;
@@ -49,4 +51,12 @@ public class Customer implements Serializable{
 	
 	@OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
 	private Set<Order> orders;
+	@PrePersist
+	public void preRegisterDate() {
+		registerDate = new Date();
+	}
+//	@PreUpdate
+//	public void preUpdate() {
+//		updateDate = new Date();
+//	}
 }

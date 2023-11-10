@@ -50,7 +50,7 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 	@Autowired
-	StorageService storageService;
+	StorageService storageService; 
 	
 	@ModelAttribute("categories")
 	public List<CategoryDto> getCategories(){

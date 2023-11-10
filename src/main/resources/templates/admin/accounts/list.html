@@ -46,8 +46,6 @@
           </table>
           <script>
             showConfirmModalDialog = (id, name) => {
-              console.log(id);
-              console.log(name);
               $('#accountName').text(name);
               $('#yesOption').attr('href', '/admin/accounts/delete/' + id)
               $('#confirmationId').modal('show');
