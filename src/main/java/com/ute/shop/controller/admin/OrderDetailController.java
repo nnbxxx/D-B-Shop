@@ -1,6 +1,9 @@
 package com.ute.shop.controller.admin;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.DoubleStream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,11 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ute.shop.domain.Order;
 import com.ute.shop.domain.OrderDetail;
 import com.ute.shop.domain.Product;
 import com.ute.shop.service.OrderDetailService;
+import com.ute.shop.service.OrderService;
 import com.ute.shop.service.ProductService;
 
 @Controller
@@ -24,7 +29,8 @@ public class OrderDetailController {
 	ProductService productService;
 	@Autowired
 	OrderDetailService detailService;
-
+	@Autowired
+	OrderService orderService;
 	@ModelAttribute("products")
 	public List<Product> getProducts() {
 		return productService.findAll();
@@ -37,7 +43,7 @@ public class OrderDetailController {
 		if (!details.isEmpty()) {
 			model.addAttribute("orderdetails", details);
 		}
-		return new ModelAndView("admin/orderdetails/addOrEdit");
+		return new ModelAndView("admin/orderdetails/addOrEdit", model);
 	}
 
 	@GetMapping(value = "edit/{orderId}", params = "update")
@@ -71,6 +77,23 @@ public class OrderDetailController {
 		detailService.deleteById(orderDetailId);
 		model.addAttribute("message", "Remove successful product");
 		return edit(model, orderId);
+
+	}
+
+	@GetMapping(value = "edit/{orderId}", params = "save")
+	public String save(RedirectAttributes model, @PathVariable("orderId") Integer orderId) {
+		// detailService.deleteById(orderDetailId);
+		Optional<Order> order = orderService.findById(orderId);
+		if(order.isPresent()) {
+			List<OrderDetail> details = detailService.searchByOrderId(orderId);
+			double amount = details.stream()
+					.mapToDouble(item -> item.getQuantity() * item.getUnitPrice() * item.getProduct()
+					.getDiscount() * 0.01f).sum();
+			order.get().setAmount( Math.round(amount * 1000.0) / 1000.0);
+			orderService.save(order.get());
+		}
+		model.addFlashAttribute("message", "Save successful order");
+		return "redirect:/admin/orders";
 
 	}
 

@@ -38,7 +38,6 @@ public class OrderControlller {
 	public List<CustomerDto> getCutomers(){
 		return customerService.findAll().stream().map(item ->{
 			CustomerDto dto = new CustomerDto();
-		
 			BeanUtils.copyProperties(item, dto);
 			return dto;
 		}).toList();
