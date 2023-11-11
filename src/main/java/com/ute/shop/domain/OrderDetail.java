@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -39,5 +40,10 @@ public class OrderDetail implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "orderId")
 	private Order order;
+	
+	@PrePersist
+	public void preCreate() {
+		quantity = 1;
+	}
 
 }

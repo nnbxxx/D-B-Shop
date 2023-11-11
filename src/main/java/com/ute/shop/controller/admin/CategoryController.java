@@ -67,7 +67,7 @@ public class CategoryController {
 	@PostMapping("saveOrUpdate")
 	public ModelAndView saveOrUpdate(ModelMap model,@Valid @ModelAttribute("category") CategoryDto categoryDto, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			bindingResult.getAllErrors().forEach(item -> System.out.println(item));
+//			bindingResult.getAllErrors().forEach(item -> System.out.println(item));
 			return new ModelAndView("admin/categories/addOrEdit");
 		}
 		Category entity = new Category();
