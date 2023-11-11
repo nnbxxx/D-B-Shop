@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -48,5 +50,15 @@ public class Order implements Serializable{
 	
 	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
 	private Set<OrderDetail> orderDetails;
+	
+	@PrePersist
+	public void preCreate() {
+		amount = 0f;
+		orderDate = new Date();
+	}
+	@PreUpdate 
+	public void preUpdate() {
+		orderDate = new Date();
+	}
 }
 

@@ -55,8 +55,8 @@ public class Customer implements Serializable{
 	public void preRegisterDate() {
 		registerDate = new Date();
 	}
-//	@PreUpdate
-//	public void preUpdate() {
-//		updateDate = new Date();
-//	}
+	@PreUpdate
+	public void preUpdate() {
+		registerDate = new Date();
+	}
 }
