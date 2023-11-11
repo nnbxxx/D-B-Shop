@@ -112,21 +112,37 @@ public class ProductController {
 		if(bindingResult.hasErrors()) {
 			return new ModelAndView("admin/products/addOrEdit");
 		}
-		Product entity = new Product();
-		BeanUtils.copyProperties(productDto, entity);
-		
-		Category category = new Category();
-		category.setCategoryId(productDto.getCategoryId());
-		entity.setCategory(category);
-		
-		if(!productDto.getImageFile().isEmpty()) {
-			UUID uuid = UUID.randomUUID();
-			String uuString = uuid.toString();
-			entity.setImage(storageService.getStoredFileName(productDto.getImageFile(), uuString));
-			storageService.store(productDto.getImageFile(), entity.getImage());
+		Optional<Product> entity = productService.findById(productDto.getProductId());
+		if(entity.isPresent()) {
+			BeanUtils.copyProperties(productDto, entity);
+			Category category = new Category();
+			category.setCategoryId(productDto.getCategoryId());
+			entity.get().setCategory(category);
+			
+			if(!productDto.getImageFile().isEmpty()) {
+				UUID uuid = UUID.randomUUID();
+				String uuString = uuid.toString();
+				entity.get().setImage(storageService.getStoredFileName(productDto.getImageFile(), uuString));
+				storageService.store(productDto.getImageFile(), entity.get().getImage());
+			}
+			
+			productService.save(entity.get());
 		}
-		
-		productService.save(entity);
+		else {
+			Product entityNew = new Product();
+			BeanUtils.copyProperties(productDto, entity);
+			Category category = new Category();
+			category.setCategoryId(productDto.getCategoryId());
+			entityNew.setCategory(category);
+			if(!productDto.getImageFile().isEmpty()) {
+				UUID uuid = UUID.randomUUID();
+				String uuString = uuid.toString();
+				entityNew.setImage(storageService.getStoredFileName(productDto.getImageFile(), uuString));
+				storageService.store(productDto.getImageFile(), entityNew.getImage());
+			}
+			productService.save(entityNew);
+		}
+
 		model.addAttribute("message", "Product is Saved !");
 		return new ModelAndView("forward:/admin/products", model);
 	}

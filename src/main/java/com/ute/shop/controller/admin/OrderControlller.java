@@ -55,14 +55,20 @@ public class OrderControlller {
 		if(bindingResult.hasErrors()) {
 			return new ModelAndView("admin/orders/addOrEdit");
 		}
-		Order entity = new Order();
-		BeanUtils.copyProperties(orderDto, entity);
-		
-		Customer customer = new Customer();
-		customer.setCustomerId(orderDto.getCustomerId());
-		entity.setCustomer(customer);
-		
-		orderService.save(entity);
+		Optional<Order> entity = orderService.findById(orderDto.getOrderId());
+		if(entity.isPresent()) {
+			entity.get().setStatus((short) orderDto.getStatus());
+			orderService.save(entity.get());
+		}
+		else 
+		{
+			Order entityNew = new Order();
+			BeanUtils.copyProperties(orderDto, entity);
+			Customer customer = new Customer();
+			customer.setCustomerId(orderDto.getCustomerId());
+			entityNew.setCustomer(customer);
+			orderService.save(entityNew);
+		}
 		model.addAttribute("message", "Order is Saved !");
 		return new ModelAndView("forward:/admin/orders", model);
 	}

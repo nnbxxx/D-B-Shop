@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,7 +51,7 @@ public class Product implements Serializable{
 	private Date enteredDate;
 	@Column(nullable = false)
 	private short status;
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name="categoryId")
 	private Category category;
 	
