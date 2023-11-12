@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.ute.shop.domain.Category;
 import com.ute.shop.domain.Product;
 import com.ute.shop.repository.ProductRepository;
 import com.ute.shop.service.ProductService;
@@ -143,5 +144,22 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<Product> findByCategory(Category category) {
+		return productRepository.findByCategory(category);
+	}
+
+	@Override
+	public List<Product> findByNameContaining(String name) {
+		return productRepository.findByNameContaining(name);
+	}
+
+	@Override
+	public List<Product> findByUnitPriceBetween(double min, double max) {
+		return productRepository.findByUnitPriceBetween(min, max);
+	}
+	
+	
 	
 }

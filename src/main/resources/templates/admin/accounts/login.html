@@ -31,7 +31,7 @@
             <div class="form-group">
               <label for="username">Username:</label>
               <input type="text" class="form-control" name="username" id="username" aria-describedby="usernameHid"
-                th:field="*{username}" placeholder="">
+                th:field="*{username}" placeholder="User Name">
               <small id="usernameHid" class="form-text text-muted" th:if="${#fields.hasErrors('username')}">Username is
                 invalid</small>
             </div>

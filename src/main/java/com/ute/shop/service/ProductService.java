@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import com.ute.shop.domain.Category;
 import com.ute.shop.domain.Product;
 
 public interface ProductService {
@@ -60,5 +61,11 @@ public interface ProductService {
 	<S extends Product> S save(S entity);
 
 	void delete(Product entity);
+
+	List<Product> findByCategory(Category category);
+
+	List<Product> findByNameContaining(String name);
+
+	List<Product> findByUnitPriceBetween(double min, double max);
 	
 }

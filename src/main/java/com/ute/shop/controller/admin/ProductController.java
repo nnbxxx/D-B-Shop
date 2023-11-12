@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -76,7 +77,7 @@ public class ProductController {
 			Product entity = optional.get();
 			BeanUtils.copyProperties(entity, productDto);
 			productDto.setCategoryId(entity.getCategory().getCategoryId());
-			productDto.setIsEdit(true);
+			productDto.setIsEdit(false);
 			model.addAttribute("product",productDto);
 			return new ModelAndView("admin/products/addOrEdit",model);
 		}
@@ -112,25 +113,26 @@ public class ProductController {
 		if(bindingResult.hasErrors()) {
 			return new ModelAndView("admin/products/addOrEdit");
 		}
-		Optional<Product> entity = productService.findById(productDto.getProductId());
-		if(entity.isPresent()) {
-			BeanUtils.copyProperties(productDto, entity);
-			Category category = new Category();
-			category.setCategoryId(productDto.getCategoryId());
-			entity.get().setCategory(category);
-			
-			if(!productDto.getImageFile().isEmpty()) {
-				UUID uuid = UUID.randomUUID();
-				String uuString = uuid.toString();
-				entity.get().setImage(storageService.getStoredFileName(productDto.getImageFile(), uuString));
-				storageService.store(productDto.getImageFile(), entity.get().getImage());
+		if(productDto.getProductId() != null) {
+			Optional<Product> entity = productService.findById(productDto.getProductId());
+			if(entity.isPresent()) {
+				BeanUtils.copyProperties(productDto, entity);
+				Category category = new Category();
+				category.setCategoryId(productDto.getCategoryId());
+				entity.get().setCategory(category);
+				
+				if(!productDto.getImageFile().isEmpty()) {
+					UUID uuid = UUID.randomUUID();
+					String uuString = uuid.toString();
+					entity.get().setImage(storageService.getStoredFileName(productDto.getImageFile(), uuString));
+					storageService.store(productDto.getImageFile(), entity.get().getImage());
+				}
+				productService.save(entity.get());
 			}
-			
-			productService.save(entity.get());
 		}
 		else {
 			Product entityNew = new Product();
-			BeanUtils.copyProperties(productDto, entity);
+			BeanUtils.copyProperties(productDto, entityNew);
 			Category category = new Category();
 			category.setCategoryId(productDto.getCategoryId());
 			entityNew.setCategory(category);
@@ -152,54 +154,48 @@ public class ProductController {
 		model.addAttribute("products",products);
 		return "admin/products/list";
 	}
-	@GetMapping("search")
-	public String search(ModelMap model, @RequestParam(name = "name",required = false) String name ) {
-		List<Category> list = null;
-		if(StringUtils.hasText(name)) {
-			list = categoryService.findByNameContaining(name);
-		}
-		else {
-			list = categoryService.findAll();
-		}
-		model.addAttribute("products",list);
-		return "admin/products/search";
-	}
-	@GetMapping("searchpaginated")
-	public String search(ModelMap model, @RequestParam(name = "name",required = false) String name,
-			@RequestParam("page") Optional<Integer> page,
-			@RequestParam("size") Optional<Integer> size
-			) {
-		
-		int currentPage = page.orElse(0);
-		int pageSize = size.orElse(5);
+	@GetMapping("searchByCategory")
+	public String searchByCategory(ModelMap model, @RequestParam(name = "categoryId",required = false) Integer categoryId ) {
 
-		Pageable pageable = PageRequest.of(currentPage, pageSize,Sort.by("name"));
-		Page<Category> resultPage = null;
+		Optional<Category> optionalCategory = categoryService.findById(categoryId);
+		if(optionalCategory.isPresent()) {
+			List<Product> products = productService.findByCategory(optionalCategory.get());
+			model.addAttribute("products",products);
+		}
 		
-		if(StringUtils.hasText(name)) {
-			resultPage = categoryService.findByNameContaining(name,pageable);
-			model.addAttribute("name",name);
-		}
-		else {
-			resultPage = categoryService.findAll(pageable);
-		}
-		int totalPages = resultPage.getTotalPages();
-		if(totalPages > 0) {
-			int start = Math.max(1, currentPage-2);
-			int end = Math.min(totalPages, currentPage+2);
-			if(totalPages > 5) {
-				if(end == totalPages) {
-					start = end - 5;
-				}
-				else if(start == 1) {
-					end = start + 5;
-				}
-					
-			}
-			List<Integer> pageNumbers = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
-			model.addAttribute("pageNumbers", pageNumbers);
-		}
-		model.addAttribute("categoryPage",resultPage);
-		return "admin/products/searchpaginated";
+		return "admin/products/list";
 	}
+	@GetMapping("searchByName")
+	public String searchByName(ModelMap model, @RequestParam(name = "name",required = false) String name ) {
+
+		List<Product> products = productService.findByNameContaining(name);
+		model.addAttribute("products",products);
+		return "admin/products/list";
+	}
+	@GetMapping("searchByPrice")
+	public String searchByPrice(ModelMap model, 
+			@RequestParam(name = "min",required = false) Double min,
+			@RequestParam(name = "max",required = false) Double  max ) {
+		if(max == null) {
+			max = Double.MAX_VALUE;
+		}
+		if(min == null || min <= 0 || min > max) {
+			min = 0.0;
+		}
+		
+		List<Product> products = productService.findByUnitPriceBetween(min,max );
+		model.addAttribute("products",products);
+		return "admin/products/list";
+	}
+	@GetMapping("sort")
+	public String sort(ModelMap model, 
+			@RequestParam(name = "name",required = false) String name,
+			@RequestParam(name = "direction",required = false) String direction) {
+		System.out.println("name = " + name);
+		System.out.println("direction = " + direction);
+		List<Product> products = productService.findAll(Sort.by(direction == "asc" ? Direction.ASC : Direction.DESC, name));
+		model.addAttribute("products",products);
+		return "admin/products/list";
+	}
+
 }

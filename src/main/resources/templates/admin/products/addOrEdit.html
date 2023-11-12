@@ -11,7 +11,7 @@
         th:object="${product}">
         <div class="card">
           <div class="card-header">
-            <h2 th:text="${product.isEdit ? 'Edit Product':'Add new Product'}"></h2>
+            <h2 th:text="${!product.isEdit ? 'Edit Product':'Add new Product'}"></h2>
 
           </div>
           <div class="card-body">
@@ -19,7 +19,7 @@
               <div class="row">
                 <div class="col-7">
                   <input type="hidden" th:field="*{isEdit}">
-                  <div class="form-group" th:if="${product.isEdit}">
+                  <div class="form-group" th:if="${!product.isEdit}">
                     <label for="productId">Product ID: </label>
                     <input type="text" class="form-control" name="productId" id="productId"
                       aria-describedby="productIdHid" placeholder="Product ID " th:field="*{productId}" readonly>
