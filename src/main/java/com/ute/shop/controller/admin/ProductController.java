@@ -152,6 +152,9 @@ public class ProductController {
 	public String list(ModelMap model) {
 		List<Product> products = productService.findAll();
 		model.addAttribute("products",products);
+		model.addAttribute("totalPage",1);
+		model.addAttribute("currentPage",0);
+		model.addAttribute("pageSize",999999);
 		return "admin/products/list";
 	}
 	@GetMapping("searchByCategory")
@@ -191,10 +194,20 @@ public class ProductController {
 	public String sort(ModelMap model, 
 			@RequestParam(name = "name",required = false) String name,
 			@RequestParam(name = "direction",required = false) String direction) {
-		System.out.println("name = " + name);
-		System.out.println("direction = " + direction);
 		List<Product> products = productService.findAll(Sort.by(direction == "asc" ? Direction.ASC : Direction.DESC, name));
 		model.addAttribute("products",products);
+		return "admin/products/list";
+	}
+	@GetMapping("paginate")
+	public String paginate(ModelMap model, 
+			@RequestParam(name = "page",required = false) Integer page,
+			@RequestParam(name = "pagesize",required = false) Integer pagesize) {
+		Pageable pageable = PageRequest.of(page,pagesize);
+		Page<Product> products = productService.findAll(pageable);
+		model.addAttribute("products",products);
+		model.addAttribute("currentPage",page);
+		model.addAttribute("pageSize",pagesize);
+		model.addAttribute("totalPage",products.getTotalPages());
 		return "admin/products/list";
 	}
 

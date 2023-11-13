@@ -129,7 +129,6 @@
 
                 </td>
               </tr>
-
             </tbody>
           </table>
           <script>
@@ -161,12 +160,9 @@
                 action += '&direction=acs'
               // form.action = action;
               window.location.href = action;
-              console.log("🚀 ~ file: list.html:148 ~ statusSort:", form.action)
               // form.submit();
             }
           </script>
-
-
 
           <!-- Modal -->
           <div class="modal fade" id="confirmationId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
@@ -191,24 +187,75 @@
           </div>
         </div>
         <div class="card-footer text-muted">
+          <form id="formPageSize">
+            <div class="row mt-2 ">
+              <div class="col" style="margin-top: 10px;">
+                <nav>
+                  <ul class="pagination float-left ml-lg-2">
+                    <li class="page-item" id="prePage">
+                      <a class="page-link" href="#"><i class="fas fa-angle-left"></i></a>
+                    </li>
+                    <li class="page-item page-link" th:text="${currentPage} != null ? ${currentPage} + 1 : '1' "
+                      th:data-current-page="${currentPage}" id="currentPage"></li>
+                    <li class="page-item page-link" th:text="'/'"></li>
+                    <li class="page-item page-link" th:text="${totalPage}" th:data-total-page="${totalPage}"
+                      id="totalPage"></li>
+                    <li class="page-item" id="nextPage">
+                      <a class="page-link" href="#"><i class="fas fa-angle-right"></i></a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+              <div class="form-inline float-left col-8" style="margin-right: 10px;">
+                <label for="sort">Page Size </label>
+                <select class="form-control ml-2 " name="pagesize" id="pagesize" onchange="handleSubmitFormPageSize()">
+                  <option th:value="${pageSize}">Select</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                </select>
+              </div>
+          </form>
 
-          <div class="row mt-2">
-            <div class="col">
-              <nav>
-                <ul class="pagination float-left ml-lg-2">
-                  <li class="page-item">
-                    <a class="page-link" href="#"><i class="fas fa-angle-left"></i></a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1 / 50</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#"><i class="fas fa-angle-right"></i></a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
         </div>
+
       </div>
+      <script>
+        const handleSubmitFormPageSize = () => {
+          let pageSize = document.getElementById("pagesize").value;
+          action = '/admin/products/paginate?page=' + 0 + '&pagesize=' + pageSize;
+          window.location.href = action;
+        }
+
+        let nextPageBtn = document.getElementById("nextPage");
+        nextPageBtn.addEventListener("click", () => {
+          let pageSize = document.getElementById("pagesize").value;
+          let currentPage = document.getElementById('currentPage').getAttribute('data-current-page');
+          const totalPage = document.getElementById('totalPage').getAttribute('data-total-page');
+          currentPage = 1 + parseInt(currentPage);
+          if (currentPage >= totalPage) {
+            currentPage = 0;
+          }
+          action = '/admin/products/paginate?page=' + currentPage + '&pagesize=' + pageSize;
+          window.location.href = action;
+        })
+        let prePageBtn = document.getElementById("prePage");
+        prePageBtn.addEventListener("click", () => {
+          let pageSize = document.getElementById("pagesize").value;
+          let currentPage = document.getElementById('currentPage').getAttribute('data-current-page');
+          const totalPage = document.getElementById('totalPage').getAttribute('data-total-page');
+          currentPage -= 1;
+          if (currentPage < 0) {
+            currentPage = totalPage - 1;
+          }
+          action = '/admin/products/paginate?page=' + currentPage + '&pagesize=' + pageSize;
+          window.location.href = action;
+        })
+
+      </script>
+    </div>
 
     </div>
   </section>
