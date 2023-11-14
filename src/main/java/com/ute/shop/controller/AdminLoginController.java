@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ute.shop.domain.Account;
@@ -25,6 +26,17 @@ public class AdminLoginController {
 	
 	@GetMapping("alogin")
 	public String login(ModelMap model) {
+		model.addAttribute("account", new AdminLoginDto());
+		return "/admin/accounts/login";
+	}
+	@RequestMapping("alogout")
+	public String logout(ModelMap model) {
+		
+		String username = (String) session.getAttribute("username");
+		System.out.println("session.getAttribute(\"username\") =" + session.getAttribute("username"));
+		if(username != null) {
+			session.removeAttribute("username");
+		}
 		model.addAttribute("account", new AdminLoginDto());
 		return "/admin/accounts/login";
 	}
