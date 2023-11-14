@@ -60,6 +60,7 @@ public class AccountController {
 		model.addAttribute("accounts",list);
 		return "admin/accounts/list";
 	}
+
 	@GetMapping("edit/{username}")
 	public ModelAndView edit(ModelMap model, @PathVariable("username") String username) {
 		Optional<Account> optional = accountService.findById(username);
@@ -82,57 +83,4 @@ public class AccountController {
 		model.addAttribute("message", "account is Deleted !");
 		return new ModelAndView("forward:/admin/accounts",model);
 	}
-	
-
-
-//	@GetMapping("search")
-//	public String search(ModelMap model, @RequestParam(name = "name",required = false) String name ) {
-//		List<account> list = null;
-//		if(StringUtils.hasText(name)) {
-//			list = accountService.findByNameContaining(name);
-//		}
-//		else {
-//			list = accountService.findAll();
-//		}
-//		model.addAttribute("accounts",list);
-//		return "admin/accounts/search";
-//	}
-//	@GetMapping("searchpaginated")
-//	public String search(ModelMap model, @RequestParam(name = "name",required = false) String name,
-//			@RequestParam("page") Optional<Integer> page,
-//			@RequestParam("size") Optional<Integer> size
-//			) {
-//		
-//		int currentPage = page.orElse(0);
-//		int pageSize = size.orElse(5);
-//
-//		Pageable pageable = PageRequest.of(currentPage, pageSize,Sort.by("name"));
-//		Page<account> resultPage = null;
-//		
-//		if(StringUtils.hasText(name)) {
-//			resultPage = accountService.findByNameContaining(name,pageable);
-//			model.addAttribute("name",name);
-//		}
-//		else {
-//			resultPage = accountService.findAll(pageable);
-//		}
-//		int totalPages = resultPage.getTotalPages();
-//		if(totalPages > 0) {
-//			int start = Math.max(1, currentPage-2);
-//			int end = Math.min(totalPages, currentPage+2);
-//			if(totalPages > 5) {
-//				if(end == totalPages) {
-//					start = end - 5;
-//				}
-//				else if(start == 1) {
-//					end = start + 5;
-//				}
-//					
-//			}
-//			List<Integer> pageNumbers = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
-//			model.addAttribute("pageNumbers", pageNumbers);
-//		}
-//		model.addAttribute("accountPage",resultPage);
-//		return "admin/accounts/searchpaginated";
-//	}
 }

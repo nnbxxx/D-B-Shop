@@ -1,8 +1,20 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{admin/dashboardLayout.html}">
+  layout:decorate="~{admin/dashboardLayout2.html}">
 
-<head></head>
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+    integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="./css/adminDashBoard.css">
+  <title>Admin Page</title>
+</head>
 
 <body>
   <section class="row" layout:fragment="content">
@@ -67,8 +79,7 @@
                   <span th:case="'5'">Hủy đơn hàng</span>
                 </td>
                 <td>
-                  <a th:href="@{'/admin/orders/view/' + ${item.orderId}}" class="btn btn-outline-info"><i
-                      class="fas fa-info"></i>
+
                   </a>
                   <a th:href="@{'/admin/orders/edit/' + ${item.orderId}}" class="btn btn-outline-warning"><i
                       class="fas fa-edit"></i></a>
