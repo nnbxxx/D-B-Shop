@@ -1,5 +1,6 @@
 package com.ute.shop.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,5 +61,7 @@ public interface OrderService {
 	List<Order> findAll();
 
 	<S extends Order> S save(S entity);
+
+	List<Order> findByOrderDateBetween(Date startDate, Date endDate);
 
 }

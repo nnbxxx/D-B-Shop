@@ -55,8 +55,35 @@
                       </option>
                     </select>
                   </div>
-
                 </form>
+              </div>
+              <div class="col-3 m-2">
+                <form id="formSearchBySupplier">
+                  <div class="form-inline float-left">
+                    <label for="sort" style="margin-right: 5px;">Supplier </label>
+                    <select class="form-control" name="supplierId" id="supplierId"
+                      onchange="handleSubmitFormSearchBySupplier()">
+                      <option>ALL</option>
+                      <option th:each="item : ${suppliers}" th:value="${item.supplierId}" th:text="${item.name}">
+                        Supplier Name
+                      </option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div class="col-3 m-2">
+                <div class="form-inline float-left">
+                  <label for="sort" style="margin-right: 5px;">Status </label>
+                  <select class="form-control" name="statusId" id="statusId"
+                    onchange="handleSubmitFormSearchByStatus()">
+                    <option th:value="0">Out of Stock</option>
+                    <option th:value="1">On Sale</option>
+                    <option th:value="2">Featured</option>
+                    <option th:value="3">Best Seller</option>
+                    <option th:value="4">Out of Order</option>
+                  </select>
+                </div>
+
               </div>
               <div class="col-12 m-2 ">
                 <form th:action="@{/admin/products/searchByPrice}">
@@ -76,6 +103,7 @@
                   </div>
                 </form>
               </div>
+
             </div>
 
             <div class="row m-1">
@@ -96,6 +124,7 @@
                 <th>Discount</th>
                 <th>Status</th>
                 <th>Category</th>
+                <th>Supplier</th>
                 <th></th>
               </tr>
             </thead>
@@ -117,6 +146,7 @@
                   <span th:case="'4'">Out of Order</span>
                 </td>
                 <td th:text="${item.category.name}"></td>
+                <td th:text="${item.supplier.name}"></td>
                 <td>
                   <a th:href="@{'/admin/products/view/' + ${item.productId}}" class="btn btn-outline-info"><i
                       class="fas fa-info"></i></a>
@@ -141,6 +171,21 @@
               let form = document.getElementById('formSearchByCategory');
               form.action = '/admin/products/searchByCategory'
               form.submit();
+            }
+            handleSubmitFormSearchBySupplier = () => {
+              let form = document.getElementById('formSearchBySupplier');
+              form.action = '/admin/products/searchBySupplier'
+              form.submit();
+            }
+            handleSubmitFormSearchByStatus = () => {
+              let form = document.getElementById('formSearchByStatus');
+              action = '/admin/products/searchByStatus?statusId='
+              let selectElement = document.getElementById("statusId").value;
+              action += selectElement
+              // Lấy giá trị được chọn
+              // var selectedValue = selectElement.value;
+
+              window.location.href = action;
             }
             handleSubmitFormSort = () => {
               let form = document.getElementById('formSort');

@@ -16,10 +16,32 @@
             <div class="alert alert-primary" role="alert" th:if="${message != null}">
               <i>[[${message}]]</i>
             </div>
-            <div class="">
-              <a th:href="@{/admin/orders/add}" class="btn btn-sm btn-outline-primary m-2 float-right">Add new
-                Order</a>
+            <div class="row">
+              <div class="col-12 m-2 ">
+                <form th:action="@{/admin/orders/searchByDate}">
+                  <div class="form-inline ">
+                    <div class="input-group form-group" style="margin-right: 20px;">
+                      <span class="input-group-text">Start Date</span>
+                      <input type="date" name="startDate" id="startDate" class="form-control">
+
+                    </div>
+                    <div class="input-group form-group">
+                      <span class="input-group-text">End Date</span>
+                      <input type="date" name="endDate" id="endDate" class="form-control">
+                    </div>
+                    <button class="btn btn-primary ml-2">
+                      Search
+                    </button>
+                    <a th:href="@{/admin/orders/add}" class="btn btn-sm btn-outline-primary m-2 float-right">Add new
+                      Order</a>
+                  </div>
+
+                </form>
+
+              </div>
+
             </div>
+
             <thead class="thead-inverse">
               <tr>
                 <th>Order Id</th>

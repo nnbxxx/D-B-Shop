@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/dashboardLayout.html}">
+
+<head></head>
+
+<body>
+	<section class="row" layout:fragment="content">
+		<div class="col-6 offset-3 mt-4">
+			<form th:action="@{/admin/suppliers/saveOrUpdate}" method="post" th:object="${supplier}">
+				<div class="card">
+					<div class="card-header">
+						<h2 th:if="${supplier.isEdit}">Update supplier</h2>
+						<h2 th:if="${!supplier.isEdit}">Add new supplier</h2>
+					</div>
+					<div class="card-body">
+						<div class="form-group">
+							<label for="supplierId">Supplier ID:</label>
+							<input type="hidden" th:field="*{isEdit}">
+							<input type="text" class="form-control" th:field="*{supplierId}" aria-describedby="supplierIdHid"
+								placeholder="Supplier ID" readonly>
+							<small th:if="${#fields.hasErrors('supplierId')}" id="supplierIdHid" class="form-text text-muted">Supplier
+								is Required</small>
+						</div>
+						<div class="form-group">
+							<label for="name">Name</label>
+							<input type="text" class="form-control" th:field="*{name}" aria-describedby="nameHid" placeholder="Name">
+							<small th:if="${#fields.hasErrors('name')}" id="nameHid" class="form-text text-muted">Name is required
+								or invalid</small>
+						</div>
+					</div>
+					<div class="card-footer text-muted">
+						<button class="btn btn-secondary" type="reset">Reset</button>
+						<a class="btn btn-success" th:href="@{/admin/suppliers/}">
+							List Suppliers
+						</a>
+						<button class="btn btn-primary"><i class="fas fa-save"></i>
+							<span th:if="${supplier.isEdit}">
+								Update
+							</span>
+							<span th:if="${!supplier.isEdit}">
+								Save
+							</span>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+
+</html>

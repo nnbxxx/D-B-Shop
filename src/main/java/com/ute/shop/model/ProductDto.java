@@ -23,6 +23,7 @@ public class ProductDto {
 	private Date enteredDate;
 	private short status;
 	private Integer categoryId;
+	private Integer supplierId;
 	
 	private Boolean isEdit;
 	

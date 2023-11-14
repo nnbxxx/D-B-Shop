@@ -1,5 +1,7 @@
 package com.ute.shop.controller;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -23,41 +25,55 @@ public class AdminLoginController {
 	private AccountService accountService;
 	@Autowired
 	private HttpSession session;
-	
+
 	@GetMapping("alogin")
 	public String login(ModelMap model) {
+		Account defaultAccount = new Account();
+		defaultAccount.setUsername("admin001");
+		defaultAccount.setPassword("123456");
+		Optional<Account> optional = accountService.findById(defaultAccount.getUsername());
+		System.out.println("!optional.isPresent() = " + !optional.isPresent());
+		if(!optional.isPresent()) {
+			accountService.save(defaultAccount);
+		}
 		model.addAttribute("account", new AdminLoginDto());
 		return "/admin/accounts/login";
 	}
+
 	@RequestMapping("alogout")
 	public String logout(ModelMap model) {
 		
+		
 		String username = (String) session.getAttribute("username");
-		System.out.println("session.getAttribute(\"username\") =" + session.getAttribute("username"));
-		if(username != null) {
+		if (username != null) {
 			session.removeAttribute("username");
 		}
 		model.addAttribute("account", new AdminLoginDto());
 		return "/admin/accounts/login";
 	}
+
 	@PostMapping("alogin")
-	public ModelAndView login(ModelMap model,@Valid @ModelAttribute("account") AdminLoginDto adminLoginDto, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
-			return new ModelAndView("/admin/accounts/login",model);
+	public ModelAndView login(ModelMap model, @Valid @ModelAttribute("account") AdminLoginDto adminLoginDto,
+			BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return new ModelAndView("/admin/accounts/login", model);
 		}
+
 		Account account = accountService.login(adminLoginDto.getUsername(), adminLoginDto.getPassword());
-		if(account == null) {
-			model.addAttribute("message","Invalid username or password");
-			return new ModelAndView("/admin/accounts/login",model);
+
+		if (account == null) {
+			model.addAttribute("message", "Invalid username or password");
+			return new ModelAndView("/admin/accounts/login", model);
 		}
-		session.setAttribute("username", account.getUsername());
+
+		session.setAttribute("username", adminLoginDto.getUsername());
 		Object ruri = session.getAttribute("redirect-uri");
-		if(ruri != null) {
+		if (ruri != null) {
 			session.removeAttribute("redirect-uri");
 			return new ModelAndView("redirect:" + ruri);
 		}
-		
-		return new ModelAndView("forward:/admin/categories",model);
-				
+
+		return new ModelAndView("forward:/admin/categories", model);
+
 	}
 }

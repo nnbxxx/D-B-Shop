@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 
 import com.ute.shop.domain.Category;
 import com.ute.shop.domain.Product;
+import com.ute.shop.domain.Supplier;
 
 public interface ProductService {
 
@@ -67,5 +68,9 @@ public interface ProductService {
 	List<Product> findByNameContaining(String name);
 
 	List<Product> findByUnitPriceBetween(double min, double max);
+
+	List<Product> findBySupplier(Supplier supplier);
+
+	List<Product> findByStatus(short status);
 	
 }

@@ -1,5 +1,6 @@
 package com.ute.shop.controller.admin;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -99,4 +101,14 @@ public class OrderControlller {
 		model.addAttribute("message","order is not exited");
 		return new ModelAndView( "forward:/admin/orders/",model);
 	} 
+	@RequestMapping("searchByDate")
+	public String searhByDate(@ModelAttribute("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+			@DateTimeFormat(pattern = "yyyy-MM-dd") @ModelAttribute("endDate") Date endDate,ModelMap model) {
+
+		List<Order> list = orderService.findByOrderDateBetween(startDate, endDate);
+		model.addAttribute("orders", list);
+		return "admin/orders/list";
+	}
+	
+	
 }

@@ -35,11 +35,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ute.shop.domain.Category;
 import com.ute.shop.domain.Product;
+import com.ute.shop.domain.Supplier;
 import com.ute.shop.model.CategoryDto;
 import com.ute.shop.model.ProductDto;
+import com.ute.shop.model.SupplierDto;
 import com.ute.shop.service.CategoryService;
 import com.ute.shop.service.ProductService;
 import com.ute.shop.service.StorageService;
+import com.ute.shop.service.SupplierService;
 
 
 @Controller
@@ -52,11 +55,20 @@ public class ProductController {
 	ProductService productService;
 	@Autowired
 	StorageService storageService; 
-	
+	@Autowired
+	SupplierService supplierService;
 	@ModelAttribute("categories")
 	public List<CategoryDto> getCategories(){
 		return categoryService.findAll().stream().map(item->{
 			CategoryDto dto = new CategoryDto();
+			BeanUtils.copyProperties(item, dto);
+			return dto;
+		}).toList();
+	}
+	@ModelAttribute("suppliers")
+	public List<SupplierDto> getSuppliers(){
+		return supplierService.findAll().stream().map(item->{
+			SupplierDto dto = new SupplierDto();
 			BeanUtils.copyProperties(item, dto);
 			return dto;
 		}).toList();
@@ -118,8 +130,11 @@ public class ProductController {
 			if(entity.isPresent()) {
 				BeanUtils.copyProperties(productDto, entity);
 				Category category = new Category();
+				Supplier supplier = new Supplier();
 				category.setCategoryId(productDto.getCategoryId());
+				supplier.setSupplierId(productDto.getSupplierId());
 				entity.get().setCategory(category);
+				entity.get().setSupplier(supplier);
 				
 				if(!productDto.getImageFile().isEmpty()) {
 					UUID uuid = UUID.randomUUID();
@@ -134,7 +149,10 @@ public class ProductController {
 			Product entityNew = new Product();
 			BeanUtils.copyProperties(productDto, entityNew);
 			Category category = new Category();
+			Supplier supplier = new Supplier();
 			category.setCategoryId(productDto.getCategoryId());
+			supplier.setSupplierId(productDto.getSupplierId());
+			entityNew.setSupplier(supplier);
 			entityNew.setCategory(category);
 			if(!productDto.getImageFile().isEmpty()) {
 				UUID uuid = UUID.randomUUID();
@@ -165,7 +183,23 @@ public class ProductController {
 			List<Product> products = productService.findByCategory(optionalCategory.get());
 			model.addAttribute("products",products);
 		}
-		
+		return "admin/products/list";
+	}
+	@GetMapping("searchBySupplier")
+	public String searchBySupplier(ModelMap model, @RequestParam(name = "supplierId",required = false) Integer supplierId ) {
+
+		Optional<Supplier> optionalSupplier = supplierService.findById(supplierId);
+		if(optionalSupplier.isPresent()) {
+			List<Product> products = productService.findBySupplier(optionalSupplier.get());
+			model.addAttribute("products",products);
+		}
+		return "admin/products/list";
+	}
+	@GetMapping("searchByStatus")
+	public String searchByStatus(ModelMap model, @RequestParam(name = "statusId",required = false) Short statusId ) {
+
+		List<Product> products = productService.findByStatus(statusId);
+		model.addAttribute("products",products);
 		return "admin/products/list";
 	}
 	@GetMapping("searchByName")

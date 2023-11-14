@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.ute.shop.domain.Category;
 import com.ute.shop.domain.Product;
+import com.ute.shop.domain.Supplier;
 import com.ute.shop.repository.ProductRepository;
 import com.ute.shop.service.ProductService;
 
@@ -27,6 +28,11 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<Product> findAll() {
 		return productRepository.findAll();
+	}
+
+	@Override
+	public List<Product> findBySupplier(Supplier supplier) {
+		return productRepository.findBySupplier(supplier);
 	}
 
 	@Override
@@ -92,6 +98,11 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public long count() {
 		return productRepository.count();
+	}
+
+	@Override
+	public List<Product> findByStatus(short status) {
+		return productRepository.findByStatus(status);
 	}
 
 	@Override

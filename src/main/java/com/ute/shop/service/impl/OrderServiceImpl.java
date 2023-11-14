@@ -1,5 +1,6 @@
 package com.ute.shop.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -137,5 +138,11 @@ public class OrderServiceImpl implements OrderService{
 	public void deleteAll() {
 		orderRepository.deleteAll();
 	}
+
+	@Override
+	public List<Order> findByOrderDateBetween(Date startDate, Date endDate) {
+		return orderRepository.findByOrderDateBetween(startDate, endDate);
+	}
+	
 
 }

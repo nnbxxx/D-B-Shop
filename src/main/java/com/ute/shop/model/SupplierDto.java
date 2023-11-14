@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryDto  implements Serializable{
+public class SupplierDto  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private Integer categoryId;
+	private Integer supplierId;
 	@NotEmpty
 	@Length(min = 5)
 	private String name;
