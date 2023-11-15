@@ -54,4 +54,9 @@ public interface CustomerService {
 
 	<S extends Customer> S save(S entity);
 
+	Optional<Customer> findByPhone(String phone);
+
+	Customer login(String phone, String password);
+
+
 }

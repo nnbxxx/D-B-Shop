@@ -40,9 +40,9 @@ public class Customer implements Serializable{
 	private String name;
 	@Column(columnDefinition = "nvarchar(100) not null")
 	private String email;
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = false,unique = true)
 	private String password;
-	@Column(length = 20)
+	@Column(length = 20,unique = true)
 	private String phone;
 	@Temporal(TemporalType.DATE)
 	private Date registerDate;

@@ -32,7 +32,6 @@ public class AdminLoginController {
 		defaultAccount.setUsername("admin001");
 		defaultAccount.setPassword("123456");
 		Optional<Account> optional = accountService.findById(defaultAccount.getUsername());
-		System.out.println("!optional.isPresent() = " + !optional.isPresent());
 		if(!optional.isPresent()) {
 			accountService.save(defaultAccount);
 		}

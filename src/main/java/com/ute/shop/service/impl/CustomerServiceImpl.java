@@ -17,19 +17,36 @@ import com.ute.shop.repository.CustomerRepository;
 import com.ute.shop.service.CustomerService;
 
 @Service
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	CustomerRepository customerRepository;
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Override
+	public Customer login(String phone,String password) {
+		Optional<Customer> optionalCustomer = findByPhone(phone);
+		
+		if(optionalCustomer.isPresent()) {
+			if(optionalCustomer.get().getStatus() != 0) {
+				return null;
+			}
+			if(bCryptPasswordEncoder.matches(password, optionalCustomer.get().getPassword())) {
+				optionalCustomer.get().setPassword("");
+				return optionalCustomer.get();
+			}
+			
+		}
+		return null;
+	}
+	
 	@Override
 	public <S extends Customer> S save(S entity) {
 		Optional<Customer> optional = customerRepository.findById(entity.getCustomerId());
-		if(optional.isPresent()) {
-			if(StringUtils.isEmpty(entity.getPassword())) {
+		if (optional.isPresent()) {
+			if (StringUtils.isEmpty(entity.getPassword())) {
 				entity.setPassword(optional.get().getPassword());
-			}
-			else {
+			} else {
 				entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
 			}
 		}
@@ -88,6 +105,11 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
+	public Optional<Customer> findByPhone(String phone) {
+		return customerRepository.findByPhone(phone);
+	}
+
+	@Override
 	public boolean existsById(Integer id) {
 		return customerRepository.existsById(id);
 	}
@@ -136,6 +158,5 @@ public class CustomerServiceImpl implements CustomerService{
 	public <S extends Customer> List<S> findAll(Example<S> example, Sort sort) {
 		return customerRepository.findAll(example, sort);
 	}
-	
-	
+
 }

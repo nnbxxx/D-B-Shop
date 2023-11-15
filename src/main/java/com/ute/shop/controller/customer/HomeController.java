@@ -11,9 +11,13 @@ public class HomeController {
 	public String home() {
 		return "/site/home/index";
 	}
+	@RequestMapping("/test")
+	public String test() {
+		return "/site/home/test";
+	}
 	@RequestMapping("/admin")
 	public String admiin() {
 		return "/admin/content";
 	}
-
+	
 }
