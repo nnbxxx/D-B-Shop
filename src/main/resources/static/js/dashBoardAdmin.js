@@ -50,14 +50,3 @@ window.addEventListener("resize", () => {
     searchForm.classList.remove("show");
   }
 });
-
-const toggler = document.getElementById("theme-toggle");
-
-toggler.addEventListener("change", function () {
-  console.log(document.body);
-  if (this.checked) {
-    document.body.classList.add("dark");
-  } else {
-    document.body.classList.remove("dark");
-  }
-});

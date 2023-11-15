@@ -1,114 +1,101 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{admin/dashboardLayout2.html}">
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{admin/dashboardLayout2.html}"
+>
+  <head>
+    <link rel="stylesheet" href="http://localhost:8080/css/toDoList.css" />
+  </head>
 
-<head></head>
-
-<body>
-  <main layout:fragment="content">
-    <div class="header">
-      <div class="left">
-        <h1>Dashboard</h1>
-      </div>
-    </div>
-    <!-- Insights -->
-    <ul class="insights">
-      <li><i class='bx bx-calendar-check'></i>
-        <span class="info">
-          <p>Paid Orders</p>
-        </span>
-      </li>
-      <li><i class='bx bx-dollar-circle'></i>
-        <span class="info">
-          <h3>
-            $6,742
-          </h3>
-          <p>Total Sales</p>
-        </span>
-      </li>
-    </ul>
-    <!-- End of Insights -->
-
-    <div class="bottom-data">
-      <div class="orders">
-        <div class="header">
-          <i class='bx bx-receipt'></i>
-          <h3>Recent Orders</h3>
-          <i class='bx bx-filter'></i>
-          <i class='bx bx-search'></i>
+  <body>
+    <main layout:fragment="content">
+      <div class="header">
+        <div class="left">
+          <h1>Dashboard</h1>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>User</th>
-              <th>Order Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <p>John Doe</p>
-              </td>
-              <td>14-08-2023</td>
-              <td><span class="status completed">Completed</span></td>
-            </tr>
-            <tr>
-              <td>
-                <p>John Doe</p>
-              </td>
-              <td>14-08-2023</td>
-              <td><span class="status pending">Pending</span></td>
-            </tr>
-            <tr>
-              <td>
-                <p>John Doe</p>
-              </td>
-              <td>14-08-2023</td>
-              <td><span class="status process">Processing</span></td>
-            </tr>
-          </tbody>
-        </table>
       </div>
+      <!-- Insights -->
+      <ul class="insights">
+        <li>
+          <i class="bx bx-calendar-check"></i>
+          <span class="info">
+            <p>Paid Orders</p>
+          </span>
+        </li>
+        <li>
+          <i class="bx bx-dollar-circle"></i>
+          <span class="info">
+            <h3>$6,742</h3>
+            <p>Total Sales</p>
+          </span>
+        </li>
+      </ul>
+      <!-- End of Insights -->
 
-      <!-- Reminders -->
-      <div class="reminders">
-        <div class="header">
-          <i class='bx bx-note'></i>
-          <h3>Remiders</h3>
-          <i class='bx bx-filter'></i>
-          <i class='bx bx-plus'></i>
+      <div class="bottom-data">
+        <div class="orders">
+          <div class="header">
+            <i class="bx bx-receipt"></i>
+            <h3>Recent Orders</h3>
+            <i class="bx bx-filter"></i>
+            <i class="bx bx-search"></i>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Order Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <p>John Doe</p>
+                </td>
+                <td>14-08-2023</td>
+                <td><span class="status completed">Completed</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <p>John Doe</p>
+                </td>
+                <td>14-08-2023</td>
+                <td><span class="status pending">Pending</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <p>John Doe</p>
+                </td>
+                <td>14-08-2023</td>
+                <td><span class="status process">Processing</span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <ul class="task-list">
-          <li class="completed">
-            <div class="task-title">
-              <i class='bx bx-check-circle'></i>
-              <p>Start Our Meeting</p>
+
+        <!-- Reminders -->
+        <div class="reminders">
+          <div class="container">
+            <div class="form">
+              <h3>Create Task</h3>
+              <form>
+                <textarea
+                  id="task"
+                  placeholder="Write the content of the task here"
+                ></textarea>
+                <button id="btnAdd">Create</button>
+              </form>
             </div>
-            <i class='bx bx-dots-vertical-rounded'></i>
-          </li>
-          <li class="completed">
-            <div class="task-title">
-              <i class='bx bx-check-circle'></i>
-              <p>Analyse Our Site</p>
-            </div>
-            <i class='bx bx-dots-vertical-rounded'></i>
-          </li>
-          <li class="not-completed">
-            <div class="task-title">
-              <i class='bx bx-x-circle'></i>
-              <p>Play Footbal</p>
-            </div>
-            <i class='bx bx-dots-vertical-rounded'></i>
-          </li>
-        </ul>
+            <ul class="list"></ul>
+          </div>
+        </div>
+
+        <!-- End of Reminders-->
       </div>
-
-      <!-- End of Reminders-->
-
-    </div>
-
-  </main>
-</body>
-
+      <script src="http://localhost:8080/js/toDoList.js"></script>
+    </main>
+  </body>
 </html>

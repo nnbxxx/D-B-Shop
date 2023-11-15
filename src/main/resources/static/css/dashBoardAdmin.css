@@ -83,11 +83,6 @@ body {
   box-sizing: content-box;
 }
 
-theme-toggle .sidebar .logo .logo-name span {
-  font-weight: bold;
-  color: var(--name-logo);
-}
-
 .sidebar .logo .bx {
   min-width: 60px;
   display: flex;
@@ -286,32 +281,6 @@ object-fit: cover; */
   height: 36px;
   object-fit: cover;
   border-radius: 100%;
-}
-
-.content nav .theme-toggle {
-  display: block;
-  min-width: 50px;
-  height: 25px;
-  background: var(--grey);
-  cursor: pointer;
-  position: relative;
-  border-radius: 25px;
-}
-
-.content nav .theme-toggle::before {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  bottom: 2px;
-  width: calc(25px - 4px);
-  background: var(--primary);
-  border-radius: 50%;
-  transition: all 0.3s ease;
-}
-
-.content nav #theme-toggle:checked + .theme-toggle::before {
-  left: calc(100% - (25px - 4px) - 2px);
 }
 
 .content main {
