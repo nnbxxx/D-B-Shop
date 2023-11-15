@@ -11,6 +11,10 @@ public class HomeController {
 	public String home() {
 		return "/site/home/index";
 	}
+	@RequestMapping("/checkout")
+	public String checkout() {
+		return "/site/accounts/checkout";
+	}
 	@RequestMapping("/test")
 	public String test() {
 		return "/site/home/test";
