@@ -12,6 +12,14 @@
 
 ### Cơ bản
 
+Thứ tự ưu tiên cần làm:
+
+- Trang chủ
+- Khách hàng Thanh toán
+- Chi tiết sản phẩm
+- Xem lại các hóa đơn đã mua của khách hàng
+- Thay đổi thông tin các nhân khách hàng
+
 ### Admin
 
 Admin: Thống kê
