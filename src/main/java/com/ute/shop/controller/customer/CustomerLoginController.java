@@ -1,7 +1,5 @@
 package com.ute.shop.controller.customer;
 
-import java.util.Optional;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -18,8 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ute.shop.domain.Customer;
 import com.ute.shop.model.CustomerLoginDto;
 import com.ute.shop.service.CustomerService;
-
-import groovyjarjarantlr4.v4.parse.ANTLRParser.option_return;
 
 @Controller
 
