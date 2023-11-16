@@ -1,8 +1,12 @@
 HELP.md
 target/
+uploads/
+*/uploads/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+!**/src/main/**/uploads/
+!**/src/test/**/uploads/
 
 ### STS ###
 .apt_generated
@@ -12,7 +16,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
-*/uploads/
+
 
 ### IntelliJ IDEA ###
 .idea
