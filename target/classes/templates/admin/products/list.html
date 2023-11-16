@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{admin/dashboardLayout2.html}">
+
+<head>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+  <section class="" layout:fragment="content">
+    <div class="row " style="margin: 15px 0px 5px 0px;">
+      <div class="col">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/admin}">Admin</a></li>
+          <li class="breadcrumb-item active">Product</li>
+        </ol>
+      </div>
+    </div>
+    <div class="col mt-4">
+      <div class="card">
+        <div class="card-header">
+          <h2>List of product</h2>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped table-inverse">
+            <div class="alert alert-primary" role="alert" th:if="${message != null}">
+              <i>[[${message}]]</i>
+            </div>
+            <div class="row m-2">
+              <form th:action="@{/admin/products/searchByName}">
+                <div class="form-inline float-left">
+                  <label for="name">Name </label>
+                  <input type="text" class="form-control ml-2" name="name" id="name" aria-describedby="nameHid"
+                    placeholder="Name">
+                  <button class="btn btn-primary ml-2">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div class="row">
+              <div class="col-3 m-2">
+                <form id="formSort">
+                  <div class="form-inline float-left">
+                    <label for="sort">Sort </label>
+                    <select class="form-control ml-2" name="statusSort" id="statusSort"
+                      onchange="handleSubmitFormSort()">
+                      <option value="99">Select Sort Option</option>
+                      <option value="0">Bán chạy</option>
+                      <option value="1">Giá thấp đến cao</option>
+                      <option value="2">Giá cao đến thấp</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div class="col-3 m-2">
+                <form id="formSearchByCategory">
+                  <div class="form-inline float-left">
+                    <label for="sort" style="margin-right: 5px;">Category </label>
+                    <select class="form-control" name="categoryId" id="categoryId"
+                      onchange="handleSubmitFormSearchByCategory()">
+                      <option>ALL</option>
+                      <option th:each="item : ${categories}" th:value="${item.categoryId}" th:text="${item.name}">
+                        Category Name
+                      </option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div class="col-3 m-2">
+                <form id="formSearchBySupplier">
+                  <div class="form-inline float-left">
+                    <label for="sort" style="margin-right: 5px;">Supplier </label>
+                    <select class="form-control" name="supplierId" id="supplierId"
+                      onchange="handleSubmitFormSearchBySupplier()">
+                      <option>ALL</option>
+                      <option th:each="item : ${suppliers}" th:value="${item.supplierId}" th:text="${item.name}">
+                        Supplier Name
+                      </option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div class="col-3 m-2">
+                <div class="form-inline float-left">
+                  <label for="sort" style="margin-right: 5px;">Status </label>
+                  <select class="form-control" name="statusId" id="statusId"
+                    onchange="handleSubmitFormSearchByStatus()">
+                    <option th:value="0">Out of Stock</option>
+                    <option th:value="1">On Sale</option>
+                    <option th:value="2">Featured</option>
+                    <option th:value="3">Best Seller</option>
+                    <option th:value="4">Out of Order</option>
+                  </select>
+                </div>
+
+              </div>
+              <div class="col-12 m-2 ">
+                <form th:action="@{/admin/products/searchByPrice}">
+                  <div class="form-inline ">
+                    <div class="input-group form-group" style="margin-right: 20px;">
+                      <span class="input-group-text">Min Price</span>
+                      <input type="number" name="min" id="" class="form-control" placeholder="Min Price">
+
+                    </div>
+                    <div class="input-group form-group">
+                      <span class="input-group-text">Max Price</span>
+                      <input type="number" name="max" id="" class="form-control" placeholder="Max Price">
+                    </div>
+                    <button class="btn btn-primary ml-2">
+                      Search
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+
+            <div class="row m-1">
+              <a th:href="@{/admin/products/add}" class="btn btn-sm btn-outline-primary m-2 float-right">Add new
+                Product</a>
+            </div>
+            <div class="row m-1">
+              <a th:href="@{/admin/products}" class="btn btn-sm btn-outline-primary m-2 float-right">
+                Reset</a>
+            </div>
+            <thead class="thead-inverse">
+              <tr>
+                <th><input type="checkbox" class="form-check-inline"></th>
+                <th></th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Discount</th>
+                <th>Status</th>
+                <th>Category</th>
+                <th>Supplier</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each=" item, iStart: ${products}">
+                <td><input type="checkbox" class="form-check-inline"></td>
+                <td><img
+                    th:src="${item.image != null ?  '/admin/products/images/' +  item.image : '/images/No-Image.png' }"
+                    width="70" class="img-fluid" alt=""></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.quantity}"></td>
+                <td th:text="${item.unitPrice}"></td>
+                <td th:text="${item.discount}"></td>
+                <td th:switch="${item.status}">
+                  <span th:case="'0'">Out of Stock</span>
+                  <span th:case="'1'">On Sale</span>
+                  <span th:case="'2'">Featured</span>
+                  <span th:case="'3'">Best Seller</span>
+                  <span th:case="'4'">Out of Order</span>
+                </td>
+                <td th:text="${item.category.name}"></td>
+                <td th:text="${item.supplier.name}"></td>
+                <td>
+
+                  <a th:href="@{'/admin/products/edit/' + ${item.productId}}" class="btn btn-outline-warning"><i
+                      class="fas fa-edit"></i></a>
+                  <a th:data-id="${item.productId}" th:data-name="${item.name}" class="btn btn-outline-danger"
+                    onclick="showConfirmModalDialog(this.getAttribute('data-id'),this.getAttribute('data-name'))"><i
+                      class="fas fa-recycle "></i></a>
+                  <!-- Button trigger modal -->
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <script>
+            showConfirmModalDialog = (id, name) => {
+              $('#productName').text(name);
+              $('#yesOption').attr('href', '/admin/products/delete/' + id)
+              $('#confirmationId').modal('show');
+            }
+            handleSubmitFormSearchByCategory = () => {
+              let form = document.getElementById('formSearchByCategory');
+              form.action = '/admin/products/searchByCategory'
+              form.submit();
+            }
+            handleSubmitFormSearchBySupplier = () => {
+              let form = document.getElementById('formSearchBySupplier');
+              form.action = '/admin/products/searchBySupplier'
+              form.submit();
+            }
+            handleSubmitFormSearchByStatus = () => {
+              let form = document.getElementById('formSearchByStatus');
+              action = '/admin/products/searchByStatus?statusId='
+              let selectElement = document.getElementById("statusId").value;
+              action += selectElement
+              // Lấy giá trị được chọn
+              // var selectedValue = selectElement.value;
+
+              window.location.href = action;
+            }
+            handleSubmitFormSort = () => {
+              let form = document.getElementById('formSort');
+              let action = '/admin/products/sort?name='
+              const statusSort = document.getElementById('statusSort').value;
+
+              if (statusSort == 0) {
+                action += 'quantity'
+              }
+              else {
+                action += 'unitPrice'
+              }
+              if (statusSort == 2) {
+                action += '&direction=decs'
+              }
+              else
+                action += '&direction=acs'
+              // form.action = action;
+              window.location.href = action;
+              // form.submit();
+            }
+          </script>
+
+          <!-- Modal -->
+          <div class="modal fade" id="confirmationId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Confirmation</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Do you want to delete "<span id="productName"></span>"?
+                </div>
+                <div class="modal-footer">
+                  <a id="yesOption" type="button" class="btn btn-danger">Yes</a>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-muted">
+          <form id="formPageSize">
+            <div class="row mt-2 ">
+              <div class="col" style="margin-top: 10px;">
+                <nav>
+                  <ul class="pagination float-left ml-lg-2">
+                    <li class="page-item" id="prePage">
+                      <a class="page-link" href="#"><i class="fas fa-angle-left"></i></a>
+                    </li>
+                    <li class="page-item page-link" th:text="${currentPage} != null ? ${currentPage} + 1 : '1' "
+                      th:data-current-page="${currentPage}" id="currentPage"></li>
+                    <li class="page-item page-link" th:text="'/'"></li>
+                    <li class="page-item page-link" th:text="${totalPage}" th:data-total-page="${totalPage}"
+                      id="totalPage"></li>
+                    <li class="page-item" id="nextPage">
+                      <a class="page-link" href="#"><i class="fas fa-angle-right"></i></a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+              <div class="form-inline float-left col-8" style="margin-right: 10px;">
+                <label for="sort">Page Size </label>
+                <select class="form-control ml-2 " name="pagesize" id="pagesize" onchange="handleSubmitFormPageSize()">
+                  <option th:value="${pageSize}">Select</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                </select>
+              </div>
+          </form>
+
+        </div>
+
+      </div>
+      <script>
+        const handleSubmitFormPageSize = () => {
+          let pageSize = document.getElementById("pagesize").value;
+          action = '/admin/products/paginate?page=' + 0 + '&pagesize=' + pageSize;
+          window.location.href = action;
+        }
+
+        let nextPageBtn = document.getElementById("nextPage");
+        nextPageBtn.addEventListener("click", () => {
+          let pageSize = document.getElementById("pagesize").value;
+          let currentPage = document.getElementById('currentPage').getAttribute('data-current-page');
+          const totalPage = document.getElementById('totalPage').getAttribute('data-total-page');
+          currentPage = 1 + parseInt(currentPage);
+          if (currentPage >= totalPage) {
+            currentPage = 0;
+          }
+          action = '/admin/products/paginate?page=' + currentPage + '&pagesize=' + pageSize;
+          window.location.href = action;
+        })
+        let prePageBtn = document.getElementById("prePage");
+        prePageBtn.addEventListener("click", () => {
+          let pageSize = document.getElementById("pagesize").value;
+          let currentPage = document.getElementById('currentPage').getAttribute('data-current-page');
+          const totalPage = document.getElementById('totalPage').getAttribute('data-total-page');
+          currentPage -= 1;
+          if (currentPage < 0) {
+            currentPage = totalPage - 1;
+          }
+          action = '/admin/products/paginate?page=' + currentPage + '&pagesize=' + pageSize;
+          window.location.href = action;
+        })
+
+      </script>
+    </div>
+
+    </div>
+  </section>
+</body>
+
+</html>

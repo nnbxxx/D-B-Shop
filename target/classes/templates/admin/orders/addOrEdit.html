@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{admin/dashboardLayout2.html}">
+
+<head>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+  <section class="" layout:fragment="content">
+    <div class="row " style="margin: 15px 0px 5px 0px;">
+      <div class="col">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/admin}">Admin</a></li>
+          <li class="breadcrumb-item"><a th:href="@{/admin/orders}">Order</a></li>
+          <li class="breadcrumb-item active">Add</li>
+        </ol>
+      </div>
+    </div>
+    <div class="col mt-4">
+      <form th:action="@{/admin/orders/saveOrUpdate}" method="post" th:object="${order}">
+        <div class="card">
+          <div class="card-header">
+            <h2 th:text="${!order.isEdit ? 'Edit Order':'Add new Order'}"></h2>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <input type="hidden" th:field="*{isEdit}">
+              <div class="form-group" th:if="${!order.isEdit}">
+                <label for="orderId">Order ID: </label>
+                <input type="text" class="form-control" name="orderId" id="orderId" aria-describedby="orderIdHid"
+                  placeholder="Order ID " th:field="*{orderId}" readonly>
+              </div>
+
+              <div class="form-group">
+                <label for="customerId">Customer</label>
+                <select class="form-control" name="customerId" id="customerId" th:field="*{customerId}">
+                  <option th:each="item : ${customers}" th:value="${item.customerId}" th:text="${item.name}"
+                    th:selected="${item.customerId == order.customerId}">
+                    Customer Name
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="amount">Amount </label>
+                <input type="number" class="form-control" name="amount" id="amount" aria-describedby="amountHid"
+                  placeholder="Amount " th:field="*{amount}" readonly>
+                <small id="amountHid" class="form-text text-muted" th:if="${#fields.hasErrors('amount')}">Amount is
+                  invalid</small>
+              </div>
+              <div class="form-group ">
+                <label for="status">Status</label>
+                <select class="form-control" name="status" id="status" th:field="*{status}">
+                  <option value="0">Chờ xác nhận</option>
+                  <option value="1">Chờ lấy hàng</option>
+                  <option value="2">Chờ thanh toán</option>
+                  <option value="3">Chờ đánh giá</option>
+                  <option value="4">Đã giao hàng</option>
+                  <option value="5">Hủy đơn hàng</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-muted">
+            <a class="btn btn-secondary" th:href="@{/admin/orders/add}" type="reset">New</a>
+            <a class="btn btn-outline-info" th:href="@{'/admin/orderdetails/edit/' + ${order.orderId}}" type="reset"
+              th:if="${!order.isEdit}">Edit
+              Order Detail</a>
+            <button class="btn btn-primary"><i class="fas fa-save"></i>
+              Save
+            </button>
+            <button th:if="${order.isEdit}" th:href="@{'/admin/orders/delete/' + ${order.orderId}}"
+              class="btn btn-danger float-right"><i class="fas fa-save"></i>
+              Delete
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </section>
+</body>
+
+</html>
