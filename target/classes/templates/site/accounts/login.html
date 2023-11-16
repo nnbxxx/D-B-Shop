@@ -4,21 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="http://localhost:8080/css/loginAdmin.css" />
-
     <title>Customer Login Page</title>
   </head>
 
   <body>
-    <section class="row">
+    <section>
       <div class="container" id="container" style="margin: 100px auto">
         <div class="form-container sign-up">
-          <div
-            class="alert alert-primary"
-            role="alert"
-            th:if="${message != null}"
-          >
-            <i>[[${message}]]</i>
-          </div>
           <form>
             <h1>Create Account</h1>
             <div class="social-icons">
@@ -55,8 +47,15 @@
           </form>
         </div>
         <div class="form-container sign-in">
-          <form>
+          <form th:action="@{/clogin}" method="post" th:object="${customer}">
             <h1>Sign In</h1>
+            <div
+              class="alert alert-primary"
+              role="alert"
+              th:if="${message != null}"
+            >
+              <i>[[${message}]]</i>
+            </div>
             <div class="social-icons">
               <a href="#" class="icon">
                 <object

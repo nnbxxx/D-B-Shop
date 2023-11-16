@@ -85,9 +85,15 @@
               >Password is invalid</small
             >
             <button>Login</button>
-            <span style="padding: 10px; cursor: pointer" id="btnGoAdmin"
-              >Go to login Page</span
+            <span style="padding: 10px; cursor: pointer" id="btnGoCustomer"
+              >Go to Login Customer Page</span
             >
+            <script>
+              const loginCustomerBtn = document.getElementById("btnGoCustomer");
+              loginCustomerBtn.addEventListener("click", () => {
+                window.location.href = "/clogin";
+              });
+            </script>
           </form>
         </div>
         <div class="toggle-container">

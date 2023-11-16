@@ -10,7 +10,7 @@ body {
   background: linear-gradient(to right, #e2e2e2, #c9d6ff);
 }
 
-.container {
+section .container {
   margin-top: 100px;
   background-color: #fff;
   border-radius: 30px;
@@ -22,25 +22,25 @@ body {
   min-height: 480px;
 }
 
-.container p {
+section .container p {
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.3px;
   margin: 20px 0;
 }
 
-.container span {
+section .container span {
   font-size: 12px;
 }
 
-.container a {
+section .container a {
   color: #333;
   font-size: 13px;
   text-decoration: none;
   margin: 15px 0 10px;
 }
 
-.container button {
+section .container button {
   background-color: #739072;
   color: #fff;
   font-size: 12px;
@@ -54,12 +54,12 @@ body {
   cursor: pointer;
 }
 
-.container button.hidden {
+section .container button.hidden {
   background-color: transparent;
   border-color: #fff;
 }
 
-.container form {
+section .container form {
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -69,7 +69,7 @@ body {
   height: 100%;
 }
 
-.container input {
+section .container input {
   background-color: #eee;
   border: none;
   margin: 8px 0;
