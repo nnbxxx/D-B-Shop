@@ -61,20 +61,21 @@ public class CategoryController {
 		
 		categoryService.deleteById(categoryId);
 		model.addAttribute("message", "Category is Deleted !");
-		return new ModelAndView("forward:/admin/categories",model);
+		return new ModelAndView("forward:/admin/categories/search",model);
 	}
 	
 	@PostMapping("saveOrUpdate")
 	public ModelAndView saveOrUpdate(ModelMap model,@Valid @ModelAttribute("category") CategoryDto categoryDto, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-//			bindingResult.getAllErrors().forEach(item -> System.out.println(item));
 			return new ModelAndView("admin/categories/addOrEdit");
 		}
 		Category entity = new Category();
+		List<Category> categories = categoryService.findAll();
+		model.addAttribute("categories",categories);
 		BeanUtils.copyProperties(categoryDto, entity);
 		categoryService.save(entity);
 		model.addAttribute("message", "Category is Saved !");
-		return new ModelAndView("forward:/admin/categories", model);
+		return new ModelAndView("forward:/admin/categories/search",model);
 	}
 	@RequestMapping("")
 	public String list(ModelMap model) {
@@ -82,7 +83,7 @@ public class CategoryController {
 		model.addAttribute("categories",categories);
 		return "admin/categories/list";
 	}
-	@GetMapping("search")
+	@RequestMapping("search")
 	public String search(ModelMap model, @RequestParam(name = "name",required = false) String name ) {
 		List<Category> list = null;
 		if(StringUtils.hasText(name)) {
