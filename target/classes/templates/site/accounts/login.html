@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="http://localhost:8080/css/loginAdmin.css" />
+    <link rel="stylesheet" href="http://localhost:8080/css/alert.css" />
     <title>Customer Login Page</title>
   </head>
 
@@ -13,6 +14,13 @@
         <div class="form-container sign-up">
           <form>
             <h1>Create Account</h1>
+            <div
+              class="alert alert-primary"
+              role="alert"
+              th:if="${messageSignIn != null}"
+            >
+              <i>[[${messageSignIn}]]</i>
+            </div>
             <div class="social-icons">
               <a href="#" class="icon">
                 <object
@@ -79,8 +87,36 @@
               </a>
             </div>
             <span>or use your Phone Number</span>
-            <input type="text" placeholder="Phone Number" />
-            <input type="password" placeholder="Password" />
+            <input
+              type="text"
+              class="form-control"
+              name="phone"
+              id="phone"
+              aria-describedby="phoneHid"
+              th:field="*{phone}"
+              placeholder="Phone Number"
+            />
+            <small
+              id="phoneHid"
+              class="form-text text-muted"
+              th:if="${#fields.hasErrors('phone')}"
+              >Phone is invalid</small
+            >
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              id="password"
+              aria-describedby="passwordHid"
+              th:field="*{password}"
+              placeholder="Password"
+            />
+            <small
+              id="passwordHid"
+              class="form-text text-muted"
+              th:if="${#fields.hasErrors('password')}"
+              >Password is invalid</small
+            >
             <a href="#">Forget Your Password?</a>
             <button>Sign In</button>
           </form>

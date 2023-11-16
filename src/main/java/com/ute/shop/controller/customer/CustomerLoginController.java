@@ -57,7 +57,6 @@ public class CustomerLoginController {
 			session.removeAttribute("redirect-uri");
 			return new ModelAndView("redirect:" + ruri);
 		}
-		model.addAttribute("message","Login successful!");
-		return new ModelAndView("/site/accounts/login", model);
+		return new ModelAndView("/site/home/index", model);
 	}
 }
