@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <head> </head>
+
+  <body>
+    <header style="margin-bottom: 50px" th:fragment="header">
+      <div class="header-main">
+        <div class="container">
+          <a href="/" class="header-logo">
+            <img
+              src="./assets/images/logo/logo.svg"
+              alt="Anon's logo"
+              width="120"
+              height="36"
+            />
+          </a>
+
+          <div class="header-search-container">
+            <form th:action="@{/searchByName}">
+              <input
+                type="search"
+                name="name"
+                class="search-field"
+                placeholder="Enter your product name..."
+              />
+              <button class="search-btn">
+                <ion-icon name="search-outline"></ion-icon>
+              </button>
+            </form>
+          </div>
+
+          <div class="header-user-actions">
+            <button class="action-btn">
+              <ion-icon name="person-outline"></ion-icon>
+            </button>
+
+            <button class="action-btn">
+              <ion-icon name="bag-handle-outline"></ion-icon>
+              <span class="count">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+  </body>
+</html>

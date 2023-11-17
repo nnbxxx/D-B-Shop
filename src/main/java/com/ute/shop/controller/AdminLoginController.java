@@ -25,7 +25,11 @@ public class AdminLoginController {
 	private AccountService accountService;
 	@Autowired
 	private HttpSession session;
-
+	@RequestMapping("/admin")
+	public String adminPage() {
+		return "/admin/content";
+	}
+	
 	@GetMapping("alogin")
 	public String login(ModelMap model) {
 		Account defaultAccount = new Account();
@@ -41,7 +45,6 @@ public class AdminLoginController {
 
 	@RequestMapping("alogout")
 	public String logout(ModelMap model) {
-		
 		
 		String username = (String) session.getAttribute("username");
 		if (username != null) {
