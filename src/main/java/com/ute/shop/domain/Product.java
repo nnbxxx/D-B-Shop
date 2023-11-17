@@ -56,7 +56,7 @@ public class Product implements Serializable{
 	private Category category;
 	
 	@ManyToOne
-	@JoinColumn(name="supplier")
+	@JoinColumn(name="supplierId")
 	private Supplier supplier;
 	
 	@OneToMany(mappedBy = "product" ,cascade = CascadeType.ALL)
