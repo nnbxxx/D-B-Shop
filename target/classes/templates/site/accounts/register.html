@@ -11,10 +11,10 @@
 
   <body>
     <section class="row">
-      <div class="container" id="container" style="margin: 100px auto">
-        <div class="form-container sign-in">
-          <form method="post" th:object="${customer}" th:action="@{/clogin}">
-            <h1>Sign In</h1>
+      <div class="container active" id="container" style="margin: 100px auto">
+        <div class="form-container sign-up">
+          <form method="post" th:object="${customer}" th:action="@{/cregister}">
+            <h1>Create Account</h1>
             <div class="social-icons">
               <a href="#" class="icon">
                 <object
@@ -22,12 +22,14 @@
                   data="http://localhost:8080/images/social-icon/google.svg"
                 ></object>
               </a>
+
               <a href="#" class="icon">
                 <object
                   type="image/svg+xml"
                   data="http://localhost:8080/images/social-icon/facebook.svg"
                 ></object>
               </a>
+
               <a href="#" class="icon">
                 <object
                   type="image/svg+xml"
@@ -35,7 +37,36 @@
                 ></object>
               </a>
             </div>
-            <span>or using your Phone Number</span>
+            <span>or using your email and your phone for registeration</span>
+            <input
+              type="text"
+              name="name"
+              class="form-control"
+              id="name"
+              aria-describedby="nameHid"
+              th:field="*{name}"
+              placeholder="User Name"
+            /><small
+              id="nameHid"
+              class="form-text text-muted"
+              th:if="${#fields.hasErrors('name')}"
+              >Name is invalid</small
+            >
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="form-control"
+              aria-describedby="emailHid"
+              placeholder="Email"
+              th:field="*{email}"
+            />
+            <small
+              id="emailHid"
+              class="form-text text-muted"
+              th:if="${#fields.hasErrors('email')}"
+              >Email is invalid</small
+            >
             <input
               type="text"
               class="form-control"
@@ -66,28 +97,19 @@
               th:if="${#fields.hasErrors('password')}"
               >Password is invalid</small
             >
-            <a href="#">Forget Your Password?</a>
-            <button>Sign In111</button>
+            <button>Sign Up</button>
             <span style="padding: 10px; cursor: pointer" class="btnGoAdmin"
               >Go to Login Admin Page</span
             >
-            <div
-              class="alert alert-danger"
-              role="alert"
-              th:if="${messageLogin != null}"
-            >
-              <i>[[${messageLogin}]]</i>
-            </div>
           </form>
         </div>
+        <div class="form-container sign-in"></div>
         <div class="toggle-container">
           <div class="toggle">
-            <div class="toggle-panel toggle-right">
-              <h1>Hello, Friend!</h1>
-              <p>
-                Register with your personal details to use all of site features
-              </p>
-              <button class="hidden" id="btnGotoSignUp">Sign Up</button>
+            <div class="toggle-panel toggle-left">
+              <h1>Welcome Back!</h1>
+              <p>Enter your personal details to use all of site features</p>
+              <button class="hidden" id="btnGotoSignIn">Sign In</button>
             </div>
           </div>
         </div>
@@ -106,9 +128,9 @@
           window.location.href = "/alogin";
         });
       });
-      let btnSignUp = document.getElementById("btnGotoSignUp");
-      btnSignUp.addEventListener("click", () => {
-        window.location.href = "/cregister";
+      let btnSignIn = document.getElementById("btnGotoSignIn");
+      btnSignIn.addEventListener("click", () => {
+        window.location.href = "/clogin";
       });
     </script>
   </body>

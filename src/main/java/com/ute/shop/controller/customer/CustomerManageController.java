@@ -48,7 +48,13 @@ public class CustomerManageController {
 		if(customerId == null) {
 			return new ModelAndView( "forward:/cregister",model);
 		}
-		
+		Optional<Customer> optional = customerService.findById(customerId);
+		if(optional.isPresent()) {
+			Customer entity = optional.get();
+			BeanUtils.copyProperties(entity, customerDto);
+			customerService.save(entity);
+			model.addAttribute("message", "Customer is Saved !");
+		}
 		return new ModelAndView( "forward:/cregister",model);
 	}
 	

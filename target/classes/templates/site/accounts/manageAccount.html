@@ -93,7 +93,9 @@
           </svg>
           <span class="lable">Settings Account</span>
         </button>
-
+        <div class="alert alert-primary" role="alert" th:if="${message}">
+          <strong>[[${message}]]</strong>
+        </div>
         <div
           class="col-12"
           id="helloWorldDiv"

@@ -30,23 +30,29 @@ public class CustomerLoginController {
 	@Autowired
 	private CustomerService customerService;
 		
-	@GetMapping(value = {"clogin","cregister"})
+	@GetMapping(value = {"clogin"})
 	public String login(ModelMap model) {
 		model.addAttribute("customer", new CustomerLoginDto());
+		return "/site/accounts/login";
+	}
+	@GetMapping(value = {"cregister"})
+	public String register(ModelMap model) {
 		CustomerDto dto = new CustomerDto();
 		dto.setIsEdit(true);
-		model.addAttribute("customerAdd",dto);
-		return "/site/accounts/login";
+		model.addAttribute("customer",dto);
+		return "/site/accounts/register";
 	}
 	@PostMapping("cregister")
 	public ModelAndView register(ModelMap model,@Valid @ModelAttribute(value = "customer") CustomerDto customerDto, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			return new ModelAndView("/site/accounts/login");
+			return new ModelAndView("/site/accounts/register");
 		}
 		Customer entity = new Customer();
 		BeanUtils.copyProperties(customerDto, entity);
 		entity.setStatus((short) 0);
 		customerService.save(entity);
+		session.setAttribute("customer", entity.getPhone());
+		session.setAttribute("customerId", entity.getCustomerId());
 		return new ModelAndView("/site/content", model);
 	}
 	@PostMapping("clogin")
@@ -57,19 +63,19 @@ public class CustomerLoginController {
 		}
 		Customer customer = customerService.login(customerLoginDto.getPhone(), customerLoginDto.getPassword());
 		if(customer == null) {
-			model.addAttribute("messageLogin", "Invalid phone or password or Account not Active");
+			model.addAttribute("message", "Invalid phone or password or Account not Active");
 			return new ModelAndView("/site/accounts/login", model);
 		}
 	
 		session.setAttribute("customer", customerLoginDto.getPhone());
 		session.setAttribute("customerId", customer.getCustomerId());
-		System.out.println("customerId = " + session.getAttribute("customerId"));
 		Object ruri = session.getAttribute("redirect-uri");
 		if (ruri != null) {
 			session.removeAttribute("redirect-uri");
 			return new ModelAndView("redirect:" + ruri);
 		}
-		model.addAttribute("messageLogin", "Loging Customer succesfull");
+		model.addAttribute("customer", new CustomerLoginDto());
+		model.addAttribute("message", "Loging Customer succesfull");
 		return new ModelAndView("/site/content", model);
 	}
 	

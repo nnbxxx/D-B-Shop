@@ -12,104 +12,8 @@
   <body>
     <section class="row">
       <div class="container" id="container" style="margin: 100px auto">
-        <div class="form-container sign-up">
-          <form
-            th:action="@{/cregister}"
-            method="post"
-            th:object="${customerAdd}"
-          >
-            <h1>Create Account</h1>
-            <div class="social-icons">
-              <a href="#" class="icon">
-                <object
-                  type="image/svg+xml"
-                  data="http://localhost:8080/images/social-icon/google.svg"
-                ></object>
-              </a>
-
-              <a href="#" class="icon">
-                <object
-                  type="image/svg+xml"
-                  data="http://localhost:8080/images/social-icon/facebook.svg"
-                ></object>
-              </a>
-
-              <a href="#" class="icon">
-                <object
-                  type="image/svg+xml"
-                  data="http://localhost:8080/images/social-icon/apple.svg"
-                ></object>
-              </a>
-            </div>
-            <span>or using your email and your phone for registeration</span>
-            <input
-              type="text"
-              class="form-control"
-              name="name"
-              id="name"
-              aria-describedby="nameHid"
-              placeholder="Name "
-              th:field="*{name}"
-            />
-            <small
-              id="nameHid"
-              class="form-text text-muted"
-              th:if="${#fields.hasErrors('name')}"
-              >Name is invalid</small
-            >
-            <input
-              type="email"
-              class="form-control"
-              name="email"
-              id="email"
-              th:field="*{email}"
-              aria-describedby="emailHid"
-              placeholder="Email"
-            />
-            <small
-              id="emailHid"
-              class="form-text text-muted"
-              th:if="${#fields.hasErrors('email')}"
-              >Email is invalid</small
-            >
-            <input
-              type="text"
-              class="form-control"
-              name="phone"
-              id="phone"
-              th:field="*{phone}"
-              aria-describedby="phonelHid"
-              placeholder="Phone"
-            />
-            <small
-              id="phoneHid"
-              class="form-text text-muted"
-              th:if="${#fields.hasErrors('phone')}"
-              >Phone is invalid</small
-            >
-            <input
-              type="password"
-              class="form-control"
-              name="password"
-              id="password"
-              th:field="*{password}"
-              aria-describedby="passwordHid"
-              placeholder="Password"
-            />
-            <small
-              id="passwordHid"
-              class="form-text text-muted"
-              th:if="${#fields.hasErrors('password')}"
-              >Password is invalid</small
-            >
-            <button>Sign Up</button>
-            <span style="padding: 10px; cursor: pointer" class="btnGoAdmin"
-              >Go to Login Admin Page</span
-            >
-          </form>
-        </div>
         <div class="form-container sign-in">
-          <form th:action="@{/clogin}" method="post" th:object="${customer}">
+          <form method="post" th:object="${customer}" th:action="@{/clogin}">
             <h1>Sign In</h1>
             <div class="social-icons">
               <a href="#" class="icon">
@@ -118,14 +22,12 @@
                   data="http://localhost:8080/images/social-icon/google.svg"
                 ></object>
               </a>
-
               <a href="#" class="icon">
                 <object
                   type="image/svg+xml"
                   data="http://localhost:8080/images/social-icon/facebook.svg"
                 ></object>
               </a>
-
               <a href="#" class="icon">
                 <object
                   type="image/svg+xml"
@@ -139,9 +41,9 @@
               class="form-control"
               name="phone"
               id="phone"
-              aria-describedby="phoneHid"
+              aria-describedby="phonelHid"
+              placeholder="Phone"
               th:field="*{phone}"
-              placeholder="Phone Number"
             />
             <small
               id="phoneHid"
@@ -165,7 +67,7 @@
               >Password is invalid</small
             >
             <a href="#">Forget Your Password?</a>
-            <button>Sign In</button>
+            <button>Sign In111</button>
             <span style="padding: 10px; cursor: pointer" class="btnGoAdmin"
               >Go to Login Admin Page</span
             >
@@ -180,24 +82,18 @@
         </div>
         <div class="toggle-container">
           <div class="toggle">
-            <div class="toggle-panel toggle-left">
-              <h1>Welcome Back!</h1>
-              <p>Enter your personal details to use all of site features</p>
-              <button class="hidden" id="login">Sign In</button>
-            </div>
             <div class="toggle-panel toggle-right">
               <h1>Hello, Friend!</h1>
               <p>
                 Register with your personal details to use all of site features
               </p>
-              <button class="hidden" id="register">Sign Up</button>
+              <button class="hidden" id="btnGotoSignUp">Sign Up</button>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <script src="http://localhost:8080/js/loginAdmin.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
@@ -209,6 +105,10 @@
         item.addEventListener("click", () => {
           window.location.href = "/alogin";
         });
+      });
+      let btnSignUp = document.getElementById("btnGotoSignUp");
+      btnSignUp.addEventListener("click", () => {
+        window.location.href = "/cregister";
       });
     </script>
   </body>
