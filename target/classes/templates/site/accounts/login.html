@@ -5,22 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="http://localhost:8080/css/loginAdmin.css" />
     <link rel="stylesheet" href="http://localhost:8080/css/alert.css" />
+
     <title>Customer Login Page</title>
   </head>
 
   <body>
-    <section>
+    <section class="row">
       <div class="container" id="container" style="margin: 100px auto">
         <div class="form-container sign-up">
-          <form>
+          <form
+            th:action="@{/cregister}"
+            method="post"
+            th:object="${customerAdd}"
+          >
             <h1>Create Account</h1>
-            <div
-              class="alert alert-primary"
-              role="alert"
-              th:if="${messageSignIn != null}"
-            >
-              <i>[[${messageSignIn}]]</i>
-            </div>
             <div class="social-icons">
               <a href="#" class="icon">
                 <object
@@ -43,27 +41,76 @@
                 ></object>
               </a>
             </div>
-            <span>or use your email for registeration</span>
-            <input type="text" placeholder="Name" />
-            <input type="text" placeholder="Phone" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
+            <span>or using your email and your phone for registeration</span>
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              id="name"
+              aria-describedby="nameHid"
+              placeholder="Name "
+              th:field="*{name}"
+            />
+            <small
+              id="nameHid"
+              class="form-text text-muted"
+              th:if="${#fields.hasErrors('name')}"
+              >Name is invalid</small
+            >
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              id="email"
+              aria-describedby="emailHid"
+              placeholder="Email"
+              th:field="*{email}"
+            />
+            <small
+              id="emailHid"
+              class="form-text text-muted"
+              th:if="${#fields.hasErrors('email')}"
+              >Email is invalid</small
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="phone"
+              id="phone"
+              aria-describedby="phonelHid"
+              placeholder="Phone"
+              th:field="*{phone}"
+            />
+            <small
+              id="phoneHid"
+              class="form-text text-muted"
+              th:if="${#fields.hasErrors('phone')}"
+              >Phone is invalid</small
+            >
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              id="password"
+              aria-describedby="passwordHid"
+              th:field="*{password}"
+              placeholder="Password"
+            />
+            <small
+              id="passwordHid"
+              class="form-text text-muted"
+              th:if="${#fields.hasErrors('password')}"
+              >Password is invalid</small
+            >
             <button>Sign Up</button>
-            <span style="padding: 10px; cursor: pointer" id="btnGoAdmin"
-              >Go to login Page</span
+            <span style="padding: 10px; cursor: pointer" class="btnGoAdmin"
+              >Go to Login Admin Page</span
             >
           </form>
         </div>
         <div class="form-container sign-in">
           <form th:action="@{/clogin}" method="post" th:object="${customer}">
             <h1>Sign In</h1>
-            <div
-              class="alert alert-primary"
-              role="alert"
-              th:if="${message != null}"
-            >
-              <i>[[${message}]]</i>
-            </div>
             <div class="social-icons">
               <a href="#" class="icon">
                 <object
@@ -86,7 +133,7 @@
                 ></object>
               </a>
             </div>
-            <span>or use your Phone Number</span>
+            <span>or using your Phone Number</span>
             <input
               type="text"
               class="form-control"
@@ -119,6 +166,16 @@
             >
             <a href="#">Forget Your Password?</a>
             <button>Sign In</button>
+            <span style="padding: 10px; cursor: pointer" class="btnGoAdmin"
+              >Go to Login Admin Page</span
+            >
+            <div
+              class="alert alert-danger"
+              role="alert"
+              th:if="${messageLogin != null}"
+            >
+              <i>[[${messageLogin}]]</i>
+            </div>
           </form>
         </div>
         <div class="toggle-container">
@@ -146,5 +203,13 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+    <script>
+      let btnGoAdmin = document.querySelectorAll("span.btnGoAdmin");
+      btnGoAdmin.forEach((item) => {
+        item.addEventListener("click", () => {
+          window.location.href = "/alogin";
+        });
+      });
+    </script>
   </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Title</title>
+    <title>Admin Login Page</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -23,13 +23,6 @@
       <div class="container" id="container">
         <div class="form-container sign-in">
           <form th:action="@{/alogin}" method="post" th:object="${account}">
-            <div
-              class="alert alert-danger"
-              role="alert"
-              th:if="${message != null}"
-            >
-              <i>[[${message}]]</i>
-            </div>
             <h1>Log In</h1>
             <div class="social-icons">
               <a href="#" class="icon">
@@ -88,9 +81,10 @@
             <span style="padding: 10px; cursor: pointer" id="btnGoCustomer"
               >Go to Login Customer Page</span
             >
+
             <script>
-              const loginCustomerBtn = document.getElementById("btnGoCustomer");
-              loginCustomerBtn.addEventListener("click", () => {
+              const btnGoCustomer = document.getElementById("btnGoCustomer");
+              btnGoCustomer.addEventListener("click", () => {
                 window.location.href = "/clogin";
               });
             </script>
@@ -123,5 +117,6 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <script src="http://localhost:8080/js/loginAdmin.js"></script>
   </body>
 </html>

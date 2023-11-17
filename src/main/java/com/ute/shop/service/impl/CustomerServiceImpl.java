@@ -26,7 +26,6 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Customer login(String phone,String password) {
 		Optional<Customer> optionalCustomer = findByPhone(phone);
-		
 		if(optionalCustomer.isPresent()) {
 			if(optionalCustomer.get().getStatus() != 0) {
 				return null;
