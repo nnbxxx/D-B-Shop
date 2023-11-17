@@ -1,21 +1,18 @@
-// accordion variables
-const accordionBtn = document.querySelectorAll("[data-accordion-btn]");
-const accordion = document.querySelectorAll("[data-accordion]");
+let iconCart = document.querySelector(".iconCart");
+let cart = document.querySelector(".cart");
+let container = document.querySelector(".container");
+let close = document.querySelector(".close");
 
-for (let i = 0; i < accordionBtn.length; i++) {
-  accordionBtn[i].addEventListener("click", function () {
-    const clickedBtn = this.nextElementSibling.classList.contains("active");
-
-    for (let i = 0; i < accordion.length; i++) {
-      if (clickedBtn) break;
-
-      if (accordion[i].classList.contains("active")) {
-        accordion[i].classList.remove("active");
-        accordionBtn[i].classList.remove("active");
-      }
-    }
-
-    this.nextElementSibling.classList.toggle("active");
-    this.classList.toggle("active");
-  });
-}
+iconCart.addEventListener("click", function () {
+  if (cart.style.right == "-100%") {
+    cart.style.right = "0";
+    container.style.transform = "translateX(-400px)";
+  } else {
+    cart.style.right = "-100%";
+    container.style.transform = "translateX(0)";
+  }
+});
+close.addEventListener("click", function () {
+  cart.style.right = "-100%";
+  container.style.transform = "translateX(0)";
+});

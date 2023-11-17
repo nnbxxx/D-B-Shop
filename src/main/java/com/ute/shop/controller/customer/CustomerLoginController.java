@@ -83,26 +83,9 @@ public class CustomerLoginController {
 		if (phone != null) {
 			session.removeAttribute("customer");
 			session.removeAttribute("customerId");
-			
 		}
 		model.addAttribute("customer", new CustomerLoginDto());
 		return "/site/accounts/login";
 	}
-	@GetMapping("account")
-	public ModelAndView edit(ModelMap model) {
-		Integer customerId = (Integer) session.getAttribute("customerId");
-		if(customerId == null) {
-			return new ModelAndView( "forward:/cregister",model);
-		}
-		Optional<Customer> optional = customerService.findById(customerId);
-		CustomerDto customerDto = new CustomerDto();
-		if(optional.isPresent()) {
-			Customer entity = optional.get();
-			BeanUtils.copyProperties(entity, customerDto);
-			customerDto.setPassword("");
-			model.addAttribute("customer",customerDto);
-			return new ModelAndView("site/accounts/manageAccount",model);
-		}
-		return new ModelAndView( "forward:/cregister",model);
-	}
+	
 }
