@@ -43,8 +43,12 @@ public class CustomerManageController {
 		return new ModelAndView( "forward:/cregister",model);
 	}
 	@PostMapping("account")
-	public ModelAndView save(ModelMap model,@Valid @ModelAttribute("customer") CustomerDto customerDto, BindingResult bindingResult) {
+	public ModelAndView save(ModelMap model,
+		@Valid @ModelAttribute("customer") CustomerDto customerDto, BindingResult bindingResult) {
 		Integer customerId = (Integer) session.getAttribute("customerId");
+		if(bindingResult.hasErrors()) {
+			return new ModelAndView("site/accounts/manageAccount");
+		}
 		if(customerId == null) {
 			return new ModelAndView( "forward:/cregister",model);
 		}
@@ -55,7 +59,7 @@ public class CustomerManageController {
 			customerService.save(entity);
 			model.addAttribute("message", "Customer is Saved !");
 		}
-		return new ModelAndView( "forward:/cregister",model);
+		return new ModelAndView( "forward:/",model);
 	}
 	
 }

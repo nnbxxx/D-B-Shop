@@ -101,7 +101,7 @@
           id="helloWorldDiv"
           style="display: none; margin-top: 10px"
         >
-          <form th:object="${customer}" action="">
+          <form th:object="${customer}" method="post" th:action="@{/account}">
             <div class="card">
               <div class="card-header">Mangage Your Account</div>
               <div class="card-body">

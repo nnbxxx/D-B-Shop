@@ -4,16 +4,813 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
-  <head></head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anon - eCommerce Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        /**
+ * colors
+ */
+
+        --spanish-gray: hsl(0, 0%, 60%);
+        --sonic-silver: hsl(0, 0%, 47%);
+        --eerie-black: hsl(0, 0%, 13%);
+        --salmon-pink: hsl(353, 100%, 78%);
+        --sandy-brown: hsl(29, 90%, 65%);
+        --bittersweet: hsl(0, 100%, 70%);
+        --ocean-green: hsl(152, 51%, 52%);
+        --davys-gray: hsl(0, 0%, 33%);
+        --cultured: hsl(0, 0%, 93%);
+        --white: hsl(0, 100%, 100%);
+        --onyx: hsl(0, 0%, 27%);
+
+        /**
+ * typography
+ */
+
+        --fs-1: 1.563rem;
+        --fs-2: 1.375rem;
+        --fs-3: 1.25rem;
+        --fs-4: 1.125rem;
+        --fs-5: 1rem;
+        --fs-6: 0.938rem;
+        --fs-7: 0.875rem;
+        --fs-8: 0.813rem;
+        --fs-9: 0.75rem;
+        --fs-10: 0.688rem;
+        --fs-11: 0.625rem;
+
+        --weight-300: 300;
+        --weight-400: 400;
+        --weight-500: 500;
+        --weight-600: 600;
+        --weight-700: 700;
+
+        /**
+ * border-radius
+ */
+
+        --border-radius-md: 10px;
+        --border-radius-sm: 5px;
+
+        /**
+ * transition 
+ */
+
+        --transition-timing: 0.2s ease;
+      }
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      li {
+        list-style: none;
+      }
+
+      button {
+        background: none;
+        font: inherit;
+        border: none;
+        cursor: pointer;
+      }
+
+      img,
+      ion-icon,
+      button,
+      a {
+        display: block;
+      }
+
+      span {
+        display: inline-block;
+      }
+
+      html {
+        font-family: "Poppins", sans-serif;
+        -ms-scroll-chaining: none;
+        overscroll-behavior: contain;
+      }
+
+      input {
+        display: block;
+        width: 100%;
+        font: inherit;
+      }
+
+      input::-webkit-input-placeholder {
+        font: inherit;
+      }
+
+      input::-moz-placeholder {
+        font: inherit;
+      }
+
+      input:-ms-input-placeholder {
+        font: inherit;
+      }
+
+      input::-ms-input-placeholder {
+        font: inherit;
+      }
+
+      input::placeholder {
+        font: inherit;
+      }
+
+      body {
+        background: var(--white);
+      }
+
+      /*-----------------------------------*\
+#REUSED STYLE
+\*-----------------------------------*/
+
+      .container {
+        padding: 0 15px;
+      }
+
+      .has-scrollbar {
+        padding-bottom: 5px;
+      }
+
+      .has-scrollbar::-webkit-scrollbar {
+        width: 12px; /* for vertical scroll */
+        height: 12px; /* for horizontal scroll */
+      }
+
+      .has-scrollbar::-webkit-scrollbar-thumb {
+        background: transparent;
+        border: 3px solid var(--white);
+        -webkit-border-radius: 20px;
+        border-radius: 20px;
+      }
+      .has-scrollbar:hover::-webkit-scrollbar-thumb {
+        background: hsl(0, 0%, 90%);
+      }
+
+      .has-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: hsl(0, 0%, 80%);
+      }
+      .title {
+        color: var(--eerie-black);
+        font-size: var(--fs-5);
+        font-weight: var(--weight-600);
+        letter-spacing: 0.4px;
+        text-transform: capitalize;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--cultured);
+        margin-bottom: 30px;
+      }
+
+      .sidebar-accordion-menu {
+        width: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        padding: 7px 0;
+      }
+
+      .sidebar .menu-title-flex {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .sidebar .menu-title {
+        font-size: var(--fs-5);
+        color: var(--sonic-silver);
+        font-weight: var(--weight-500);
+      }
+
+      .sidebar-accordion-menu ion-icon {
+        color: var(--sonic-silver);
+        font-size: 14px;
+        --ionicon-stroke-width: 70px;
+      }
+
+      .sidebar-submenu-category-list {
+        border-top: 1px solid var(--cultured);
+        max-height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        -webkit-transition: 0.5s ease-in-out;
+        -o-transition: 0.5s ease-in-out;
+        transition: 0.5s ease-in-out;
+      }
+
+      .sidebar-submenu-category-list.active {
+        padding: 13px 0 8px;
+        max-height: 122px;
+        visibility: visible;
+      }
+
+      .sidebar-submenu-title {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        color: var(--sonic-silver);
+        font-size: var(--fs-7);
+        padding: 2px 0;
+      }
+
+      .sidebar-submenu-title:hover {
+        color: var(--eerie-black);
+      }
+
+      .sidebar .product-name {
+        text-transform: capitalize;
+      }
+
+      .sidebar-accordion-menu.active .add-icon,
+      .sidebar-accordion-menu .remove-icon {
+        display: none;
+      }
+
+      .sidebar-accordion-menu .add-icon,
+      .sidebar-accordion-menu.active .remove-icon {
+        display: block;
+      }
+
+      .sidebar .showcase-heading {
+        font-size: var(--fs-5);
+        font-weight: var(--weight-600);
+        color: var(--onyx);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 15px;
+      }
+
+      .sidebar .showcase {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .sidebar .showcase:not(:last-child) {
+        margin-bottom: 15px;
+      }
+
+      .sidebar .showcase-img {
+        -webkit-border-radius: var(--border-radius-sm);
+        border-radius: var(--border-radius-sm);
+      }
+
+      .sidebar .showcase-content {
+        width: -webkit-calc(100% - 90px);
+        width: calc(100% - 90px);
+      }
+
+      .sidebar .showcase-title {
+        color: var(--onyx);
+        font-size: var(--fs-7);
+        font-weight: var(--weight-400);
+        text-transform: capitalize;
+        overflow: hidden;
+        white-space: nowrap;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        letter-spacing: 0.5px;
+      }
+
+      .sidebar .showcase-rating {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        color: var(--sandy-brown);
+        font-size: 13px;
+        padding: 4px 0;
+      }
+
+      .sidebar .price-box {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .sidebar .price-box del {
+        color: var(--sonic-silver);
+        font-size: 13px;
+      }
+
+      .sidebar .price-box .price {
+        font-size: var(--fs-7);
+        font-weight: var(--weight-600);
+        color: var(--davys-gray);
+      }
+
+      @media (min-width: 1024px) {
+        :root {
+          /**
+   * typography 
+   */
+
+          --fs-1: 2.625rem;
+          --fs-2: 1.125rem;
+        }
+        .container {
+          max-width: 980px;
+        }
+        .category-item {
+          min-width: -webkit-calc(33.33% - 20px);
+          min-width: calc(33.33% - 20px);
+        }
+        .category-img-box {
+          padding: 10px;
+        }
+
+        .product-container .container {
+          position: relative;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: start;
+          -webkit-align-items: flex-start;
+          -ms-flex-align: start;
+          align-items: flex-start;
+          gap: 30px;
+          margin-bottom: 30px;
+        }
+
+        .sidebar {
+          --fs-5: 0.941rem;
+
+          position: -webkit-sticky;
+
+          position: sticky;
+          top: 30px;
+          left: 0;
+          padding: 0;
+          min-width: -webkit-calc(25% - 15px);
+          min-width: calc(25% - 15px);
+          margin-bottom: 30px;
+          visibility: visible;
+          overflow-y: auto;
+          -ms-scroll-chaining: chained;
+          overscroll-behavior: auto;
+          z-index: 0;
+        }
+
+        .sidebar-category {
+          padding: 20px;
+          margin-right: 30px;
+          margin-bottom: 30px;
+          border: 1px solid var(--cultured);
+          -webkit-border-radius: var(--border-radius-md);
+          border-radius: var(--border-radius-md);
+        }
+
+        .sidebar-close-btn {
+          display: none;
+        }
+      }
+      @media (min-width: 1200px) {
+        .container {
+          max-width: 1200px;
+        }
+
+        .product-featured .showcase > div {
+          min-width: -webkit-calc(50% - 10px);
+          min-width: calc(50% - 10px);
+        }
+
+        .product-featured .display-number {
+          --fs-5: 1.125rem;
+        }
+
+        .product-grid {
+          -ms-grid-columns: (1fr) [4];
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+    </style>
+  </head>
   <body>
     <div th:fragment="nav" class="sidebar has-scrollbar" data-mobile-menu>
-      Filter Bar Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-      Fugiat ipsum ex optio nostrum iure debitis porro provident odio distinctio
-      totam libero molestiae itaque ullam magnam veniam placeat quibusdam,
-      corrupti tenetur! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Aliquam autem debitis a eaque enim omnis fuga quo! Beatae, laborum
-      deleniti vitae ipsum itaque voluptatibus similique provident nihil libero
-      eum aspernatur!
+      <div class="sidebar-category">
+        <div class="sidebar-top">
+          <h2 class="sidebar-title">Category</h2>
+
+          <button class="sidebar-close-btn" data-mobile-menu-close-btn>
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
+
+        <ul class="sidebar-menu-category-list">
+          <li class="sidebar-menu-category">
+            <button class="sidebar-accordion-menu" data-accordion-btn>
+              <div class="menu-title-flex">
+                <p class="menu-title">Clothes</p>
+              </div>
+
+              <div>
+                <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+              </div>
+            </button>
+
+            <ul class="sidebar-submenu-category-list" data-accordion>
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Shirt</p>
+                  <data value="300" class="stock" title="Available Stock"
+                    >300</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">shorts & jeans</p>
+                  <data value="60" class="stock" title="Available Stock"
+                    >60</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">jacket</p>
+                  <data value="50" class="stock" title="Available Stock"
+                    >50</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">dress & frock</p>
+                  <data value="87" class="stock" title="Available Stock"
+                    >87</data
+                  >
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="sidebar-menu-category">
+            <button class="sidebar-accordion-menu" data-accordion-btn>
+              <div class="menu-title-flex">
+                <p class="menu-title">Footwear</p>
+              </div>
+
+              <div>
+                <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+              </div>
+            </button>
+
+            <ul class="sidebar-submenu-category-list" data-accordion>
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Sports</p>
+                  <data value="45" class="stock" title="Available Stock"
+                    >45</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Formal</p>
+                  <data value="75" class="stock" title="Available Stock"
+                    >75</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Casual</p>
+                  <data value="35" class="stock" title="Available Stock"
+                    >35</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Safety Shoes</p>
+                  <data value="26" class="stock" title="Available Stock"
+                    >26</data
+                  >
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="sidebar-menu-category">
+            <button class="sidebar-accordion-menu" data-accordion-btn>
+              <div class="menu-title-flex">
+                <p class="menu-title">Jewelry</p>
+              </div>
+
+              <div>
+                <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+              </div>
+            </button>
+
+            <ul class="sidebar-submenu-category-list" data-accordion>
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Earrings</p>
+                  <data value="46" class="stock" title="Available Stock"
+                    >46</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Couple Rings</p>
+                  <data value="73" class="stock" title="Available Stock"
+                    >73</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Necklace</p>
+                  <data value="61" class="stock" title="Available Stock"
+                    >61</data
+                  >
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="sidebar-menu-category">
+            <button class="sidebar-accordion-menu" data-accordion-btn>
+              <div class="menu-title-flex">
+                <p class="menu-title">Perfume</p>
+              </div>
+
+              <div>
+                <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+              </div>
+            </button>
+
+            <ul class="sidebar-submenu-category-list" data-accordion>
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Clothes Perfume</p>
+                  <data value="12" class="stock" title="Available Stock"
+                    >12 pcs</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Deodorant</p>
+                  <data value="60" class="stock" title="Available Stock"
+                    >60 pcs</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">jacket</p>
+                  <data value="50" class="stock" title="Available Stock"
+                    >50 pcs</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">dress & frock</p>
+                  <data value="87" class="stock" title="Available Stock"
+                    >87 pcs</data
+                  >
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="sidebar-menu-category">
+            <button class="sidebar-accordion-menu" data-accordion-btn>
+              <div class="menu-title-flex">
+                <p class="menu-title">Cosmetics</p>
+              </div>
+
+              <div>
+                <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+              </div>
+            </button>
+
+            <ul class="sidebar-submenu-category-list" data-accordion>
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Shampoo</p>
+                  <data value="68" class="stock" title="Available Stock"
+                    >68</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Sunscreen</p>
+                  <data value="46" class="stock" title="Available Stock"
+                    >46</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Body Wash</p>
+                  <data value="79" class="stock" title="Available Stock"
+                    >79</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Makeup Kit</p>
+                  <data value="23" class="stock" title="Available Stock"
+                    >23</data
+                  >
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="sidebar-menu-category">
+            <button class="sidebar-accordion-menu" data-accordion-btn>
+              <div class="menu-title-flex">
+                <p class="menu-title">Glasses</p>
+              </div>
+
+              <div>
+                <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+              </div>
+            </button>
+
+            <ul class="sidebar-submenu-category-list" data-accordion>
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Sunglasses</p>
+                  <data value="50" class="stock" title="Available Stock"
+                    >50</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Lenses</p>
+                  <data value="48" class="stock" title="Available Stock"
+                    >48</data
+                  >
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="sidebar-menu-category">
+            <button class="sidebar-accordion-menu" data-accordion-btn>
+              <div class="menu-title-flex">
+                <p class="menu-title">Bags</p>
+              </div>
+
+              <div>
+                <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+              </div>
+            </button>
+
+            <ul class="sidebar-submenu-category-list" data-accordion>
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Shopping Bag</p>
+                  <data value="62" class="stock" title="Available Stock"
+                    >62</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Gym Backpack</p>
+                  <data value="35" class="stock" title="Available Stock"
+                    >35</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Purse</p>
+                  <data value="80" class="stock" title="Available Stock"
+                    >80</data
+                  >
+                </a>
+              </li>
+
+              <li class="sidebar-submenu-category">
+                <a href="#" class="sidebar-submenu-title">
+                  <p class="product-name">Wallet</p>
+                  <data value="75" class="stock" title="Available Stock"
+                    >75</data
+                  >
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <script>
+        // accordion variables
+        const accordionBtn = document.querySelectorAll("[data-accordion-btn]");
+        const accordion = document.querySelectorAll("[data-accordion]");
+
+        for (let i = 0; i < accordionBtn.length; i++) {
+          accordionBtn[i].addEventListener("click", function () {
+            const clickedBtn =
+              this.nextElementSibling.classList.contains("active");
+
+            for (let i = 0; i < accordion.length; i++) {
+              if (clickedBtn) break;
+
+              if (accordion[i].classList.contains("active")) {
+                accordion[i].classList.remove("active");
+                accordionBtn[i].classList.remove("active");
+              }
+            }
+
+            this.nextElementSibling.classList.toggle("active");
+            this.classList.toggle("active");
+          });
+        }
+      </script>
     </div>
   </body>
 </html>
