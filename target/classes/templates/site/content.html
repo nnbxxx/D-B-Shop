@@ -83,6 +83,133 @@
           </div>
         </div>
       </div>
+      <h2 class="title">Best Seller</h2>
+      <div class="product-main" th:if="${listProductBestSell}">
+        <div class="product-grid">
+          <div th:each=" item : ${listProductBestSell}">
+            <div class="showcase">
+              <div class="showcase-banner">
+                <img
+                  th:src="${item.image != null ?  '/products/images/' +  item.image : '/images/No-Image.png' }"
+                  alt="Mens Winter Leathers Jackets"
+                  width="300"
+                  height="300"
+                  class="product-img default"
+                />
+                <img
+                  th:src="${item.image != null ?  '/products/images/' +  item.image : '/images/No-Image.png' }"
+                  alt="Mens Winter Leathers Jackets"
+                  width="300"
+                  height="300"
+                  class="product-img hover"
+                />
+                <p class="showcase-badge cyan">Best Sell</p>
+                <div class="showcase-actions">
+                  <button class="btn-action">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </button>
+                  <button class="btn-action">
+                    <ion-icon name="bag-add-outline"></ion-icon>
+                  </button>
+                </div>
+              </div>
+
+              <div class="showcase-content">
+                <a
+                  href="#"
+                  class="showcase-category"
+                  th:text="${item.category.name}"
+                ></a>
+
+                <a href="#">
+                  <h3 class="showcase-title" th:text="${item.name}"></h3>
+                </a>
+
+                <div class="showcase-rating">
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star-outline"></ion-icon>
+                  <ion-icon name="star-outline"></ion-icon>
+                </div>
+
+                <div class="price-box">
+                  <p class="price">
+                    $[[${item.unitPrice}*(100 - ${item.discount})*0.01 ]]
+                  </p>
+                  <del th:text="'$' + ${item.unitPrice}"></del>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="title">On Sale</h2>
+      <div class="product-main" th:if="${listProductOnSale}">
+        <div class="product-grid">
+          <div th:each=" item : ${listProductOnSale}">
+            <div class="showcase">
+              <div class="showcase-banner">
+                <img
+                  th:src="${item.image != null ?  '/products/images/' +  item.image : '/images/No-Image.png' }"
+                  alt="Mens Winter Leathers Jackets"
+                  width="300"
+                  height="300"
+                  class="product-img default"
+                />
+                <img
+                  th:src="${item.image != null ?  '/products/images/' +  item.image : '/images/No-Image.png' }"
+                  alt="Mens Winter Leathers Jackets"
+                  width="300"
+                  height="300"
+                  class="product-img hover"
+                />
+                <p
+                  class="showcase-badge angle"
+                  style="background-color: #dc3545"
+                >
+                  ON SALE
+                </p>
+                <div class="showcase-actions">
+                  <button class="btn-action">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </button>
+                  <button class="btn-action">
+                    <ion-icon name="bag-add-outline"></ion-icon>
+                  </button>
+                </div>
+              </div>
+
+              <div class="showcase-content">
+                <a
+                  href="#"
+                  class="showcase-category"
+                  th:text="${item.category.name}"
+                ></a>
+
+                <a href="#">
+                  <h3 class="showcase-title" th:text="${item.name}"></h3>
+                </a>
+
+                <div class="showcase-rating">
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star-outline"></ion-icon>
+                  <ion-icon name="star-outline"></ion-icon>
+                </div>
+
+                <div class="price-box">
+                  <p class="price">
+                    $[[${item.unitPrice}*(100 - ${item.discount})*0.01 ]]
+                  </p>
+                  <del th:text="'$' + ${item.unitPrice}"></del>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="product-main">
         <h2 class="title">New Products</h2>
         <div class="product-grid">

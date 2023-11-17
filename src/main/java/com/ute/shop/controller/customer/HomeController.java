@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ute.shop.domain.Product;
+import com.ute.shop.service.CategoryService;
 import com.ute.shop.service.ProductService;
 import com.ute.shop.service.StorageService;
+import com.ute.shop.service.SupplierService;
 
 @Controller
 @RequestMapping
@@ -25,6 +27,10 @@ public class HomeController {
 	ProductService productService;
 	@Autowired
 	StorageService storageService; 
+	@Autowired
+	CategoryService categoryService;
+	@Autowired
+	SupplierService supplierService;
 	
 	@GetMapping("products/images/{fileName:.+}")
 	@ResponseBody
@@ -38,6 +44,12 @@ public class HomeController {
 		List<Product> products = productService.findAll();
 //		return "/site/home/index";
 		model.addAttribute("listProduct",products);
+		products = productService.findByStatus((short) 3);
+		model.addAttribute("listProductBestSell",products);
+		products = productService.findByStatus((short) 1);
+		model.addAttribute("listProductOnSale",products);
+		model.addAttribute("listCategory",categoryService.findAll());
+		model.addAttribute("listSupplier",supplierService.findAll());
 		model.addAttribute("tittle","New Product");
 		return "/site/content";
 	}

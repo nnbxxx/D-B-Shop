@@ -198,6 +198,7 @@ body {
 .header-main {
   padding: 20px 0;
   border-bottom: 1px solid var(--cultured);
+  background-color: #90b9a4;
 }
 
 .header-logo {
@@ -542,6 +543,9 @@ body {
   -webkit-transition: var(--transition-timing);
   -o-transition: var(--transition-timing);
   transition: var(--transition-timing);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 
 .product-grid .showcase:hover {
