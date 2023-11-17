@@ -233,7 +233,7 @@
 
       .sidebar-submenu-category-list.active {
         padding: 13px 0 8px;
-        max-height: 122px;
+        max-height: fit-content;
         visibility: visible;
       }
 
@@ -413,7 +413,6 @@
         .sidebar-category {
           padding: 20px;
           margin-right: 30px;
-          margin-bottom: 30px;
           border: 1px solid var(--cultured);
           -webkit-border-radius: var(--border-radius-md);
           border-radius: var(--border-radius-md);
@@ -473,7 +472,10 @@
                 class="sidebar-submenu-category"
                 th:each=" category: ${listCategory}"
               >
-                <a href="#" class="sidebar-submenu-title">
+                <a
+                  th:href="'/searchByCategory?categoryId=' + ${category.categoryId} "
+                  class="sidebar-submenu-title"
+                >
                   <p class="product-name" th:text="${category.name}"></p>
                 </a>
               </li>
@@ -497,7 +499,10 @@
                 class="sidebar-submenu-category"
                 th:each=" supplier: ${listSupplier}"
               >
-                <a href="#" class="sidebar-submenu-title">
+                <a
+                  th:href="'/searchBySupplier?supplierId=' + ${supplier.supplierId} "
+                  class="sidebar-submenu-title"
+                >
                   <p class="product-name" th:text="${supplier.name}"></p>
                 </a>
               </li>
@@ -518,29 +523,45 @@
 
             <ul class="sidebar-submenu-category-list" data-accordion>
               <li class="sidebar-submenu-category">
-                <a href="#" class="sidebar-submenu-title">
-                  <p class="product-name">Earrings</p>
-                  <data value="46" class="stock" title="Available Stock"
-                    >46</data
-                  >
+                <a
+                  href="/sort?name=unitPrice&direction=decs"
+                  class="sidebar-submenu-title"
+                >
+                  <p class="product-name">High to Low</p>
                 </a>
               </li>
 
               <li class="sidebar-submenu-category">
-                <a href="#" class="sidebar-submenu-title">
-                  <p class="product-name">Couple Rings</p>
-                  <data value="73" class="stock" title="Available Stock"
-                    >73</data
-                  >
+                <a
+                  href="/sort?name=unitPrice&direction=acs"
+                  class="sidebar-submenu-title"
+                >
+                  <p class="product-name">Low to High</p>
                 </a>
               </li>
 
               <li class="sidebar-submenu-category">
-                <a href="#" class="sidebar-submenu-title">
-                  <p class="product-name">Necklace</p>
-                  <data value="61" class="stock" title="Available Stock"
-                    >61</data
-                  >
+                <a
+                  href="/searchByPrice?min=0&max=10"
+                  class="sidebar-submenu-title"
+                >
+                  <p class="product-name">Less 10 USD</p>
+                </a>
+              </li>
+              <li class="sidebar-submenu-category">
+                <a
+                  href="/searchByPrice?min=10&max=50"
+                  class="sidebar-submenu-title"
+                >
+                  <p class="product-name">From 10 USD to 50 USD</p>
+                </a>
+              </li>
+              <li class="sidebar-submenu-category">
+                <a
+                  href="/searchByPrice?min=50&max="
+                  class="sidebar-submenu-title"
+                >
+                  <p class="product-name">More 50 USD</p>
                 </a>
               </li>
             </ul>

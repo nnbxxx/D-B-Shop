@@ -207,6 +207,7 @@ body {
 
 .header-logo img {
   margin: auto;
+  border-radius: 50% !important;
 }
 
 .header-search-container {
@@ -303,7 +304,6 @@ body {
 }
 
 .sidebar-category {
-  margin-bottom: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid var(--cultured);
 }
@@ -395,7 +395,7 @@ body {
 
 .sidebar-submenu-category-list.active {
   padding: 13px 0 8px;
-  max-height: 130px;
+  max-height: fit-content;
   visibility: visible;
 }
 
@@ -1371,7 +1371,7 @@ footer {
 
   .sidebar-category {
     padding: 20px;
-    margin-bottom: 30px;
+
     border: 1px solid var(--cultured);
     -webkit-border-radius: var(--border-radius-md);
     border-radius: var(--border-radius-md);
