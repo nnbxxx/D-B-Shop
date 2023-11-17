@@ -1,5 +1,7 @@
 package com.ute.shop.controller.customer;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -10,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,7 +39,7 @@ public class CustomerLoginController {
 		return "/site/accounts/login";
 	}
 	@PostMapping("cregister")
-	public ModelAndView register(ModelMap model,@Valid @ModelAttribute("customer") CustomerDto customerDto, BindingResult bindingResult) {
+	public ModelAndView register(ModelMap model,@Valid @ModelAttribute(value = "customer") CustomerDto customerDto, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return new ModelAndView("/site/accounts/login");
 		}
@@ -44,7 +47,7 @@ public class CustomerLoginController {
 		BeanUtils.copyProperties(customerDto, entity);
 		entity.setStatus((short) 0);
 		customerService.save(entity);
-		return new ModelAndView("/site/home/index", model);
+		return new ModelAndView("/site/content", model);
 	}
 	@PostMapping("clogin")
 	public ModelAndView login(ModelMap model,@Valid @ModelAttribute("customer") CustomerLoginDto customerLoginDto,
@@ -59,23 +62,47 @@ public class CustomerLoginController {
 		}
 	
 		session.setAttribute("customer", customerLoginDto.getPhone());
+		session.setAttribute("customerId", customer.getCustomerId());
+		System.out.println("customerId = " + session.getAttribute("customerId"));
 		Object ruri = session.getAttribute("redirect-uri");
 		if (ruri != null) {
 			session.removeAttribute("redirect-uri");
 			return new ModelAndView("redirect:" + ruri);
 		}
 		model.addAttribute("messageLogin", "Loging Customer succesfull");
-		return new ModelAndView("/site/home/index", model);
+		return new ModelAndView("/site/content", model);
 	}
 	
 	@RequestMapping("clogout")
 	public String logout(ModelMap model) {
+		model.addAttribute("customer", new CustomerLoginDto());
+		CustomerDto dto = new CustomerDto();
+		dto.setIsEdit(true);
+		model.addAttribute("customerAdd",dto);
 		String phone = (String) session.getAttribute("customer");
 		if (phone != null) {
-			session.removeAttribute("username");
+			session.removeAttribute("customer");
+			session.removeAttribute("customerId");
+			
 		}
 		model.addAttribute("customer", new CustomerLoginDto());
-		model.addAttribute("message","Logout successful");
 		return "/site/accounts/login";
+	}
+	@GetMapping("account")
+	public ModelAndView edit(ModelMap model) {
+		Integer customerId = (Integer) session.getAttribute("customerId");
+		if(customerId == null) {
+			return new ModelAndView( "forward:/cregister",model);
+		}
+		Optional<Customer> optional = customerService.findById(customerId);
+		CustomerDto customerDto = new CustomerDto();
+		if(optional.isPresent()) {
+			Customer entity = optional.get();
+			BeanUtils.copyProperties(entity, customerDto);
+			customerDto.setPassword("");
+			model.addAttribute("customer",customerDto);
+			return new ModelAndView("site/accounts/manageAccount",model);
+		}
+		return new ModelAndView( "forward:/cregister",model);
 	}
 }

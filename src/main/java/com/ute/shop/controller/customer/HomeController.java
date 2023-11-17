@@ -50,9 +50,6 @@ public class HomeController {
 		model.addAttribute("message","Find " +products.size()+ " products");
 		return "/site/home/searchByName";
 	}
-	@RequestMapping("/checkout")
-	public String checkout() {
-		return "/site/accounts/checkout";
-	}
+
 	
 }

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anon - eCommerce Website</title>
+
+    <!--
+    - favicon
+  -->
+    <link
+      rel="shortcut icon"
+      href="./assets/images/logo/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!--
+    - custom css link
+  -->
+    <link rel="stylesheet" href="http://localhost:8080/css/index.css" />
+
+    <!--
+    - google font link
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!--
+    - HEADER
+  -->
+    <header
+      style="margin-bottom: 50px"
+      th:replace="site/fragments/header:: header"
+    ></header>
+    <!--
+      - PRODUCT
+    -->
+    <div class="product-container">
+      <div class="container">
+        <!-- 
+          Menu category
+         -->
+        <div class="product-box">
+          <!--
+            - PRODUCT GRID
+          -->
+          <div class="product-main" layout:fragment="content">
+            <h2 class="title">New Products</h2>
+            <div class="product-grid">
+              <div class="showcase">
+                <div class="showcase-banner">
+                  <img
+                    src="https://images.unsplash.com/photo-1495277493816-4c359911b7f1?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Mens Winter Leathers Jackets"
+                    width="300"
+                    class="product-img default"
+                  />
+                  <img
+                    src="https://images.unsplash.com/photo-1495277493816-4c359911b7f1?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Mens Winter Leathers Jackets"
+                    width="300"
+                    class="product-img hover"
+                  />
+
+                  <p class="showcase-badge">15%</p>
+
+                  <div class="showcase-actions">
+                    <button class="btn-action">
+                      <ion-icon name="eye-outline"></ion-icon>
+                    </button>
+
+                    <button class="btn-action">
+                      <ion-icon name="bag-add-outline"></ion-icon>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="showcase-content">
+                  <a href="#" class="showcase-category">jacket</a>
+
+                  <a href="#">
+                    <h3 class="showcase-title">Mens Winter Leathers Jackets</h3>
+                  </a>
+
+                  <div class="showcase-rating">
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                  </div>
+
+                  <div class="price-box">
+                    <p class="price">$48.00</p>
+                    <del>$75.00</del>
+                  </div>
+                </div>
+              </div>
+              <div class="showcase">
+                <div class="showcase-banner">
+                  <img
+                    src="https://images.unsplash.com/photo-1495277493816-4c359911b7f1?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Pure Garment Dyed Cotton Shirt"
+                    class="product-img default"
+                    width="300"
+                  />
+                  <img
+                    src="https://images.unsplash.com/photo-1495277493816-4c359911b7f1?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Pure Garment Dyed Cotton Shirt"
+                    class="product-img hover"
+                    width="300"
+                  />
+
+                  <p class="showcase-badge angle black">sale</p>
+
+                  <div class="showcase-actions">
+                    <button class="btn-action">
+                      <ion-icon name="eye-outline"></ion-icon>
+                    </button>
+
+                    <button class="btn-action">
+                      <ion-icon name="bag-add-outline"></ion-icon>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="showcase-content">
+                  <a href="#" class="showcase-category">shirt</a>
+
+                  <h3>
+                    <a href="#" class="showcase-title"
+                      >Pure Garment Dyed Cotton Shirt</a
+                    >
+                  </h3>
+
+                  <div class="showcase-rating">
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                  </div>
+
+                  <div class="price-box">
+                    <p class="price">$45.00</p>
+                    <del>$56.00</del>
+                  </div>
+                </div>
+              </div>
+              <div class="showcase">
+                <div class="showcase-banner">
+                  <img
+                    src="https://images.unsplash.com/photo-1495277493816-4c359911b7f1?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="MEN Yarn Fleece Full-Zip Jacket"
+                    class="product-img default"
+                    width="300"
+                  />
+                  <img
+                    src="https://images.unsplash.com/photo-1495277493816-4c359911b7f1?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="MEN Yarn Fleece Full-Zip Jacket"
+                    class="product-img hover"
+                    width="300"
+                  />
+
+                  <div class="showcase-actions">
+                    <button class="btn-action">
+                      <ion-icon name="eye-outline"></ion-icon>
+                    </button>
+
+                    <button class="btn-action">
+                      <ion-icon name="bag-add-outline"></ion-icon>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="showcase-content">
+                  <a href="#" class="showcase-category">Jacket</a>
+
+                  <h3>
+                    <a href="#" class="showcase-title"
+                      >MEN Yarn Fleece Full-Zip Jacket</a
+                    >
+                  </h3>
+
+                  <div class="showcase-rating">
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                  </div>
+
+                  <div class="price-box">
+                    <p class="price">$58.00</p>
+                    <del>$65.00</del>
+                  </div>
+                </div>
+              </div>
+              <div class="showcase">
+                <div class="showcase-banner">
+                  <img
+                    src="https://images.unsplash.com/photo-1495277493816-4c359911b7f1?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Black Floral Wrap Midi Skirt"
+                    class="product-img default"
+                    width="300"
+                  />
+                  <img
+                    src="https://images.unsplash.com/photo-1495277493816-4c359911b7f1?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Black Floral Wrap Midi Skirt"
+                    class="product-img hover"
+                    width="300"
+                  />
+
+                  <p class="showcase-badge angle pink">new</p>
+
+                  <div class="showcase-actions">
+                    <button class="btn-action">
+                      <ion-icon name="eye-outline"></ion-icon>
+                    </button>
+
+                    <button class="btn-action">
+                      <ion-icon name="bag-add-outline"></ion-icon>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="showcase-content">
+                  <a href="#" class="showcase-category">skirt</a>
+
+                  <h3>
+                    <a href="#" class="showcase-title"
+                      >Black Floral Wrap Midi Skirt</a
+                    >
+                  </h3>
+
+                  <div class="showcase-rating">
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                  </div>
+
+                  <div class="price-box">
+                    <p class="price">$25.00</p>
+                    <del>$35.00</del>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--
+    - FOOTER
+  -->
+
+    <footer th:replace="site/fragments/footer:: footer"></footer>
+
+    <!--
+    - custom js link
+  -->
+    <script src="http://localhost:8080/js/index.js"></script>
+    <!--
+    - ionicon link
+  -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

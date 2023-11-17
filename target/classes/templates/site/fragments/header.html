@@ -34,9 +34,16 @@
           </div>
 
           <div class="header-user-actions">
-            <button class="action-btn">
+            <button class="action-btn" id="action-btn-account">
               <ion-icon name="person-outline"></ion-icon>
             </button>
+            <script>
+              const actionBtnAccount =
+                document.getElementById("action-btn-account");
+              actionBtnAccount.addEventListener("click", () => {
+                window.location.href = "/account";
+              });
+            </script>
 
             <button class="action-btn">
               <ion-icon name="bag-handle-outline"></ion-icon>

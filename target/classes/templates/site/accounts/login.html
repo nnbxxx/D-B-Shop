@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,7 +14,7 @@
       <div class="container" id="container" style="margin: 100px auto">
         <div class="form-container sign-up">
           <form
-            th:action="@{/ct}"
+            th:action="@{/cregister}"
             method="post"
             th:object="${customerAdd}"
           >
@@ -62,9 +62,9 @@
               class="form-control"
               name="email"
               id="email"
+              th:field="*{email}"
               aria-describedby="emailHid"
               placeholder="Email"
-              th:field="*{email}"
             />
             <small
               id="emailHid"
@@ -77,9 +77,9 @@
               class="form-control"
               name="phone"
               id="phone"
+              th:field="*{phone}"
               aria-describedby="phonelHid"
               placeholder="Phone"
-              th:field="*{phone}"
             />
             <small
               id="phoneHid"
@@ -92,8 +92,8 @@
               class="form-control"
               name="password"
               id="password"
-              aria-describedby="passwordHid"
               th:field="*{password}"
+              aria-describedby="passwordHid"
               placeholder="Password"
             />
             <small
