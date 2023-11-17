@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "storage",
+      "type": "com.ute.shop.config.StorageProperties",
+      "sourceType": "com.ute.shop.config.StorageProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "storage.location",
+      "type": "java.lang.String",
+      "sourceType": "com.ute.shop.config.StorageProperties"
+    }
+  ],
+  "hints": []
+}
