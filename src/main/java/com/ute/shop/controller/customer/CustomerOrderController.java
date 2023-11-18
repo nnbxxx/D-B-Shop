@@ -1,5 +1,6 @@
 package com.ute.shop.controller.customer;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -20,8 +21,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ute.shop.domain.Customer;
+import com.ute.shop.domain.Order;
+import com.ute.shop.domain.OrderDetail;
+import com.ute.shop.domain.Product;
 import com.ute.shop.model.CustomerDto;
 import com.ute.shop.service.CustomerService;
+import com.ute.shop.service.OrderDetailService;
+import com.ute.shop.service.OrderService;
 import com.ute.shop.service.ShoppingCartService;
 import com.ute.shop.service.StorageService;
 @Controller
@@ -34,6 +40,10 @@ public class CustomerOrderController {
 	private ShoppingCartService cartService;
 	@Autowired 
 	private StorageService storageService;
+	@Autowired
+	OrderService orderService;
+	@Autowired
+	OrderDetailService detailService;
 	@ModelAttribute("count")
 	int getCount() {
 		return cartService.getCount();
@@ -93,8 +103,39 @@ public class CustomerOrderController {
 	}
 	@GetMapping("checkout")
 	public String checkout(RedirectAttributes model) {
-		model.addFlashAttribute("tittle", "Check Out Successful !");
-		return "redirect:/order";
+		if(cartService.getCount() <= 0) {
+			model.addFlashAttribute("message", "Not product to check out !");
+			return "redirect:/";
+		}
+		Integer customerId = (Integer) session.getAttribute("customerId");
+		Order order = new Order();
+		order.setStatus((short) 0);
+		Customer customer = new Customer();
+		customer.setCustomerId(customerId);
+		order.setCustomer(customer);
+		
+		System.out.println("AMOUNT == " + cartService.getAmount());
+		System.out.println("AMOUNT == " + order.getAmount());
+		order = orderService.save(order);
+		order.setAmount(cartService.getAmount());
+		System.out.println("AMOUNT == " + order.getAmount());
+		int orderId = order.getOrderId();
+		cartService.getItems().stream().forEach(item -> {
+			OrderDetail orderDetail = new OrderDetail();
+			Product product = new Product();
+			Order order1 = new Order();
+			order1.setOrderId(orderId);
+			product.setProductId(item.getProductId());
+			orderDetail.setQuantity(item.getQuantity());
+			orderDetail.setUnitPrice(item.getUnitPrice());
+			orderDetail.setProduct(product);
+			orderDetail.setOrder(order1);
+			detailService.save(orderDetail);
+		});
+		
+		model.addFlashAttribute("message", "Check Out Successful !");
+		cartService.clear();
+		return "redirect:/";
 	}
 	
 }
