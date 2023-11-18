@@ -91,5 +91,10 @@ public class CustomerOrderController {
 		cartService.remove(productId);
 		return "redirect:/order";
 	}
+	@GetMapping("checkout")
+	public String checkout(RedirectAttributes model) {
+		model.addFlashAttribute("tittle", "Check Out Successful !");
+		return "redirect:/order";
+	}
 	
 }
