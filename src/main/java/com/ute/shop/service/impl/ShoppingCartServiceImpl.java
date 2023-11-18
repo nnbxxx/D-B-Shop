@@ -1,5 +1,4 @@
 package com.ute.shop.service.impl;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.ute.shop.domain.CartItem;
 import com.ute.shop.domain.Product;
+import com.ute.shop.service.CookieService;
 import com.ute.shop.service.ProductService;
 import com.ute.shop.service.ShoppingCartService;
 
@@ -19,8 +19,11 @@ import com.ute.shop.service.ShoppingCartService;
 public class ShoppingCartServiceImpl implements ShoppingCartService{
 	@Autowired
 	ProductService productService;
+	@Autowired
+	CookieService cookieService;
 	
 	Map<Integer, CartItem> map = new HashMap<>();
+
 	@Override
 	public List<Product> getProducts(){
 		return productService.findAll();
@@ -94,6 +97,5 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 			amount += map.get(key).getQuantity() * map.get(key).getUnitPrice();
 		}
 		return amount;
-	}
-	
+	}    
 }

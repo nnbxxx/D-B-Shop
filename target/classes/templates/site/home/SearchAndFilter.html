@@ -33,14 +33,14 @@
               <div class="showcase-banner">
                 <img
                   th:src="${item.image != null ?  '/products/images/' +  item.image : '/images/No-Image.png' }"
-                  alt="Mens Winter Leathers Jackets"
+                  alt=""
                   width="300"
                   height="300"
                   class="product-img default"
                 />
                 <img
                   th:src="${item.image != null ?  '/products/images/' +  item.image : '/images/No-Image.png' }"
-                  alt="Mens Winter Leathers Jackets"
+                  alt=""
                   width="300"
                   height="300"
                   class="product-img hover"
@@ -51,7 +51,9 @@
                     <ion-icon name="eye-outline"></ion-icon>
                   </button>
                   <button class="btn-action">
-                    <ion-icon name="bag-add-outline"></ion-icon>
+                    <a th:href="'/addToCart/' + ${item.productId}"
+                      ><ion-icon name="bag-add-outline"></ion-icon
+                    ></a>
                   </button>
                 </div>
               </div>

@@ -21,10 +21,11 @@ public interface ShoppingCartService {
 
 	CartItem update(Integer id, int quantity);
 
-	CartItem add(Integer id);
+	CartItem add(Integer id) ;
 
 	Map<Integer, CartItem> getDBItems();
 
 	List<Product> getProducts();
+
 
 }
