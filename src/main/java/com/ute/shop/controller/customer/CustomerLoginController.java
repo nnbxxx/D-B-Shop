@@ -76,7 +76,7 @@ public class CustomerLoginController {
 		}
 		model.addAttribute("customer", new CustomerLoginDto());
 		model.addAttribute("message", "Loging Customer succesfull");
-		return new ModelAndView("/site/content", model);
+		return new ModelAndView("redirect:/", model);
 	}
 	
 	@RequestMapping("clogout")

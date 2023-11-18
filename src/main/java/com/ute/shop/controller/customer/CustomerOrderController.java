@@ -1,6 +1,5 @@
 package com.ute.shop.controller.customer;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -58,16 +58,24 @@ public class CustomerOrderController {
 			@PathVariable("productId") Integer productId) {
 		cartService.add(productId);
 		model.addFlashAttribute("message", "Add "+ productId +" to Cart Success");
-		model.addFlashAttribute("count", cartService.getCount());
 		return "redirect:/";
 	}
+	@GetMapping("updateToCart/{productId}")
+	public String update(RedirectAttributes model,
+			@PathVariable("productId") Integer productId,
+			@RequestParam("quantity") Integer quantity) {
+		cartService.update(productId,quantity);
+		return "redirect:/order";
+	}
+	
 	@GetMapping("clearCart")
 	public String clear() {
 		cartService.clear();
 		return "redirect:/order";
 	}
 	@GetMapping("removeToCart/{productId}")
-	public String remove(@PathVariable("productId") Integer productId) {
+	public String remove(@PathVariable("productId") Integer productId,
+			@RequestParam("orderDetailId") Integer orderDetailId) {
 		cartService.remove(productId);
 		return "redirect:/order";
 	}
