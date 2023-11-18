@@ -1,40 +1,69 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <head> </head>
 
-<head>
-</head>
-
-<body>
-  <div class="sidebar" th:fragment="sidebar">
-    <a th:href="@{/admin}" class="sidebar-logo" style="margin-top: 20px;">
-      <img class="logo-img" src="http://localhost:8080/images/logo.png">
-      <div class="logo-name ">
-        <span class="dark-color">D&B</span>
-      </div>
-
-    </a>
-    <ul class="side-menu">
-      <li><a th:href="@{/admin}"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
-      <li><a href="#"><i class='bx bx-store'></i>Shop</a></li>
-      <li><a href="#"><i class='bx bx-analyse'></i>Report</a></li>
-      <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
-      <li><a th:href="@{/admin/orders/}"><i class='bx bx-paste'></i>Order</a></li>
-      <li><a th:href="@{/admin/products/}"><i class='bx bx-basket'></i>Products</a></li>
-      <li><a th:href="@{/admin/categories/search}"><i class='bx bx-box'></i>Categories</a></li>
-      <li><a th:href="@{/admin/suppliers/}"><i class='bx bx-box'></i>Suppliers</a></li>
-      <li><a th:href="@{/admin/customers/}"><i class='bx bx-group'></i>Customer</a></li>
-      <li><a th:href="@{/admin/accounts/}"><i class='bx bx-group'></i>Accounts</a></li>
-
-    </ul>
-    <ul class="side-menu">
-      <li>
-        <a th:href="@{/alogout}" class="logout">
-          <i class='bx bx-log-out-circle'></i>
-          Logout
-        </a>
-      </li>
-    </ul>
-  </div>
-</body>
-
+  <body>
+    <div class="sidebar" th:fragment="sidebar">
+      <a th:href="@{/admin}" class="sidebar-logo" style="margin-top: 20px">
+        <img class="logo-img" src="http://localhost:8080/images/DBLogo.png" />
+        <div class="logo-name">
+          <span class="dark-color">D&B</span>
+        </div>
+      </a>
+      <ul class="side-menu">
+        <li>
+          <a th:href="@{/admin}"><i class="bx bxs-dashboard"></i>Dashboard</a>
+        </li>
+        <li>
+          <a href="#"><i class="bx bx-store"></i>Shop</a>
+        </li>
+        <li>
+          <a href="#"><i class="bx bx-analyse"></i>Report</a>
+        </li>
+        <li>
+          <a href="#"><i class="bx bx-cog"></i>Settings</a>
+        </li>
+        <li>
+          <a th:href="@{/admin/orders/}"><i class="bx bx-paste"></i>Order</a>
+        </li>
+        <li>
+          <a th:href="@{/admin/products/}"
+            ><i class="bx bx-basket"></i>Products</a
+          >
+        </li>
+        <li>
+          <a th:href="@{/admin/categories/search}"
+            ><i class="bx bx-box"></i>Categories</a
+          >
+        </li>
+        <li>
+          <a th:href="@{/admin/suppliers/}"
+            ><i class="bx bx-box"></i>Suppliers</a
+          >
+        </li>
+        <li>
+          <a th:href="@{/admin/customers/}"
+            ><i class="bx bx-group"></i>Customer</a
+          >
+        </li>
+        <li>
+          <a th:href="@{/admin/accounts/}"
+            ><i class="bx bx-group"></i>Accounts</a
+          >
+        </li>
+      </ul>
+      <ul class="side-menu">
+        <li>
+          <a th:href="@{/alogout}" class="logout">
+            <i class="bx bx-log-out-circle"></i>
+            Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </body>
 </html>
