@@ -3,6 +3,7 @@ package com.ute.shop.controller.customer;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Sort;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ute.shop.domain.Category;
 import com.ute.shop.domain.Product;
 import com.ute.shop.domain.Supplier;
+import com.ute.shop.model.ProductDto;
 import com.ute.shop.service.CategoryService;
 import com.ute.shop.service.ProductService;
 import com.ute.shop.service.ShoppingCartService;
@@ -132,6 +134,20 @@ public class HomeController {
 		model.addAttribute("tittle","Sort Product By: " + name + " Direction: " + direction);
 		return "/site/home/searchAndFilter";
 	}
+	@GetMapping("/viewProduct/{productId}")
+	public String viewProduct(ModelMap model,@PathVariable("productId") Integer productId) {
+		Optional<Product> optional = productService.findById(productId);
+		ProductDto productDto = new ProductDto();
+		if(optional.isPresent()) {
+			Product entity = optional.get();
+			BeanUtils.copyProperties(entity, productDto);
+			productDto.setCategoryId(entity.getCategory().getCategoryId());
+			productDto.setIsEdit(false);
+			model.addAttribute("product",productDto);
+		}
+		return "/site/home/Detail";
+	}
+	
 	
 	
 }

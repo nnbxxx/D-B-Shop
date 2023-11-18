@@ -45,7 +45,9 @@
                 <p class="showcase-badge angle pink">new</p>
                 <div class="showcase-actions">
                   <button class="btn-action">
-                    <ion-icon name="eye-outline"></ion-icon>
+                    <a th:href="'/viewProduct/' + ${item.productId}">
+                      <ion-icon name="eye-outline"></ion-icon
+                    ></a>
                   </button>
                   <button class="btn-action">
                     <a th:href="'/addToCart/' + ${item.productId}"
@@ -108,7 +110,9 @@
                 <p class="showcase-badge cyan">Best Sell</p>
                 <div class="showcase-actions">
                   <button class="btn-action">
-                    <ion-icon name="eye-outline"></ion-icon>
+                    <a th:href="'/viewProduct/' + ${item.productId}">
+                      <ion-icon name="eye-outline"></ion-icon
+                    ></a>
                   </button>
                   <button class="btn-action">
                     <a th:href="'/addToCart/' + ${item.productId}"
@@ -176,7 +180,9 @@
                 </p>
                 <div class="showcase-actions">
                   <button class="btn-action">
-                    <ion-icon name="eye-outline"></ion-icon>
+                    <a th:href="'/viewProduct/' + ${item.productId}">
+                      <ion-icon name="eye-outline"></ion-icon
+                    ></a>
                   </button>
                   <button class="btn-action">
                     <a th:href="'/addToCart/' + ${item.productId}"

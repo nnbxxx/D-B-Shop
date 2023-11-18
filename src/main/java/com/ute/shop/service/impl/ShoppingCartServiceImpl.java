@@ -66,7 +66,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		for (Object key : set) {
 			if (this.getDBItems().get(key).getProductId() == id) {
 				map.get(key).setQuantity(quantity);
-				map.get(key).setPrice(map.get(key).getUnitPrice() * quantity);
+				map.get(key).setPrice(roundToTwoDecimalPlaces(map.get(key).getUnitPrice() * quantity));
 				map.replace(id, map.get(key));
 				return this.getDBItems().get(key);
 			}
