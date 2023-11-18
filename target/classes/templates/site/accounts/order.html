@@ -45,9 +45,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr th:each=" cart: ${listCart}">
-                  <td th:text="${cart.productId}"></td>
-                  <td style="display: flex">
+                <tr class="">
+                  <td>1</td>
+                  <td>
                     <img
                       class="img-fluid me-2"
                       alt=""
@@ -56,52 +56,33 @@
                     />
                     abcdef
                   </td>
-                  <td th:text="${cart.unitPrice} + ' USD'"></td>
+                  <td>120USD</td>
                   <td>
                     <input
                       type="number"
-                      class="w-75 m-auto quantityProd changeInpQuantity"
+                      class="w-75 m-auto quantityProd"
                       name="quantity"
-                      th:value="${cart.quantity}"
-                      th:data-id="${cart.productId}"
+                      onblur=""
+                      value="123"
                     />
                   </td>
-                  <td th:text="${cart.unitPrice} + ' USD'"></td>
+                  <td>120USD</td>
                   <td>
-                    <a
-                      class="btn btn-danger"
-                      th:href="'/removeToCart/' + ${cart.productId}"
-                      >Remove</a
-                    >
+                    <a class="btn btn-danger" href="">Remove</a>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <script>
-              let listInpChangeQuantity =
-                document.getElementsByClassName("changeInpQuantity");
-              for (
-                let index = 0;
-                index < listInpChangeQuantity.length;
-                index++
-              ) {
-                let element = listInpChangeQuantity[index];
-                element.addEventListener("blur", () => {
-                  var dataIdValue = element.getAttribute("data-id");
-                  window.location.href = "/";
-                });
-              }
-            </script>
             <div
               class="d-flex justify-content-between pt-2 border-top border-dark border-3"
             >
               <div>
                 <a href="/" class="btn btn-primary">Go Menu Product</a>
-                <a href="/clearCart" class="btn btn-danger ms-3">Clear All</a>
+                <a href="" class="btn btn-danger ms-3">Clear All</a>
               </div>
               <div>
                 <span class="fw-bold fs-5">Total: </span>
-                <span class="fs-5" th:text="${amount} + ' USD'"></span>
+                <span class="fs-5">120.0 USD</span>
               </div>
             </div>
           </div>
