@@ -5,24 +5,24 @@
 
 ---
 
-#ERD Model
+# ERD Model
 
 ![Mô hình erd](./screenshots/erd.png)
 
 ---
 
-#Teachonology
-| Name | Description |
-| ------ | ----------- |
-| Fontend | Html, Css, Js |
-| Backend | Spring Framework |
-| Datasbase | SQL Sever (mssql-jdbc) |
+# Teachonology
+
+| Name                 | Description                  |
+| -------------------- | ---------------------------- |
+| Fontend              | Html, Css, Js                |
+| Backend              | Spring Framework             |
+| Datasbase            | SQL Sever (mssql-jdbc)       |
 | Java Persistence API | spring-boot-starter-data-jpa |
-| Security | org.springframework.security |
-| UpLoad File | commons-io |
-| View Engine | thymeleaf |
-| Datasbase | SQL Sever |
-| ... | ... |
+| Security             | org.springframework.security |
+| UpLoad File          | commons-io                   |
+| View Engine          | thymeleaf                    |
+| ...                  | ...                          |
 
 ## Admin Account:
 
