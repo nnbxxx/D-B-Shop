@@ -23,6 +23,7 @@ import com.ute.shop.domain.Product;
 import com.ute.shop.domain.Supplier;
 import com.ute.shop.service.CategoryService;
 import com.ute.shop.service.ProductService;
+import com.ute.shop.service.ShoppingCartService;
 import com.ute.shop.service.StorageService;
 import com.ute.shop.service.SupplierService;
 
@@ -37,6 +38,8 @@ public class HomeController {
 	CategoryService categoryService;
 	@Autowired
 	SupplierService supplierService;
+	@Autowired
+	ShoppingCartService cartService;
 	
 	@GetMapping("products/images/{fileName:.+}")
 	@ResponseBody

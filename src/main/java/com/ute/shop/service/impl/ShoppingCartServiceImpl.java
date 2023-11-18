@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.ute.shop.domain.CartItem;
 import com.ute.shop.domain.Product;
-import com.ute.shop.model.SupplierDto;
 import com.ute.shop.service.ProductService;
 import com.ute.shop.service.ShoppingCartService;
 
@@ -22,9 +21,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 	ProductService productService;
 	
 	Map<Integer, CartItem> map = new HashMap<>();
+	@Override
 	public List<Product> getProducts(){
 		return productService.findAll();
 	}
+	@Override
 	public Map<Integer, CartItem> getDBItems(){
 		Map<Integer, CartItem> items = new HashMap<>();
 		List<Product>  listProducts = this.getProducts();
@@ -34,6 +35,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 						obj.getQuantity(),obj.getUnitPrice() * (100 - obj.getDiscount())*0.01)));
 		return items;
 	}
+	@Override
 	public CartItem add(Integer id) {
 		Set<Integer> set = this.getDBItems().keySet();
 		for(Object key:set) {
@@ -45,6 +47,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 		}
 		return null;
 	} 
+	@Override
 	public CartItem update(Integer id, int quantity) {
 		Set<Integer> set = this.getDBItems().keySet();
 		for(Object key:set) {
@@ -56,6 +59,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 		}
 		return null;
 	}
+	@Override
 	public void remove(Integer id) {
 		Set<Integer> set = this.getDBItems().keySet();
 		for(Object key:set) {
@@ -64,14 +68,16 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 				break;
 			}
 		}
-		
 	}
+	@Override
 	public void clear() {
 		map.clear();
 	}
+	@Override
 	public Collection<CartItem> getItems(){
 		return map.values();
 	}
+	@Override
 	public int getCount() {
 		int count = 0;
 		Set<Integer> set = map.keySet();
@@ -80,6 +86,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 		}
 		return count;
 	}
+	@Override
 	public double getAmount() {
 		double amount = 0;
 		Set<Integer> set = map.keySet();

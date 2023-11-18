@@ -14,12 +14,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ute.shop.domain.Customer;
 import com.ute.shop.model.CustomerDto;
 import com.ute.shop.service.CustomerService;
+import com.ute.shop.service.ShoppingCartService;
 @Controller
 public class CustomerOrderController {
 	@Autowired
 	private HttpSession session;
 	@Autowired
 	private CustomerService customerService;
+	@Autowired
+	private ShoppingCartService cartService;
 	@GetMapping("order")
 	public ModelAndView edit(ModelMap model) {
 		Integer customerId = (Integer) session.getAttribute("customerId");
@@ -37,5 +40,6 @@ public class CustomerOrderController {
 		}
 		return new ModelAndView( "forward:/cregister",model);
 	}
+	
 	
 }
