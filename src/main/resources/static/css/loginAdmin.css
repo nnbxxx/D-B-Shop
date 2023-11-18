@@ -41,7 +41,7 @@ section .container a {
 }
 
 section .container button {
-  background-color: #739072;
+  background-color: #90b9a4;
   color: #fff;
   font-size: 12px;
   padding: 10px 45px;
@@ -157,9 +157,9 @@ section .container input {
 }
 
 .toggle {
-  background-color: #739072;
+  background-color: #90b9a4;
   height: 100%;
-  background: linear-gradient(to right, #739072, #739072);
+  background: linear-gradient(to right, #90b9a4, #90b9a4);
   color: #fff;
   position: relative;
   left: -100%;

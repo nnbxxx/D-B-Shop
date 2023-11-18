@@ -9,7 +9,7 @@
   <body>
     <div class="sidebar" th:fragment="sidebar">
       <a th:href="@{/admin}" class="sidebar-logo" style="margin-top: 20px">
-        <img class="logo-img" src="http://localhost:8080/images/DBLogo.png" />
+        <img class="logo-img" src="http://localhost:8080/images/DB.png" />
         <div class="logo-name">
           <span class="dark-color">D&B</span>
         </div>
@@ -19,11 +19,9 @@
           <a th:href="@{/admin}"><i class="bx bxs-dashboard"></i>Dashboard</a>
         </li>
         <li>
-          <a href="#"><i class="bx bx-store"></i>Shop</a>
+          <a th:href="@{/}"><i class="bx bx-store"></i>Shop</a>
         </li>
-        <li>
-          <a href="#"><i class="bx bx-analyse"></i>Report</a>
-        </li>
+
         <li>
           <a href="#"><i class="bx bx-cog"></i>Settings</a>
         </li>

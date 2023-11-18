@@ -45,67 +45,44 @@
                 </tr>
               </thead>
               <tbody>
-                <tr th:each=" cart: ${listCart}">
-                  <td th:text="${cart.productId}"></td>
-                  <td style="display: flex">
+                <tr class="">
+                  <td>1</td>
+                  <td>
                     <img
                       class="img-fluid me-2"
                       alt=""
-                      th:src="${cart.image != null ?  '/products/images/' +  cart.image : '/images/No-Image.png' }"
+                      src="https://images.unsplash.com/photo-1495277493816-4c359911b7f1?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       style="height: 40px"
                     />
-                    [[${cart.name}]]
+                    abcdef
                   </td>
-                  <td th:text="${cart.unitPrice} + ' USD'"></td>
+                  <td>120USD</td>
                   <td>
                     <input
                       type="number"
-                      class="w-75 m-auto quantityProd changeInpQuantity"
+                      class="w-75 m-auto quantityProd"
                       name="quantity"
-                      th:value="${cart.quantity}"
-                      th:data-id="${cart.productId}"
+                      onblur=""
+                      value="123"
                     />
                   </td>
-                  <td th:text="${cart.price} + ' USD'"></td>
+                  <td>120USD</td>
                   <td>
-                    <a
-                      class="btn btn-danger"
-                      th:href="'/removeToCart/' + ${cart.productId}"
-                      >Remove</a
-                    >
+                    <a class="btn btn-danger" href="">Remove</a>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <script>
-              let listInpChangeQuantity =
-                document.getElementsByClassName("changeInpQuantity");
-              for (
-                let index = 0;
-                index < listInpChangeQuantity.length;
-                index++
-              ) {
-                let element = listInpChangeQuantity[index];
-                element.addEventListener("blur", () => {
-                  var dataIdValue = element.getAttribute("data-id");
-                  console.log(dataIdValue);
-                  a = "?quantity=";
-
-                  window.location.href =
-                    "/updateToCart/" + `${dataIdValue}/${element.value}`;
-                });
-              }
-            </script>
             <div
               class="d-flex justify-content-between pt-2 border-top border-dark border-3"
             >
               <div>
                 <a href="/" class="btn btn-primary">Go Menu Product</a>
-                <a href="/clearCart" class="btn btn-danger ms-3">Clear All</a>
+                <a href="" class="btn btn-danger ms-3">Clear All</a>
               </div>
               <div>
                 <span class="fw-bold fs-5">Total: </span>
-                <span class="fs-5" th:text="${amount} + ' USD'"></span>
+                <span class="fs-5">120.0 USD</span>
               </div>
             </div>
           </div>
