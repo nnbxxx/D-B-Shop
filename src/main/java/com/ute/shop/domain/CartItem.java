@@ -12,4 +12,6 @@ public class CartItem {
 	private String name;
 	private int quantity;
 	private double unitPrice; 
+	private double price;
+	private String image;
 }

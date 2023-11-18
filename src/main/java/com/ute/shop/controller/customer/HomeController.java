@@ -42,12 +42,6 @@ public class HomeController {
 	ShoppingCartService cartService;
 	
 	
-	@GetMapping("products/images/{fileName:.+}")
-	@ResponseBody
-	public ResponseEntity<Resource> serveFile(@PathVariable String fileName){
-		Resource file = storageService.loadAsResource(fileName);
-		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-	}
 	@ModelAttribute("listCategory")
 	List<Category> getCategories(){
 		return categoryService.findAll();

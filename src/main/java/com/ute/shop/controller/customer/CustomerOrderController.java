@@ -6,12 +6,16 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -19,6 +23,7 @@ import com.ute.shop.domain.Customer;
 import com.ute.shop.model.CustomerDto;
 import com.ute.shop.service.CustomerService;
 import com.ute.shop.service.ShoppingCartService;
+import com.ute.shop.service.StorageService;
 @Controller
 public class CustomerOrderController {
 	@Autowired
@@ -27,6 +32,8 @@ public class CustomerOrderController {
 	private CustomerService customerService;
 	@Autowired
 	private ShoppingCartService cartService;
+	@Autowired 
+	private StorageService storageService;
 	@ModelAttribute("count")
 	int getCount() {
 		return cartService.getCount();
@@ -34,6 +41,12 @@ public class CustomerOrderController {
 	@ModelAttribute("amount")
 	double getAmount() {
 		return cartService.getAmount();
+	}
+	@GetMapping("products/images/{fileName:.+}")
+	@ResponseBody
+	public ResponseEntity<Resource> serveFile(@PathVariable String fileName){
+		Resource file = storageService.loadAsResource(fileName);
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
 	}
 	@GetMapping("order")
 	public ModelAndView orderPage(ModelMap model) {
@@ -60,10 +73,10 @@ public class CustomerOrderController {
 		model.addFlashAttribute("message", "Add "+ productId +" to Cart Success");
 		return "redirect:/";
 	}
-	@GetMapping("updateToCart/{productId}")
+	@GetMapping("updateToCart/{productId}/{quantity}")
 	public String update(RedirectAttributes model,
 			@PathVariable("productId") Integer productId,
-			@RequestParam("quantity") Integer quantity) {
+			@PathVariable("quantity")Integer quantity) {
 		cartService.update(productId,quantity);
 		return "redirect:/order";
 	}
@@ -74,8 +87,7 @@ public class CustomerOrderController {
 		return "redirect:/order";
 	}
 	@GetMapping("removeToCart/{productId}")
-	public String remove(@PathVariable("productId") Integer productId,
-			@RequestParam("orderDetailId") Integer orderDetailId) {
+	public String remove(@PathVariable(value =  "productId") Integer productId) {
 		cartService.remove(productId);
 		return "redirect:/order";
 	}

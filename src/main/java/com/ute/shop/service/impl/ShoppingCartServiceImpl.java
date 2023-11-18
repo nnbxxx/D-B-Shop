@@ -42,7 +42,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		items = listProducts.stream()
 				.collect(Collectors.toMap(Product::getProductId, obj -> new CartItem(obj.getProductId(), obj.getName(),
 						obj.getQuantity(),
-				roundToTwoDecimalPlaces( obj.getUnitPrice() * (100 - obj.getDiscount()) * 0.01))));
+				roundToTwoDecimalPlaces( obj.getUnitPrice() * (100 - obj.getDiscount()) * 0.01),
+				roundToTwoDecimalPlaces( obj.getUnitPrice() * (100 - obj.getDiscount()) * 0.01),obj.getImage())));
 		return items;
 	}
 
@@ -65,6 +66,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		for (Object key : set) {
 			if (this.getDBItems().get(key).getProductId() == id) {
 				map.get(key).setQuantity(quantity);
+				map.get(key).setPrice(map.get(key).getUnitPrice() * quantity);
 				map.replace(id, map.get(key));
 				return this.getDBItems().get(key);
 			}
@@ -110,6 +112,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		for (Object key : set) {
 			amount += map.get(key).getQuantity() * map.get(key).getUnitPrice();
 		}
-		return amount;
+		return roundToTwoDecimalPlaces(amount);
 	}
 }
