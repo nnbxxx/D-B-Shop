@@ -41,6 +41,7 @@ public class HomeController {
 	@Autowired
 	ShoppingCartService cartService;
 	
+	
 	@GetMapping("products/images/{fileName:.+}")
 	@ResponseBody
 	public ResponseEntity<Resource> serveFile(@PathVariable String fileName){
@@ -55,7 +56,10 @@ public class HomeController {
 	List<Supplier> getSuppliers(){
 		return supplierService.findAll();
 	}
-	
+	@ModelAttribute("count")
+	int getCount() {
+		return cartService.getCount();
+	}
 	@RequestMapping("/")
 	public String home(ModelMap model) {
 		List<Product> products = productService.findAll();

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -26,6 +27,14 @@ public class CustomerOrderController {
 	private CustomerService customerService;
 	@Autowired
 	private ShoppingCartService cartService;
+	@ModelAttribute("count")
+	int getCount() {
+		return cartService.getCount();
+	}
+	@ModelAttribute("amount")
+	double getAmount() {
+		return cartService.getAmount();
+	}
 	@GetMapping("order")
 	public ModelAndView orderPage(ModelMap model) {
 		Integer customerId = (Integer) session.getAttribute("customerId");
@@ -39,6 +48,7 @@ public class CustomerOrderController {
 			BeanUtils.copyProperties(entity, customerDto);
 			customerDto.setPassword("");
 			model.addAttribute("customer",customerDto);
+			model.addAttribute("listCart", cartService.getItems().toArray());
 			return new ModelAndView("site/accounts/order",model);
 		}
 		return new ModelAndView( "forward:/cregister",model);
@@ -48,8 +58,18 @@ public class CustomerOrderController {
 			@PathVariable("productId") Integer productId) {
 		cartService.add(productId);
 		model.addFlashAttribute("message", "Add "+ productId +" to Cart Success");
-		System.out.println("Count cart = " + cartService.getCount());
+		model.addFlashAttribute("count", cartService.getCount());
 		return "redirect:/";
+	}
+	@GetMapping("clearCart")
+	public String clear() {
+		cartService.clear();
+		return "redirect:/order";
+	}
+	@GetMapping("removeToCart/{productId}")
+	public String remove(@PathVariable("productId") Integer productId) {
+		cartService.remove(productId);
+		return "redirect:/order";
 	}
 	
 }
