@@ -131,6 +131,6 @@ public class HomeController {
 		model.addAttribute("tittle","Sort Product By: " + name + " Direction: " + direction);
 		return "/site/home/searchAndFilter";
 	}
-
+	
 	
 }

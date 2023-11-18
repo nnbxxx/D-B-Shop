@@ -45,10 +45,16 @@
               });
             </script>
 
-            <button class="action-btn">
+            <button class="action-btn" id="action-btn-cart">
               <ion-icon name="bag-handle-outline"></ion-icon>
               <span class="count">0</span>
             </button>
+            <script>
+              const actionBtnCart = document.getElementById("action-btn-cart");
+              actionBtnCart.addEventListener("click", () => {
+                window.location.href = "/order";
+              });
+            </script>
           </div>
         </div>
       </div>
