@@ -87,9 +87,9 @@ public class OrderDetailController {
 		if(order.isPresent()) {
 			List<OrderDetail> details = detailService.searchByOrderId(orderId);
 			double amount = details.stream()
-					.mapToDouble(item -> item.getQuantity() * item.getUnitPrice() * item.getProduct()
-					.getDiscount() * 0.01f).sum();
-			order.get().setAmount( Math.round(amount * 1000.0) / 1000.0);
+					.mapToDouble(item -> item.getQuantity() * item.getUnitPrice() * 
+							(100 - item.getProduct().getDiscount()) *0.01f ).sum();
+			order.get().setAmount( Math.round(amount * 100.0) / 100.0);
 			orderService.save(order.get());
 		}
 		model.addFlashAttribute("message", "Save successful order");

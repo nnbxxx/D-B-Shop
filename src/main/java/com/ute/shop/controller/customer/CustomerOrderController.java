@@ -113,12 +113,8 @@ public class CustomerOrderController {
 		Customer customer = new Customer();
 		customer.setCustomerId(customerId);
 		order.setCustomer(customer);
-		
-		System.out.println("AMOUNT == " + cartService.getAmount());
-		System.out.println("AMOUNT == " + order.getAmount());
 		order = orderService.save(order);
 		order.setAmount(cartService.getAmount());
-		System.out.println("AMOUNT == " + order.getAmount());
 		int orderId = order.getOrderId();
 		cartService.getItems().stream().forEach(item -> {
 			OrderDetail orderDetail = new OrderDetail();

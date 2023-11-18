@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ute.shop.domain.Account;
 import com.ute.shop.model.AdminLoginDto;
 import com.ute.shop.service.AccountService;
+import com.ute.shop.service.OrderService;
 
 @Controller
 public class AdminLoginController {
@@ -25,6 +26,16 @@ public class AdminLoginController {
 	private AccountService accountService;
 	@Autowired
 	private HttpSession session;
+	@Autowired
+	private OrderService orderService;
+	@ModelAttribute("totalSale")
+	public double totalSale() {
+		double total = 0f;
+		total = orderService.findAll().stream().mapToDouble(item -> item.getAmount()).sum();
+		return Math.round(total * 100.0) / 100.0;
+	}
+	
+	
 	@RequestMapping("/admin")
 	public String adminPage() {
 		return "/admin/content";
