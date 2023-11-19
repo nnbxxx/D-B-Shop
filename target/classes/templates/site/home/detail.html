@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{site/accountLayout.html}"
+>
+  <head>
+    <style>
+      body {
+        margin: 0;
+        font-family: Poppins;
+      }
+      a {
+        color: unset;
+        text-decoration: none;
+      }
+      .container {
+        width: 900px;
+        margin: auto;
+        max-width: 90vw;
+        text-align: center;
+        padding-top: 10px;
+      }
+      .title {
+        font-size: xx-large;
+        padding: 20px 0;
+      }
+      .listProduct .item img {
+        width: 90%;
+        filter: drop-shadow(0 50px 20px #0009);
+      }
+      .listProduct {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .listProduct .item {
+        background-color: #eeeee6;
+        padding: 20px;
+        border-radius: 20px;
+      }
+      .listProduct .item h2 {
+        font-weight: 500;
+        font-size: large;
+      }
+      .listProduct .item .price {
+        letter-spacing: 7px;
+        font-size: small;
+      }
+      /* detail page */
+
+      .detail {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 50px;
+        text-align: left;
+      }
+      .detail .image img {
+        width: 100%;
+      }
+      .detail .image {
+        position: relative;
+      }
+      .detail .image::before {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        content: "";
+        background-color: #94817733;
+        z-index: -1;
+        border-radius: 190px 100px 170px 180px;
+        left: calc(50% - 150px);
+        top: 50px;
+      }
+      .detail .name {
+        font-size: xxx-large;
+        padding: 40px 0 0 0;
+        margin: 0 0 10px 0;
+      }
+      .detail .price {
+        font-weight: bold;
+        font-size: x-large;
+        letter-spacing: 7px;
+        margin-bottom: 20px;
+      }
+      .detail .buttons {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .detail .buttons button {
+        background-color: #eee;
+        border: none;
+        padding: 15px 20px;
+        border-radius: 20px;
+        font-family: Poppins;
+        font-size: large;
+      }
+      .detail .buttons svg {
+        width: 15px;
+      }
+      .detail .buttons span {
+        background-color: #555454;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        margin-left: 20px;
+      }
+      .detail .buttons button:nth-child(2) {
+        background-color: #2f2f2f;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #eee;
+        box-shadow: 0 10px 20px #2f2f2f77;
+      }
+      .detail .description {
+        font-weight: 300;
+      }
+      /* // ipad */
+      @media only screen and (max-width: 992px) {
+        .listProduct {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .detail {
+          grid-template-columns: 40% 1fr;
+        }
+      }
+
+      /* mobile */
+      @media only screen and (max-width: 768px) {
+        .listProduct {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .detail {
+          text-align: center;
+          grid-template-columns: 1fr;
+        }
+        .detail .image img {
+          width: unset;
+          height: 40vh;
+        }
+        .detail .name {
+          font-size: x-large;
+          margin: 0;
+        }
+        .detail .buttons button {
+          font-size: small;
+        }
+        .detail .buttons {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section layout:fragment="content">
+      <div>
+        <div class="title">PRODUCT DETAIL</div>
+        <div class="detail">
+          <div class="image" style="margin-top: 50px">
+            <img
+              th:src="${product.image != null ?  '/products/images/' +  product.image : '/images/No-Image.png' }"
+            />
+          </div>
+          <div class="content">
+            <h1 class="name">[[${product.name}]]</h1>
+            <div class="price">$[[${product.unitPrice}]]</div>
+            <div class="buttons">
+              <button>
+                <a href="/order">Check out</a>
+              </button>
+              <button>
+                <a th:href="'/addToCart/' + ${product.productId}"
+                  >Add to Cart</a
+                >
+                <span>
+                  <svg
+                    class=""
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 18 20"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1"
+                    ></path>
+                  </svg>
+                </span>
+              </button>
+            </div>
+            <div class="description">[[${product.description}]]</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
