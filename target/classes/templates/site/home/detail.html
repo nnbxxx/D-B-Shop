@@ -169,7 +169,9 @@
           </div>
           <div class="content">
             <h1 class="name">[[${product.name}]]</h1>
-            <div class="price">$[[${product.unitPrice}]]</div>
+            <div class="price">
+              $[[${product.unitPrice}*(100 - ${product.discount})*0.01 ]]
+            </div>
             <div class="buttons">
               <button>
                 <a href="/order">Check out</a>

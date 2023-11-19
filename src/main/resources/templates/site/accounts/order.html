@@ -55,7 +55,11 @@
                       src="https://images.unsplash.com/photo-1495277493816-4c359911b7f1?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       style="height: 40px"
                     />
-                    [[${cart.name}]]
+                    <a
+                      th:href="'/viewProduct/' + ${cart.productId}"
+                      style="text-decoration: none"
+                      >[[${cart.name}]]</a
+                    >
                   </td>
 
                   <td th:text="${cart.unitPrice} + ' USD'"></td>

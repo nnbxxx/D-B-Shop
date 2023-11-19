@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <head> </head>
+  <body>
+    <div class="slider" th:fragment="slider">
+      <div class="list">
+        <div class="item">
+          <img
+            src="http://localhost:8080/images/slider/Tiffany Banner.jpg"
+            alt=""
+          />
+        </div>
+        <div class="item">
+          <img
+            src="http://localhost:8080/images/slider/van-cleef-arpels.jpg"
+            alt=""
+          />
+        </div>
+        <div class="item">
+          <img
+            src="http://localhost:8080/images/slider/01_EOY_SELECTIONS_PERSO_SELECTION_HEADER.avif"
+            alt=""
+          />
+        </div>
+        <div class="item">
+          <img src="http://localhost:8080/images/slider/chanel.webp" alt="" />
+        </div>
+        <div class="item">
+          <img src="http://localhost:8080/images/slider/bulgari.avif" alt="" />
+        </div>
+      </div>
+      <div class="buttons">
+        <button id="prev"><</button>
+        <button id="next">></button>
+      </div>
+      <ul class="dots">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+  </body>
+</html>
