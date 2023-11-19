@@ -144,6 +144,8 @@ public class HomeController {
 			productDto.setCategoryId(entity.getCategory().getCategoryId());
 			productDto.setIsEdit(false);
 			model.addAttribute("product",productDto);
+			List<Product> products = productService.findByCategory(optional.get().getCategory());
+			model.addAttribute("listProduct",products);
 		}
 		return "/site/home/Detail";
 	}
