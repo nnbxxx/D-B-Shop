@@ -1,6 +1,8 @@
 package com.ute.shop.controller;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ute.shop.domain.Account;
+import com.ute.shop.domain.Order;
 import com.ute.shop.model.AdminLoginDto;
 import com.ute.shop.service.AccountService;
 import com.ute.shop.service.OrderService;
@@ -28,26 +31,34 @@ public class AdminLoginController {
 	private HttpSession session;
 	@Autowired
 	private OrderService orderService;
+
 	@ModelAttribute("totalSale")
 	public double totalSale() {
 		double total = 0f;
 		total = orderService.findAll().stream().mapToDouble(item -> item.getAmount()).sum();
 		return Math.round(total * 100.0) / 100.0;
 	}
-	
-	
+
+	@ModelAttribute("recentOrders")
+	public List<Order> recentOrder() {
+		List<Order> recentOrder = orderService.findAll();
+		//recentOrder = recentOrder.stream().skip(Math.max(0, recentOrder.size() - 5)).collect(Collectors.toList());
+
+		return recentOrder;
+	}
+
 	@RequestMapping("/admin")
 	public String adminPage() {
 		return "/admin/content";
 	}
-	
+
 	@GetMapping("alogin")
 	public String login(ModelMap model) {
 		Account defaultAccount = new Account();
 		defaultAccount.setUsername("admin001");
 		defaultAccount.setPassword("123456");
 		Optional<Account> optional = accountService.findById(defaultAccount.getUsername());
-		if(!optional.isPresent()) {
+		if (!optional.isPresent()) {
 			accountService.save(defaultAccount);
 		}
 		model.addAttribute("account", new AdminLoginDto());
@@ -56,7 +67,7 @@ public class AdminLoginController {
 
 	@RequestMapping("alogout")
 	public String logout(ModelMap model) {
-		
+
 		String username = (String) session.getAttribute("username");
 		if (username != null) {
 			session.removeAttribute("username");

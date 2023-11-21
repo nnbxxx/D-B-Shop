@@ -51,7 +51,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <!-- <tr>
                 <td>
                   <p>aaaaaa</p>
                 </td>
@@ -64,12 +64,12 @@
                 </td>
                 <td>14-08-2023</td>
                 <td><span class="status pending">Pending</span></td>
-              </tr>
-              <tr>
+              </tr> -->
+              <tr th:each=" order : ${recentOrders}">
                 <td>
-                  <p>aaaaaa</p>
+                  <p th:text="${order.customer.name}"></p>
                 </td>
-                <td>14-08-2023</td>
+                <td th:text="${order.orderDate}"></td>
                 <td><span class="status process">Processing</span></td>
               </tr>
             </tbody>
