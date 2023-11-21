@@ -42,7 +42,7 @@ public class AdminLoginController {
 	@ModelAttribute("recentOrders")
 	public List<Order> recentOrder() {
 		List<Order> recentOrder = orderService.findAll();
-		//recentOrder = recentOrder.stream().skip(Math.max(0, recentOrder.size() - 5)).collect(Collectors.toList());
+		recentOrder = recentOrder.stream().skip(Math.max(0, recentOrder.size() - 5)).collect(Collectors.toList());
 
 		return recentOrder;
 	}
