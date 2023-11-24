@@ -28,63 +28,61 @@
           <p class="mb-0"></p>
         </div>
         <div class="product-grid">
-          <div th:each=" item : ${listProduct}">
-            <div class="showcase">
-              <div class="showcase-banner">
-                <img
-                  th:src="${item.image != null ?  '/products/images/' +  item.image : '/images/No-Image.png' }"
-                  alt=""
-                  width="300"
-                  height="300"
-                  class="product-img default"
-                />
-                <img
-                  th:src="${item.image != null ?  '/products/images/' +  item.image : '/images/No-Image.png' }"
-                  alt=""
-                  width="300"
-                  height="300"
-                  class="product-img hover"
-                />
-                <p class="showcase-badge angle pink">new</p>
-                <div class="showcase-actions">
-                  <button class="btn-action">
-                    <a th:href="'/viewProduct/' + ${item.productId}">
-                      <ion-icon name="eye-outline"></ion-icon
-                    ></a>
-                  </button>
-                  <button class="btn-action">
-                    <a th:href="'/addToCart/' + ${item.productId}"
-                      ><ion-icon name="bag-add-outline"></ion-icon
-                    ></a>
-                  </button>
-                </div>
+          <div class="showcase" th:each=" item : ${listProduct}">
+            <div class="showcase-banner">
+              <img
+                th:src="${item.image != null ?  '/products/images/' +  item.image : '/images/No-Image.png' }"
+                alt=""
+                width="300"
+                height="300"
+                class="product-img default"
+              />
+              <img
+                th:src="${item.image != null ?  '/products/images/' +  item.image : '/images/No-Image.png' }"
+                alt=""
+                width="300"
+                height="300"
+                class="product-img hover"
+              />
+              <p class="showcase-badge angle pink">new</p>
+              <div class="showcase-actions">
+                <button class="btn-action">
+                  <a th:href="'/viewProduct/' + ${item.productId}">
+                    <ion-icon name="eye-outline"></ion-icon
+                  ></a>
+                </button>
+                <button class="btn-action">
+                  <a th:href="'/addToCart/' + ${item.productId}"
+                    ><ion-icon name="bag-add-outline"></ion-icon
+                  ></a>
+                </button>
+              </div>
+            </div>
+
+            <div class="showcase-content">
+              <a
+                href="#"
+                class="showcase-category"
+                th:text="${item.category.name}"
+              ></a>
+
+              <a href="#">
+                <h3 class="showcase-title" th:text="${item.name}"></h3>
+              </a>
+
+              <div class="showcase-rating">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
               </div>
 
-              <div class="showcase-content">
-                <a
-                  href="#"
-                  class="showcase-category"
-                  th:text="${item.category.name}"
-                ></a>
-
-                <a href="#">
-                  <h3 class="showcase-title" th:text="${item.name}"></h3>
-                </a>
-
-                <div class="showcase-rating">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                </div>
-
-                <div class="price-box">
-                  <p class="price">
-                    $[[${item.unitPrice}*(100 - ${item.discount})*0.01 ]]
-                  </p>
-                  <del th:text="'$' + ${item.unitPrice}"></del>
-                </div>
+              <div class="price-box">
+                <p class="price">
+                  $[[${item.unitPrice}*(100 - ${item.discount})*0.01 ]]
+                </p>
+                <del th:text="'$' + ${item.unitPrice}"></del>
               </div>
             </div>
           </div>
