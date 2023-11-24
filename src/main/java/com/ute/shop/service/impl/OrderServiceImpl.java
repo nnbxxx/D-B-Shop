@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.ute.shop.domain.Customer;
 import com.ute.shop.domain.Order;
 import com.ute.shop.repository.OrderRepository;
 import com.ute.shop.service.OrderService;
@@ -142,6 +143,11 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public List<Order> findByOrderDateBetween(Date startDate, Date endDate) {
 		return orderRepository.findByOrderDateBetween(startDate, endDate);
+	}
+
+	@Override
+	public List<Order> findByCustomer(Customer customer) {
+		return orderRepository.findByCustomer(customer);
 	}
 	
 

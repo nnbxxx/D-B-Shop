@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import com.ute.shop.domain.Customer;
 import com.ute.shop.domain.Order;
 
 public interface OrderService {
@@ -63,5 +64,7 @@ public interface OrderService {
 	<S extends Order> S save(S entity);
 
 	List<Order> findByOrderDateBetween(Date startDate, Date endDate);
+
+	List<Order> findByCustomer(Customer customer);
 
 }

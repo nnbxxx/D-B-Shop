@@ -1,219 +1,270 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{site/accountLayout.html}"
->
-  <head>
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <style>
-      .dp-none {
-        display: none !important;
-      }
-      .button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 6px 12px;
-        gap: 8px;
-        height: 36px;
-        width: fit-content;
-        border: none;
-        background: #5e41de33;
-        border-radius: 20px;
-        cursor: pointer;
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{site/accountLayout.html}">
+
+<head>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+    integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
+  <style>
+    .dp-none {
+      display: none !important;
+    }
+
+    .button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px 12px;
+      gap: 8px;
+      height: 36px;
+      width: fit-content;
+      border: none;
+      background: #5e41de33;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .lable {
+      line-height: 20px;
+      font-size: 17px;
+      color: #5d41de;
+      font-family: sans-serif;
+      letter-spacing: 1px;
+    }
+
+    .button:hover {
+      background: #5e41de4d;
+    }
+
+    .button:hover .svg-icon {
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
       }
 
-      .lable {
-        line-height: 20px;
-        font-size: 17px;
-        color: #5d41de;
-        font-family: sans-serif;
-        letter-spacing: 1px;
+      100% {
+        transform: rotate(360deg);
       }
+    }
+  </style>
+</head>
 
-      .button:hover {
-        background: #5e41de4d;
-      }
-
-      .button:hover .svg-icon {
-        animation: spin 2s linear infinite;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <section class="" layout:fragment="content">
-      <div class="row" style="margin: 15px 0px 5px 0px">
-        <div class="col-12">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-            <li class="breadcrumb-item active">Account</li>
-          </ol>
-        </div>
-        <button
-          class="button"
-          style="margin-left: 20px"
-          id="toggleButton"
-          onclick="toggleHelloWorld()"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            viewBox="0 0 20 20"
-            height="20"
-            fill="none"
-            class="svg-icon"
-          >
+<body>
+  <section class="" layout:fragment="content">
+    <div class="row" style="margin: 15px 0px 5px 0px">
+      <div class="col-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+          <li class="breadcrumb-item active">Account</li>
+        </ol>
+      </div>
+      <div class="alert alert-primary" role="alert" th:if="${message}" style="margin-left: 36px;">
+        <strong>[[${message}]]</strong>
+      </div>
+      <div class="col-12">
+        <button class="button" style="margin-left: 20px" onclick="toggleManageAccount()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20" fill="none"
+            class="svg-icon">
             <g stroke-width="1.5" stroke-linecap="round" stroke="#5d41de">
               <circle r="2.5" cy="10" cx="10"></circle>
-              <path
-                fill-rule="evenodd"
+              <path fill-rule="evenodd"
                 d="m8.39079 2.80235c.53842-1.51424 2.67991-1.51424 3.21831-.00001.3392.95358 1.4284 1.40477 2.3425.97027 1.4514-.68995 2.9657.82427 2.2758 2.27575-.4345.91407.0166 2.00334.9702 2.34248 1.5143.53842 1.5143 2.67996 0 3.21836-.9536.3391-1.4047 1.4284-.9702 2.3425.6899 1.4514-.8244 2.9656-2.2758 2.2757-.9141-.4345-2.0033.0167-2.3425.9703-.5384 1.5142-2.67989 1.5142-3.21831 0-.33914-.9536-1.4284-1.4048-2.34247-.9703-1.45148.6899-2.96571-.8243-2.27575-2.2757.43449-.9141-.01669-2.0034-.97028-2.3425-1.51422-.5384-1.51422-2.67994.00001-3.21836.95358-.33914 1.40476-1.42841.97027-2.34248-.68996-1.45148.82427-2.9657 2.27575-2.27575.91407.4345 2.00333-.01669 2.34247-.97026z"
-                clip-rule="evenodd"
-              ></path>
+                clip-rule="evenodd"></path>
             </g>
           </svg>
           <span class="lable">Settings Account</span>
         </button>
-        <div class="alert alert-primary" role="alert" th:if="${message}">
-          <strong>[[${message}]]</strong>
-        </div>
-        <div
-          class="col-12"
-          id="helloWorldDiv"
-          style="display: none; margin-top: 10px"
-        >
-          <form th:object="${customer}" method="post" th:action="@{/account}">
-            <div class="card">
-              <div class="card-header">Mangage Your Account</div>
-              <div class="card-body">
-                <div class="form-group">
-                  <div class="form-group">
-                    <label for="name">Name </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="name"
-                      id="name"
-                      aria-describedby="nameHid"
-                      placeholder="Name "
-                      th:field="*{name}"
-                    />
-                    <small
-                      id="nameHid"
-                      class="form-text text-muted"
-                      th:if="${#fields.hasErrors('name')}"
-                      >Name is invalid</small
-                    >
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input
-                      type="email"
-                      class="form-control"
-                      name="email"
-                      id="email"
-                      aria-describedby="emailHid"
-                      placeholder="Email"
-                      th:field="*{email}"
-                    />
-                    <small
-                      id="emailHid"
-                      class="form-text text-muted"
-                      th:if="${#fields.hasErrors('email')}"
-                      >Email is invalid</small
-                    >
-                  </div>
-                  <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="phone"
-                      id="phone"
-                      aria-describedby="phonelHid"
-                      placeholder="Phone"
-                      th:field="*{phone}"
-                    />
-                    <small
-                      id="phoneHid"
-                      class="form-text text-muted"
-                      th:if="${#fields.hasErrors('phone')}"
-                      >Phone is invalid</small
-                    >
-                  </div>
+      </div>
 
-                  <div class="form-group">
-                    <label for="password">Password</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      name="password"
-                      id="password"
-                      aria-describedby="passwordHid"
-                      older="Password"
-                    />
+      <div class="col-12" id="manageAccount" style="display: none; margin-top: 10px">
+        <form th:object="${customer}" method="post" th:action="@{/account}">
+          <div class="card">
+            <div class="card-header">Mangage Your Account</div>
+            <div class="card-body">
+              <div class="form-group">
+                <div class="form-group">
+                  <label for="name">Name </label>
+                  <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHid"
+                    placeholder="Name " th:field="*{name}" />
+                  <small id="nameHid" class="form-text text-muted" th:if="${#fields.hasErrors('name')}">Name is
+                    invalid</small>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHid"
+                    placeholder="Email" th:field="*{email}" />
+                  <small id="emailHid" class="form-text text-muted" th:if="${#fields.hasErrors('email')}">Email is
+                    invalid</small>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input type="text" class="form-control" name="phone" id="phone" aria-describedby="phonelHid"
+                    placeholder="Phone" th:field="*{phone}" />
+                  <small id="phoneHid" class="form-text text-muted" th:if="${#fields.hasErrors('phone')}">Phone is
+                    invalid</small>
+                </div>
+
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" name="password" id="password"
+                    aria-describedby="passwordHid" older="Password" />
+                </div>
+                <small id="passwordHid" class="form-text text-muted" th:if="${#fields.hasErrors('password')}">Password
+                  is invalid</small>
+              </div>
+            </div>
+            <div class="card-footer text-muted">
+              <button class="btn btn-primary">
+                <i class="fas fa-save"></i>
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-12">
+        <button class="button" style=" margin-left: 20px; margin-top: 20px; padding-right: 24px;"
+          onclick="toggleManageOrder()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20" fill="none"
+            class="svg-icon">
+            <g stroke-width="1.5" stroke-linecap="round" stroke="#5d41de">
+              <circle r="2.5" cy="10" cx="10"></circle>
+              <path fill-rule="evenodd"
+                d="m8.39079 2.80235c.53842-1.51424 2.67991-1.51424 3.21831-.00001.3392.95358 1.4284 1.40477 2.3425.97027 1.4514-.68995 2.9657.82427 2.2758 2.27575-.4345.91407.0166 2.00334.9702 2.34248 1.5143.53842 1.5143 2.67996 0 3.21836-.9536.3391-1.4047 1.4284-.9702 2.3425.6899 1.4514-.8244 2.9656-2.2758 2.2757-.9141-.4345-2.0033.0167-2.3425.9703-.5384 1.5142-2.67989 1.5142-3.21831 0-.33914-.9536-1.4284-1.4048-2.34247-.9703-1.45148.6899-2.96571-.8243-2.27575-2.2757.43449-.9141-.01669-2.0034-.97028-2.3425-1.51422-.5384-1.51422-2.67994.00001-3.21836.95358-.33914 1.40476-1.42841.97027-2.34248-.68996-1.45148.82427-2.9657 2.27575-2.27575.91407.4345 2.00333-.01669 2.34247-.97026z"
+                clip-rule="evenodd"></path>
+            </g>
+          </svg>
+          <span class="lable">Manage Orders</span>
+        </button>
+      </div>
+      <div class="col-12" id="manageOrder" style="display: none; margin-top: 10px">
+        <form>
+          <div class="col mt-4">
+            <div class="card">
+              <div class="card-header">
+                <h2>List of Order</h2>
+              </div>
+              <div class="card-body">
+                <table class="table table-striped table-inverse">
+                  <thead class="thead-inverse">
+                    <tr>
+                      <th>Order Id</th>
+                      <th>Order Date</th>
+                      <th>Customer Name</th>
+                      <th>Address</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each=" item, iStart: ${orders}">
+                      <td th:text="${item.orderId}"></td>
+                      <td th:text="${item.orderDate}"></td>
+                      <td th:text="${item.customer.name}"></td>
+                      <td th:text="${item.address}"></td>
+                      <td th:text="${item.amount}"></td>
+                      <td th:switch="${item.status}">
+                        <span th:case="'0'">Chờ xác nhận</span>
+                        <span th:case="'1'">Chờ lấy hàng</span>
+                        <span th:case="'2'">Chờ thanh toán</span>
+                        <span th:case="'3'">Chờ đánh giá</span>
+                        <span th:case="'4'">Đã giao hàng</span>
+                        <span th:case="'5'">Hủy đơn hàng</span>
+                        <span th:case="'6'">Đã thanh toán</span>
+                      </td>
+                      <td>
+                        <a th:data-id="${item.orderId}" th:data-name="${item.orderId}" class="btn btn-outline-danger"
+                          onclick="showConfirmModalDialog(this.getAttribute('data-id'),this.getAttribute('data-name'))"><i
+                            class="fas fa-recycle "></i></a>
+                        <!-- Button trigger modal -->
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+                <!-- Modal -->
+                <div class="modal fade" id="confirmationId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                  aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Do you want to cancel Order Id: "<span id="orderId"></span>"?
+                      </div>
+                      <div class="modal-footer">
+                        <a id="yesOption" type="button" class="btn btn-danger">Yes</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                      </div>
+                    </div>
                   </div>
-                  <small
-                    id="passwordHid"
-                    class="form-text text-muted"
-                    th:if="${#fields.hasErrors('password')}"
-                    >Password is invalid</small
-                  >
                 </div>
               </div>
               <div class="card-footer text-muted">
-                <button class="btn btn-primary">
-                  <i class="fas fa-save"></i>
-                  Save
-                </button>
+
               </div>
             </div>
-          </form>
-        </div>
-      </div>
-      <button
-        class="btn btn-primary mt-4"
-        style="margin-left: 20px !important"
-        id="btnLogoutCustomer"
-      >
-        <i class="fas fa-save"></i>
-        Logout
-      </button>
-      <script>
-        let btnLogout = document.getElementById("btnLogoutCustomer");
-        btnLogout.addEventListener("click", () => {
-          window.location.href = "/clogout";
-        });
-        function toggleHelloWorld() {
-          var helloWorldDiv = document.getElementById("helloWorldDiv");
 
-          // Ẩn/hiện div bằng cách thay đổi trạng thái hiển thị
-          helloWorldDiv.style.display =
-            helloWorldDiv.style.display === "none" ||
-            helloWorldDiv.style.display === ""
-              ? "block"
-              : "none";
-        }
-      </script>
-    </section>
-  </body>
+          </div>
+        </form>
+      </div>
+
+    </div>
+    <button class="btn btn-primary mt-4" style="margin-left: 20px !important" id="btnLogoutCustomer">
+      <i class="fas fa-save"></i>
+      Logout
+    </button>
+    <script>
+      showConfirmModalDialog = (id, name) => {
+        $('#orderId').text(name);
+        $('#yesOption').attr('href', '/cancelOrder/' + id)
+        $('#confirmationId').modal('show');
+      }
+      let btnLogout = document.getElementById("btnLogoutCustomer");
+      btnLogout.addEventListener("click", () => {
+        window.location.href = "/clogout";
+      });
+      function toggleManageAccount() {
+        const manageAccount = document.getElementById("manageAccount");
+        manageAccount.style.display =
+          manageAccount.style.display === "none" ||
+            manageAccount.style.display === ""
+            ? "block"
+            : "none";
+      }
+      function toggleManageOrder() {
+        const manageOrder = document.getElementById("manageOrder");
+        manageOrder.style.display =
+          manageOrder.style.display === "none" ||
+            manageOrder.style.display === ""
+            ? "block"
+            : "none";
+      }
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
+  </section>
+</body>
+
 </html>
