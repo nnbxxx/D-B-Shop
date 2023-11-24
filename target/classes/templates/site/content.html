@@ -13,6 +13,14 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+    integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+    crossorigin="anonymous"
+  />
   </head>
 
   <body>
@@ -24,6 +32,72 @@
       </div>
       <div>
         <h2 class="title">New Product</h2>
+        <form id="formPageSize">
+          <div class="form-inline float-left col-8" style="margin-right: 10px;">
+            <label for="sort">Page Size </label>
+            <select class="form-control ml-2 " name="pagesize" id="pagesize" onchange="handleSubmitFormPageSize()">
+              <option th:value="${pageSize}">Select</option>
+              <option value="4">4</option>
+              <option value="8">8</option>
+              <option value="12">12</option>
+              <option value="20">20</option>
+              <option value="24">24</option>
+              <option value="48">48</option>
+            </select>
+          </div>
+          <div class="row mt-2 ">
+            <div class="col" style="margin-top: 10px; margin-left: 50px;">
+              <nav>
+                <ul class="pagination float-left ml-lg-2">
+                  <li class="page-item" id="prePage">
+                    <a class="page-link" href="#"><i class="fas fa-angle-left"></i></a>
+                  </li>
+                  <li class="page-item page-link" th:text="${currentPage} != null ? ${currentPage} + 1 : '1' "
+                    th:data-current-page="${currentPage}" id="currentPage"></li>
+                  <li class="page-item page-link" th:text="'/'"></li>
+                  <li class="page-item page-link" th:text="${totalPage}" th:data-total-page="${totalPage}"
+                    id="totalPage"></li>
+                  <li class="page-item" id="nextPage">
+                    <a class="page-link" href="#"><i class="fas fa-angle-right"></i></a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            
+        </form>
+        <script>
+          const handleSubmitFormPageSize = () => {
+            let pageSize = document.getElementById("pagesize").value;
+            action = '/?page=' + 0 + '&pagesize=' + pageSize;
+            window.location.href = action;
+          }
+  
+          let nextPageBtn = document.getElementById("nextPage");
+          nextPageBtn.addEventListener("click", () => {
+            let pageSize = document.getElementById("pagesize").value;
+            let currentPage = document.getElementById('currentPage').getAttribute('data-current-page');
+            const totalPage = document.getElementById('totalPage').getAttribute('data-total-page');
+            currentPage = 1 + parseInt(currentPage);
+            if (currentPage >= totalPage) {
+              currentPage = 0;
+            }
+            action = '/?page=' + currentPage + '&pagesize=' + pageSize;
+            window.location.href = action;
+          })
+          let prePageBtn = document.getElementById("prePage");
+          prePageBtn.addEventListener("click", () => {
+            let pageSize = document.getElementById("pagesize").value;
+            let currentPage = document.getElementById('currentPage').getAttribute('data-current-page');
+            const totalPage = document.getElementById('totalPage').getAttribute('data-total-page');
+            currentPage -= 1;
+            if (currentPage < 0) {
+              currentPage = totalPage - 1;
+            }
+            action = '/?page=' + currentPage + '&pagesize=' + pageSize;
+            window.location.href = action;
+          })
+  
+        </script> 
       </div>
       <div class="product-main" th:if="${listProduct}">
         <div class="product-grid">

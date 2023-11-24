@@ -6,6 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpHeaders;
@@ -43,7 +46,6 @@ public class HomeController {
 	@Autowired
 	ShoppingCartService cartService;
 	
-	
 	@ModelAttribute("listCategory")
 	List<Category> getCategories(){
 		return categoryService.findAll();
@@ -56,16 +58,24 @@ public class HomeController {
 	int getCount() {
 		return cartService.getCount();
 	}
+	@ModelAttribute("listProductBestSell")
+	List<Product> getlistProductBestSell(){
+		return productService.findByStatus((short) 3);
+	}
+	@ModelAttribute("listProductOnSale")
+	List<Product> getlistProductOnSell(){
+		return productService.findByStatus((short) 1);
+	}
 	@RequestMapping("/")
-	public String home(ModelMap model) {
-		List<Product> products = productService.findAll();
-//		return "/site/home/index";
+	public String home(ModelMap model, @RequestParam(name = "page",required = false, defaultValue = "0") Integer page,
+			@RequestParam(name = "pagesize",required = false, defaultValue = "12") Integer pagesize) {
+		Pageable pageable = PageRequest.of(page,pagesize);
+		Page<Product> products = productService.findAll(pageable);
 		model.addAttribute("listProduct",products);
-		products = productService.findByStatus((short) 3);
-		model.addAttribute("listProductBestSell",products);
-		products = productService.findByStatus((short) 1);
-		model.addAttribute("listProductOnSale",products);
-		model.addAttribute("listSupplier",supplierService.findAll());
+		model.addAttribute("currentPage",page);
+		model.addAttribute("pageSize",pagesize);
+		model.addAttribute("totalPage",products.getTotalPages());
+		model.addAttribute("listProduct",products);
 		model.addAttribute("tittle","New Product");
 		return "/site/content";
 	}

@@ -274,43 +274,43 @@
                 </select>
               </div>
           </form>
-
+          <script>
+            const handleSubmitFormPageSize = () => {
+              let pageSize = document.getElementById("pagesize").value;
+              action = '/admin/products/paginate?page=' + 0 + '&pagesize=' + pageSize;
+              window.location.href = action;
+            }
+    
+            let nextPageBtn = document.getElementById("nextPage");
+            nextPageBtn.addEventListener("click", () => {
+              let pageSize = document.getElementById("pagesize").value;
+              let currentPage = document.getElementById('currentPage').getAttribute('data-current-page');
+              const totalPage = document.getElementById('totalPage').getAttribute('data-total-page');
+              currentPage = 1 + parseInt(currentPage);
+              if (currentPage >= totalPage) {
+                currentPage = 0;
+              }
+              action = '/admin/products/paginate?page=' + currentPage + '&pagesize=' + pageSize;
+              window.location.href = action;
+            })
+            let prePageBtn = document.getElementById("prePage");
+            prePageBtn.addEventListener("click", () => {
+              let pageSize = document.getElementById("pagesize").value;
+              let currentPage = document.getElementById('currentPage').getAttribute('data-current-page');
+              const totalPage = document.getElementById('totalPage').getAttribute('data-total-page');
+              currentPage -= 1;
+              if (currentPage < 0) {
+                currentPage = totalPage - 1;
+              }
+              action = '/admin/products/paginate?page=' + currentPage + '&pagesize=' + pageSize;
+              window.location.href = action;
+            })
+    
+          </script>
         </div>
 
       </div>
-      <script>
-        const handleSubmitFormPageSize = () => {
-          let pageSize = document.getElementById("pagesize").value;
-          action = '/admin/products/paginate?page=' + 0 + '&pagesize=' + pageSize;
-          window.location.href = action;
-        }
-
-        let nextPageBtn = document.getElementById("nextPage");
-        nextPageBtn.addEventListener("click", () => {
-          let pageSize = document.getElementById("pagesize").value;
-          let currentPage = document.getElementById('currentPage').getAttribute('data-current-page');
-          const totalPage = document.getElementById('totalPage').getAttribute('data-total-page');
-          currentPage = 1 + parseInt(currentPage);
-          if (currentPage >= totalPage) {
-            currentPage = 0;
-          }
-          action = '/admin/products/paginate?page=' + currentPage + '&pagesize=' + pageSize;
-          window.location.href = action;
-        })
-        let prePageBtn = document.getElementById("prePage");
-        prePageBtn.addEventListener("click", () => {
-          let pageSize = document.getElementById("pagesize").value;
-          let currentPage = document.getElementById('currentPage').getAttribute('data-current-page');
-          const totalPage = document.getElementById('totalPage').getAttribute('data-total-page');
-          currentPage -= 1;
-          if (currentPage < 0) {
-            currentPage = totalPage - 1;
-          }
-          action = '/admin/products/paginate?page=' + currentPage + '&pagesize=' + pageSize;
-          window.location.href = action;
-        })
-
-      </script>
+      
     </div>
 
     </div>
