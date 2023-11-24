@@ -1,25 +1,24 @@
 <!DOCTYPE html>
-<html
-  lang="utf-8"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
-  <head> </head>
+<html lang="utf-8" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-  <body>
-    <footer th:fragment="footer">
-      <div class="footer-bottom">
-        <div class="container">
-          <img
-            src="http://localhost:8080/images/payment.png"
-            alt="payment method"
-            class="payment-img"
-          />
-          <p class="copyright">
-            Copyright &copy; <a href="#">N & B Shop</a> all rights reserved.
-          </p>
-        </div>
+<head>
+
+</head>
+
+<body>
+  <footer th:fragment="footer">
+    <a class="totop" href="#">
+      <img src="http://localhost:8080/images/totop.png" width="25" height="25">
+    </a>
+    <div class="footer-bottom">
+      <div class="container">
+        <img src="http://localhost:8080/images/payment.png" alt="payment method" class="payment-img" />
+        <p class="copyright">
+          Copyright &copy; <a href="#">N & B Shop</a> all rights reserved.
+        </p>
       </div>
-    </footer>
-  </body>
+    </div>
+  </footer>
+</body>
+
 </html>

@@ -168,11 +168,12 @@ public class ProductController {
 	}
 	@RequestMapping("")
 	public String list(ModelMap model) {
-		List<Product> products = productService.findAll();
+		Pageable pageable = PageRequest.of(0,10);
+		Page<Product> products = productService.findAll(pageable);
 		model.addAttribute("products",products);
-		model.addAttribute("totalPage",1);
 		model.addAttribute("currentPage",0);
-		model.addAttribute("pageSize",999999);
+		model.addAttribute("pageSize",10);
+		model.addAttribute("totalPage",products.getTotalPages());
 		return "admin/products/list";
 	}
 	@GetMapping("searchByCategory")

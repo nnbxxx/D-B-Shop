@@ -128,7 +128,6 @@
             </div>
             <thead class="thead-inverse">
               <tr>
-                <th><input type="checkbox" class="form-check-inline"></th>
                 <th></th>
                 <th>Name</th>
                 <th>Quantity</th>
@@ -142,7 +141,6 @@
             </thead>
             <tbody>
               <tr th:each=" item, iStart: ${products}">
-                <td><input type="checkbox" class="form-check-inline"></td>
                 <td><img
                     th:src="${item.image != null ?  '/admin/products/images/' +  item.image : '/images/No-Image.png' }"
                     width="70" class="img-fluid" alt=""></td>
@@ -280,7 +278,7 @@
               action = '/admin/products/paginate?page=' + 0 + '&pagesize=' + pageSize;
               window.location.href = action;
             }
-    
+
             let nextPageBtn = document.getElementById("nextPage");
             nextPageBtn.addEventListener("click", () => {
               let pageSize = document.getElementById("pagesize").value;
@@ -305,12 +303,12 @@
               action = '/admin/products/paginate?page=' + currentPage + '&pagesize=' + pageSize;
               window.location.href = action;
             })
-    
+
           </script>
         </div>
 
       </div>
-      
+
     </div>
 
     </div>

@@ -184,12 +184,11 @@
                         <a th:data-id="${item.orderId}" th:data-name="${item.orderId}" class="btn btn-outline-danger"
                           onclick="showConfirmModalDialog(this.getAttribute('data-id'),this.getAttribute('data-name'))"><i
                             class="fas fa-recycle "></i></a>
-                        <!-- Button trigger modal -->
                       </td>
                     </tr>
-
                   </tbody>
                 </table>
+
                 <!-- Modal -->
                 <div class="modal fade" id="confirmationId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
                   aria-hidden="true">
