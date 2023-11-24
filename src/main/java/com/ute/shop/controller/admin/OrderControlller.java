@@ -56,6 +56,7 @@ public class OrderControlller {
 	public ModelAndView saveOrUpdate(ModelMap model,
 			@Valid @ModelAttribute("order")OrderDto orderDto,
 			BindingResult bindingResult ) {
+
 		if(bindingResult.hasErrors()) {
 			return new ModelAndView("admin/orders/addOrEdit");
 		}
@@ -67,7 +68,7 @@ public class OrderControlller {
 		else 
 		{
 			Order entityNew = new Order();
-			BeanUtils.copyProperties(orderDto, entity);
+			BeanUtils.copyProperties(orderDto, entityNew);
 			Customer customer = new Customer();
 			customer.setCustomerId(orderDto.getCustomerId());
 			entityNew.setCustomer(customer);

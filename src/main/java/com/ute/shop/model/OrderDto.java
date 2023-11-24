@@ -3,9 +3,12 @@ package com.ute.shop.model;
 import java.util.Date;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Data
 @AllArgsConstructor
@@ -17,5 +20,8 @@ public class OrderDto {
 	private double amount;
 	private short status;
 	private int customerId;
+	@NonNull
+	@NotEmpty
+	private String address;
 	private Boolean isEdit = false;
 }

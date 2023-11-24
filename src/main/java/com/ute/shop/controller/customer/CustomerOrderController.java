@@ -25,6 +25,7 @@ import com.ute.shop.domain.Order;
 import com.ute.shop.domain.OrderDetail;
 import com.ute.shop.domain.Product;
 import com.ute.shop.model.CustomerDto;
+import com.ute.shop.model.OrderDto;
 import com.ute.shop.service.CustomerService;
 import com.ute.shop.service.OrderDetailService;
 import com.ute.shop.service.OrderService;
@@ -102,13 +103,15 @@ public class CustomerOrderController {
 		return "redirect:/order";
 	}
 	@GetMapping("checkout")
-	public String checkout(RedirectAttributes model) {
+	public String checkout(RedirectAttributes model,@ModelAttribute("address")String address) {
+
 		if(cartService.getCount() <= 0) {
 			model.addFlashAttribute("message", "Not product to check out !");
 			return "redirect:/";
 		}
 		Integer customerId = (Integer) session.getAttribute("customerId");
 		Order order = new Order();
+		order.setAddress(address);
 		order.setStatus((short) 0);
 		Customer customer = new Customer();
 		customer.setCustomerId(customerId);

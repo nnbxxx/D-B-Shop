@@ -44,7 +44,8 @@ public class Order implements Serializable{
 	private double amount;
 	@Column(nullable = false)
 	private short status;
-	
+	@Column(columnDefinition = "nvarchar(500) not null")
+	private String address;
 	@ManyToOne
 	@JoinColumn(name = "customerId")
 	private Customer customer;
