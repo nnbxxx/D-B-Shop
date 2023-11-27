@@ -39,9 +39,6 @@ public class AccountServiceImpl implements AccountService{
 			if(StringUtils.isEmpty(entity.getPassword())) {
 				entity.setPassword(optional.get().getPassword());
 			}
-			else {
-				entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
-			}
 		}
 		entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
 		return accountRepository.save(entity);
