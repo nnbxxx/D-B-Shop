@@ -49,7 +49,6 @@ public class CustomerLoginController {
 		}
 		Customer entity = new Customer();
 		BeanUtils.copyProperties(customerDto, entity);
-		entity.setStatus((short) 0);
 		customerService.save(entity);
 		session.setAttribute("customer", entity.getPhone());
 		session.setAttribute("customerId", entity.getCustomerId());

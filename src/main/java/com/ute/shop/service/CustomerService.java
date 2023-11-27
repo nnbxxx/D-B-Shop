@@ -58,5 +58,8 @@ public interface CustomerService {
 
 	Customer login(String phone, String password);
 
+	Optional<Customer> findByPhoneAndEmail(String phone, String email);
+	
+	
 
 }

@@ -34,11 +34,15 @@ public class CustomerServiceImpl implements CustomerService {
 				optionalCustomer.get().setPassword("");
 				return optionalCustomer.get();
 			}
-			
 		}
 		return null;
 	}
 	
+	@Override
+	public Optional<Customer> findByPhoneAndEmail(String phone, String email) {
+		return customerRepository.findByPhoneAndEmail(phone, email);
+	}
+
 	@Override
 	public <S extends Customer> S save(S entity) {
 		Optional<Customer> optional = customerRepository.findById(entity.getCustomerId());

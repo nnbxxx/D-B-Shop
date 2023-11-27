@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ute.shop.domain.Customer;
 import com.ute.shop.domain.Order;
 import com.ute.shop.model.CustomerDto;
+import com.ute.shop.model.ForgotCustomerDto;
 import com.ute.shop.service.CustomerService;
 import com.ute.shop.service.OrderService;
 import com.ute.shop.service.ShoppingCartService;
@@ -76,6 +77,35 @@ public class CustomerManageController {
 			model.addAttribute("message", "Customer is Saved !");
 		}
 		return new ModelAndView( "forward:/",model);
+	}
+	@GetMapping("forgotPassword")
+	public String forgotPassword(ModelMap model) {
+		ForgotCustomerDto entity = new ForgotCustomerDto();
+		model.addAttribute("customer", entity);
+		return "site/accounts/forgotPassword";
+				
+	}
+	@PostMapping("forgotPassword")
+	public ModelAndView saveforgotPassword(ModelMap model,
+			@Valid @ModelAttribute("customer") ForgotCustomerDto customerDto, 
+			BindingResult bindingResult) {
+		//ForgotCustomerDto entity = new ForgotCustomerDto();'
+		if(bindingResult.hasErrors()) {
+			return new ModelAndView("site/accounts/forgotPassword");
+		}
+		Optional<Customer> entity = customerService.findByPhoneAndEmail(customerDto.getPhone(),customerDto.getEmail());
+		if(entity.isPresent()) {
+			entity.get().setStatus((short) 0);
+			entity.get().setPassword(customerDto.getPassword());
+			customerService.save(entity.get());
+			session.setAttribute("customer", entity.get().getPhone());
+			session.setAttribute("customerId", entity.get().getCustomerId());
+			model.addAttribute("message","Change your password successful");
+			return new ModelAndView( "forward:/",model);
+		}
+		model.addAttribute("message","Customer not exited");
+		return new ModelAndView("site/accounts/forgotPassword",model);
+				
 	}
 	@RequestMapping("/cancelOrder/{orderId}")
 	public ModelAndView cancel(ModelMap model,@PathVariable("orderId") Integer orderId) {
